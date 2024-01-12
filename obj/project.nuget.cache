@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "rv9gGNBBtvi9rG8skhAhYJPjC+9Lh8Lb5a1UnG2if2rL8uXnwzNQz/6Ix18D2fcCvqmjmy21q0tcnZNmNCaHNQ==",
+  "success": true,
+  "projectFilePath": "/home/shapeshifter/Cs/Compiler/Compiler.csproj",
+  "expectedPackageFiles": [
+    "/home/shapeshifter/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.0/microsoft.aspnetcore.app.ref.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
