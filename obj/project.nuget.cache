@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rv9gGNBBtvi9rG8skhAhYJPjC+9Lh8Lb5a1UnG2if2rL8uXnwzNQz/6Ix18D2fcCvqmjmy21q0tcnZNmNCaHNQ==",
+  "dgSpecHash": "gFE8DpGI1ETMyLgLF8e6e1gsKMDGeqGPlxt3Pqwax6zI/pPOpup1dk/XFGlwOEHhLHfn+DWyxeNEViMFXgd6fg==",
   "success": true,
-  "projectFilePath": "/home/shapeshifter/Cs/Compiler/Compiler.csproj",
-  "expectedPackageFiles": [
-    "/home/shapeshifter/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.0/microsoft.aspnetcore.app.ref.8.0.0.nupkg.sha512"
-  ],
+  "projectFilePath": "/home/andrei/Documents/Coding/Compiler/Compiler/Compiler.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
