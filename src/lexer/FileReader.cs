@@ -10,6 +10,7 @@ public class FileReader{
     public void readFile(){
 
         List<Token> tokenList = new List<Token>();
+        List<Token> errorTokenList = new List<Token>();
 
 
         try
@@ -47,14 +48,30 @@ public class FileReader{
                         if(char.IsDigit(line[i])){
                             id += line[i];
 
+                            while(i + 1 < line.Length && char.IsDigit(line[i+1])){
+                                i++;
+                                id+=line[i];
+                            }
+
+
+
                             var token = new Token(id,TokenType.INTNUM,lineNumber);
                             tokenList.Add(token);
                             id = "";
                         }
 
+                        if (i>= line.Length)
+                        {
+                            break;
+                        }
                         switch (line[i])
                         {
                             case ' ':
+                                //maybe remove this?
+                                //i++;
+                                break;
+                            //idk about this either
+                            case '\n':
                                 break;
                             case '*':
                                 Token mult = new Token("*",TokenType.MULT,lineNumber);
@@ -188,6 +205,9 @@ public class FileReader{
                                     break;
                                 }
                             default:
+                                //not too sure how to do this...
+                                Token error = new Token(Char.ToString(line[i]),TokenType.ERROR,lineNumber);
+                                errorTokenList.Add(error);
                                 break;
 
                         }
@@ -264,7 +284,7 @@ public class FileReader{
 
             try
             {
-                StreamWriter write = new("test.txt");
+                StreamWriter write = new("lexPositiveGrading.outlextoken");
                 int currentLine = 1;
                 foreach (var tokenItem in tokenList)
                 {
@@ -283,6 +303,35 @@ public class FileReader{
 
                 }
                 write.Close();
+
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+
+            try
+            {
+                StreamWriter errorWriter = new StreamWriter("lexPositiveGrading.outlexerrors");
+                int currentLine = 1;
+                foreach (var tokenItem in errorTokenList)
+                {
+
+                    if (tokenItem.getLine() != currentLine)
+                    {
+                        currentLine++;
+                        errorWriter.Write("\n" + tokenItem.toString());
+                    }
+                    else
+                    {
+
+                        errorWriter.Write(tokenItem.toString());
+                    }
+
+
+                }
+                errorWriter.Close();
 
             }
             catch (System.Exception)

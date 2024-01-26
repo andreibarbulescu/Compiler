@@ -50,5 +50,6 @@ enum TokenType
     ID,
     INLINECMT,
     BLOCKCMT,
+    ERROR
 
 }
