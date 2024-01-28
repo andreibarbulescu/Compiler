@@ -5,6 +5,7 @@
 [LEQ, <=, 5][ASSIGN, =, 5][OPENSQBR, [, 5][COLONCOLON, ::, 5][FLOAT, float, 5][STRUCT, struct, 5][INHERITS, inherits, 5]
 [GEQ, >=, 6][CLOSESQBR, ], 6][ARROW, ->, 6][VOID, void, 6][WHILE, while, 6][LET, let, 6]
 [FUNC, func, 7][IMPL, impl, 7]
+[INTNUM, 0, 13]
 [INTNUM, 1, 14]
 [INTNUM, 10, 15]
 [INTNUM, 12, 16]

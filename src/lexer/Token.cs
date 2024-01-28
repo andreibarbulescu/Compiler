@@ -14,11 +14,11 @@ class Token{
         this._name = name;
         
     }
-    public string getName(){
+    public string GetName(){
         return _name;
     }
 
-    public int getLine(){
+    public int GetLine(){
         return _line;
     }
 
@@ -26,19 +26,20 @@ class Token{
         return _type;
     }
 
-    public void setType(TokenType type){
+    public void SetType(TokenType type){
         _type = type;
     }
 
-    public void setLine(int line){
+    public void SetLine(int line){
         _line = line;
     }
 
-    public void setName(string name){
+    public void SetName(string name){
         _name = name;
     } 
-    
-    public string toString(){
+
+    override
+    public string ToString(){
         return "[" + _type.ToString() + ", " + _name + ", " + _line + "]";
     }
 

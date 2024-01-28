@@ -48,9 +48,9 @@ enum TokenType
     INTNUM,
     FLOATNUM,
     ID,
-    INLINECMT,
-    BLOCKCMT,
     ERROR,
-    INVALIDINT
+    INVALIDINT,
+    INVALIDID,
+    INVALIDFLOAT
 
 }
