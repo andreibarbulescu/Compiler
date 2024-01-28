@@ -2,17 +2,22 @@ public class FileReader{
 
     private string _path;
 
-    public FileReader(string path)
+    private string _tokenOutput;
+    private string _errorOutput;
+
+        List<Token> _tokenList ;
+        List<Token> _errorTokenList;
+
+    public FileReader(string path,string tokenOutput,string errorOutpu)
     {
         this._path = path;
+        this._tokenOutput = tokenOutput;
+        this._errorOutput = errorOutpu;
+        this._tokenList = new List<Token>();
+        this._errorTokenList = new List<Token>();
     }
 
     public void readFile(){
-
-        List<Token> tokenList = new List<Token>();
-        List<Token> errorTokenList = new List<Token>();
-
-
         try
         {
             using (StreamReader reader = new(_path))
@@ -23,8 +28,8 @@ public class FileReader{
                 while ((line = reader.ReadLine()) != null)
                 {
                     string id = "";
-                    
                     lineNumber++;
+
                     for (int i = 0; i < line.Length; i++)
                     {
                         if (char.IsLetter(line[i]))
@@ -35,179 +40,238 @@ public class FileReader{
                                 i++;
                                 id += line[i];
                             }
+                            i++;
                             var token = new Token(id, TokenType.ID, lineNumber);
-                            tokenList.Add(token);
+                            _tokenList.Add(token);
                             id = "";
                         }
 
-                        if (i>= line.Length)
+                        if (i >= line.Length)
                         {
                             break;
                         }
 
-                        if(char.IsDigit(line[i])){
-                            id += line[i];
+                        if (char.IsDigit(line[i]))
+                        {
+                            string number = "";
+                            number += line[i];
+                            TokenType currentType = TokenType.INTNUM; 
 
-                            while(i + 1 < line.Length && char.IsDigit(line[i+1])){
+                            i++;
+
+                            // Loop until no more numeric, decimal point, 'e', or '-' for scientific notation are found
+                            while (i < line.Length && (char.IsDigit(line[i]) || line[i] == '.' || line[i] == 'e' || (line[i] == '-' && line[i - 1] == 'e')))
+                            {
+                                if (line[i] == '.' || line[i] == 'e' || (line[i] == '-' && line[i - 1] == 'e'))
+                                {
+                                    // If a '.' or 'e' or '-' following 'e' is found, the number is a float or in scientific notation
+                                    currentType = TokenType.FLOATNUM;
+                                }
+
+                                number += line[i];
                                 i++;
-                                id+=line[i];
                             }
 
+                            if (number[0] == '0' && number.Length!=1)
+                            {
+                                var tokenERROR = new Token(number, TokenType.INVALIDINT, lineNumber);
+                                _errorTokenList.Add(tokenERROR);
+                            }
+                            else
+                            {
+                                var token = new Token(number, currentType, lineNumber);
+                                _tokenList.Add(token);
+                            }
 
-
-                            var token = new Token(id,TokenType.INTNUM,lineNumber);
-                            tokenList.Add(token);
-                            id = "";
+                            //i--; // Adjust for over-incrementing in the loop
                         }
 
+                        /*
+                        //add error checking for integers
+                        if (char.IsDigit(line[i]))
+                        {
+                            Token notsure = new Token(id, TokenType.INTNUM, lineNumber);
+                            id += line[i];                           
+                            i++;
+                            while (i + 1 < line.Length && (char.IsDigit(line[i + 1]) || line[i+1] == '.' || line[i+1] == 'e' || line[i+1] == '-'))
+                            {
+
+                                if(line[i] == '.' || line[i+1] == 'e' || line[i+1] == '-'){
+                                    notsure.setType(TokenType.FLOATNUM);
+                                    id += line[i];
+                                }
+                                else{
+                                    id += line[i];
+                                }
+                                i++;
+                            }
+                            i--;
+                            
+                            notsure.setName(id);
+                            _tokenList.Add(notsure);
+                            id = "";
+                        }
+*/
                         if (i>= line.Length)
                         {
                             break;
                         }
+
+                        
                         switch (line[i])
                         {
+                            
                             case ' ':
                                 //maybe remove this?
                                 //i++;
                                 break;
+                            case '\t':
+                                break;
+
+                            case '.':
+                                Token dot = new Token(".",TokenType.DOT,lineNumber);
+                                _tokenList.Add(dot);
+                                break;
+
                             //idk about this either
                             case '\n':
                                 break;
                             case '*':
                                 Token mult = new Token("*",TokenType.MULT,lineNumber);
-                                tokenList.Add(mult);
+                                _tokenList.Add(mult);
                                 break;
 
                             case '/':
                                 Token div = new Token("/",TokenType.DIV,lineNumber);
-                                tokenList.Add(div);
+                                _tokenList.Add(div);
                                 break;
                             case ',':
                                 Token comma = new Token(",",TokenType.COMMA,lineNumber);
-                                tokenList.Add(comma);
+                                _tokenList.Add(comma);
                                 break;
                             case '!':
                                 Token bang = new Token("!",TokenType.NOT,lineNumber);
-                                tokenList.Add(bang);
+                                _tokenList.Add(bang);
                                 break;
                             case '+':
                                 Token plus = new Token("+", TokenType.PLUS, lineNumber);                               
-                                tokenList.Add(plus);
+                                _tokenList.Add(plus);
                                 break;
                             case '>':
                                 if (line[i+1] == '=')
                                 {
                                     Token greateq = new Token(">=",TokenType.GEQ,lineNumber);
-                                    tokenList.Add(greateq);
+                                    _tokenList.Add(greateq);
                                     i++;
                                     break;
                                 }
                                 else{
                                     Token greater = new Token(">",TokenType.GT,lineNumber);
-                                    tokenList.Add(greater);
+                                    _tokenList.Add(greater);
                                     break;
                                 }
                             case ':':
                                 if(line[i+1] == ':'){
                                     Token coloncolon = new Token("::",TokenType.COLONCOLON,lineNumber);
-                                    tokenList.Add(coloncolon);
+                                    _tokenList.Add(coloncolon);
                                     i++;
                                     break;
                                 }
                                 else{
                                     Token colon = new Token(":",TokenType.COLON,lineNumber);
-                                    tokenList.Add(colon);
+                                    _tokenList.Add(colon);
                                     break;
                                 }
                             case '-':
                                 if(line[i + 1] == '>'){
                                     Token arrow = new Token("->",TokenType.ARROW, lineNumber);
-                                    tokenList.Add(arrow);
+                                    _tokenList.Add(arrow);
                                     i++;
                                     break;
                                 }
                                 else
                                 {
                                     Token minus = new Token("-", TokenType.MINUS, lineNumber);
-                                    tokenList.Add(minus);
+                                    _tokenList.Add(minus);
                                     break;
                                 }
                             case '<':
                                 if (line[i+1] == '>')
                                 {
                                     Token noteq = new Token("<>",TokenType.NOTEQ,lineNumber);
-                                    tokenList.Add(noteq);
+                                    _tokenList.Add(noteq);
                                     i++;
                                     break;
                                 }
                                 else if(line[i+1] == '='){
                                     Token leq = new Token("<=", TokenType.LEQ,lineNumber);
-                                    tokenList.Add(leq);
+                                    _tokenList.Add(leq);
                                     i++;
                                     break;
                                 }
                                 else{
                                     Token less = new Token("<",TokenType.LT,lineNumber);
-                                    tokenList.Add(less);
+                                    _tokenList.Add(less);
                                     break;
                                 }
                             case '(':
                                 Token openPar = new Token("(",TokenType.OPENPAR, lineNumber);
-                                tokenList.Add(openPar);
+                                _tokenList.Add(openPar);
                                 break;
                             case ')':
                                 Token closedPar = new Token(")",TokenType.CLOSEPAR,lineNumber);
-                                tokenList.Add(closedPar);
+                                _tokenList.Add(closedPar);
                                 break;
                             case '{':
                                 Token openCurl = new Token("{",TokenType.OPENCUBR,lineNumber);
-                                tokenList.Add(openCurl);
+                                _tokenList.Add(openCurl);
                                 break;
                             case '}':
                                 Token closedCurl = new Token("}",TokenType.CLOSECUBR,lineNumber);
-                                tokenList.Add(closedCurl);
+                                _tokenList.Add(closedCurl);
                                 break;
                             case '[':
                                 Token openSquare = new Token("[",TokenType.OPENSQBR,lineNumber);
-                                tokenList.Add(openSquare);
+                                _tokenList.Add(openSquare);
                                 break;
                             case ']':
                                 Token closedSquare = new Token("]",TokenType.CLOSESQBR,lineNumber);
-                                tokenList.Add(closedSquare);
+                                _tokenList.Add(closedSquare);
                                 break;
                             case ';':
                                 Token semi = new Token(";",TokenType.SEMI, lineNumber);
-                                tokenList.Add(semi);
+                                _tokenList.Add(semi);
                                 break;
                             
                             case '|':
                                 Token or = new Token("|", TokenType.OR, lineNumber);
-                                tokenList.Add(or);
+                                _tokenList.Add(or);
                                 break;
 
                             case '&':
                                 Token and = new Token("&", TokenType.AND, lineNumber);
-                                tokenList.Add(and);
+                                _tokenList.Add(and);
                                 break;
                             case '=':
                                 if (line[i + 1] == '=')
                                 {
 
                                     Token equal = new Token("==", TokenType.EQ, lineNumber);
-                                    tokenList.Add(equal);
+                                    _tokenList.Add(equal);
                                     i++;
                                     break;
                                 }
                                 else
                                 {
                                     Token assign = new Token("=", TokenType.ASSIGN, lineNumber);
-                                    tokenList.Add(assign);
+                                    _tokenList.Add(assign);
                                     break;
                                 }
                             default:
                                 //not too sure how to do this...
+                                Console.WriteLine(line[i]);
                                 Token error = new Token(Char.ToString(line[i]),TokenType.ERROR,lineNumber);
-                                errorTokenList.Add(error);
+                                _errorTokenList.Add(error);
                                 break;
 
                         }
@@ -215,7 +279,49 @@ public class FileReader{
 
                 }
             }
-            foreach (var token in tokenList)
+            
+            UpdateTokenTypesForReservedWords();
+            WriteTokensToFile(_tokenList,_tokenOutput);
+            WriteTokensToFile(_errorTokenList,_errorOutput);
+
+       }
+
+        
+        catch (IOException)
+        {
+            Console.WriteLine("An Exception has occured");
+
+        }
+
+    }
+
+    private void WriteTokensToFile(List<Token> tokens, string filePath)
+    {
+        try
+        {
+            using var writer = new StreamWriter(filePath);
+            int currentLine = 1;
+
+            foreach (var token in tokens)
+            {
+                if (token.getLine() != currentLine)
+                {
+                    writer.WriteLine();
+                    currentLine = token.getLine();
+                }
+                writer.Write(token.toString());
+            }
+        }
+        catch (Exception)
+        {
+            Console.WriteLine($"An exception occurred while writing to the file: {filePath}");
+            throw;
+        }
+    }
+
+    private void UpdateTokenTypesForReservedWords()
+    {
+        foreach (var token in _tokenList)
             {
                 switch (token.getName())
                 {
@@ -280,74 +386,5 @@ public class FileReader{
                         break;
                 }
             }
-
-
-            try
-            {
-                StreamWriter write = new("lexPositiveGrading.outlextoken");
-                int currentLine = 1;
-                foreach (var tokenItem in tokenList)
-                {
-
-                    if (tokenItem.getLine() != currentLine)
-                    {
-                        currentLine++;
-                        write.Write("\n" + tokenItem.toString());
-                    }
-                    else
-                    {
-
-                        write.Write(tokenItem.toString());
-                    }
-
-
-                }
-                write.Close();
-
-            }
-            catch (System.Exception)
-            {
-                
-                throw;
-            }
-
-            try
-            {
-                StreamWriter errorWriter = new StreamWriter("lexPositiveGrading.outlexerrors");
-                int currentLine = 1;
-                foreach (var tokenItem in errorTokenList)
-                {
-
-                    if (tokenItem.getLine() != currentLine)
-                    {
-                        currentLine++;
-                        errorWriter.Write("\n" + tokenItem.toString());
-                    }
-                    else
-                    {
-
-                        errorWriter.Write(tokenItem.toString());
-                    }
-
-
-                }
-                errorWriter.Close();
-
-            }
-            catch (System.Exception)
-            {
-                
-                throw;
-            }
-
-       }
-
-        
-        catch (IOException)
-        {
-            Console.WriteLine("An Exception has occured");
-
-        }
-
     }
 }
