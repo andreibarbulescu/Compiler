@@ -48,7 +48,7 @@ enum TokenType
     INTNUM,
     FLOATNUM,
     ID,
-    ERROR,
+    INVALIDSYMBOL,
     INVALIDINT,
     INVALIDID,
     INVALIDFLOAT

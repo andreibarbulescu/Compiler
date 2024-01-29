@@ -75,7 +75,23 @@ public class Lexer{
                                 i++;
                             }
 
-                            if (number[0] == '0' && number.Length > 1)
+                            Boolean addedtolist = false;
+
+                            if(number.Contains('e')){
+                                for (int j = 0; j < number.Length; j++)
+                                {
+                                    if (number[j] == 'e')
+                                    {
+                                        if (number[j+1] == 0)
+                                        {
+                                            var tokenERROR = new Token(number,currentType,_lineNumber);
+                                            _errorTokenList.Add(tokenERROR);
+                                        }
+                                    }
+                                }
+                            }
+
+                            else if (number[0] == '0' && number.Length > 1)
                             {
                                 var tokenERROR = new Token(number,currentType, _lineNumber);
                                 if(tokenERROR.GetTokenType() == TokenType.INTNUM){
@@ -277,7 +293,7 @@ public class Lexer{
                             default:
                                 //not too sure how to do this...
                                 Console.WriteLine(_lineString[i]);
-                                Token error = new Token(Char.ToString(_lineString[i]),TokenType.ERROR,_lineNumber);
+                                Token error = new Token(Char.ToString(_lineString[i]),TokenType.INVALIDSYMBOL,_lineNumber);
                                 _errorTokenList.Add(error);
                                 break;
 
