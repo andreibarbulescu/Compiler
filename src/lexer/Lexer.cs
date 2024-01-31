@@ -108,14 +108,19 @@ public class Lexer{
                                 {
                                     if (number[j] == 'e' && number[j+1] == '0')
                                     {
-                                            Console.WriteLine(number);                                       
                                             var tokenERROR = new Token(number,TokenType.INVALIDFLOAT,_lineNumber);
                                             addedtolist = true;
                                             _errorTokenList.Add(tokenERROR);                                       
                                     }
                                 }
                             }
-                            //if(currentType == TokenType.FLOATNUM && )
+                            if(!number.Contains('e') && number.Contains('.') && number[number.Length-1] == '0'){
+
+                                            var tokenERROR = new Token(number,TokenType.INVALIDFLOAT,_lineNumber);
+                                            addedtolist = true;
+                                            _errorTokenList.Add(tokenERROR);                                       
+                            }
+                            
                             
                             if(!addedtolist)
                             {
