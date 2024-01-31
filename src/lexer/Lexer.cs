@@ -27,7 +27,7 @@ public class Lexer{
     private (string identifier, int newPosition) ProcessIdentifier(string line, int startIndex)
     {
         int i = startIndex;
-        string id = "" + line[i]; // Initialize id with the first character
+        string id = "" + line[i]; 
 
         // Loop to capture the rest of the identifier
         while (i + 1 < line.Length && (char.IsLetterOrDigit(line[i + 1]) || line[i + 1] == '_'))
@@ -36,7 +36,20 @@ public class Lexer{
             id += line[i];
         }
 
-        return (id, i); // Return the identifier and the new position of the index
+        return (id, i); 
+    }
+
+    private (string identifier, int newPosition) ProcessIntegerAndFloat(string line, int startIndex){
+
+        int i = startIndex;
+        string number = "" + line[i];
+        TokenType initial = TokenType.INTNUM;
+        Boolean inList = false;
+
+        //while(i+1 < line.Length && )
+
+
+        return (number,i);
     }
 
     public void readFile(){
@@ -47,18 +60,18 @@ public class Lexer{
                 // Read and display lines from the file until the end of the file is reached
                 while ((_lineString = reader.ReadLine()) != null)
                 {
-                    string id = "";
 
-                    //Acts as a pointer going from left to right till the end of thge line
+                    //Acts as a pointer going from left to right till the end of the line
                     for (int i = 0; i < _lineString.Length; i++)
                     {
-                        //Checks for a valid ID first 
+                        //Checks for a valid number 
                         if (char.IsDigit(_lineString[i]))
                         {
                             string number = "";
                             number += _lineString[i];
                             TokenType currentType = TokenType.INTNUM; 
 
+                            Boolean addedtolist = false;
                             i++;
 
                             // Loop until no more numeric, decimal point, 'e', or '-' for scientific notation are found
@@ -75,23 +88,8 @@ public class Lexer{
                                 i++;
                             }
 
-                            Boolean addedtolist = false;
 
-                            if(number.Contains('e')){
-                                for (int j = 0; j < number.Length; j++)
-                                {
-                                    if (number[j] == 'e')
-                                    {
-                                        if (number[j+1] == 0)
-                                        {
-                                            var tokenERROR = new Token(number,currentType,_lineNumber);
-                                            _errorTokenList.Add(tokenERROR);
-                                        }
-                                    }
-                                }
-                            }
-
-                            else if (number[0] == '0' && number.Length > 1)
+                            if (number[0] == '0' && number.Length > 1)
                             {
                                 var tokenERROR = new Token(number,currentType, _lineNumber);
                                 if(tokenERROR.GetTokenType() == TokenType.INTNUM){
@@ -101,15 +99,31 @@ public class Lexer{
                                     tokenERROR.SetType(TokenType.INVALIDFLOAT);
                                 }
                                 _errorTokenList.Add(tokenERROR);
+                                addedtolist = true;
                             }
+
+
+                            if(number.Contains('e')){
+                                for (int j = 0; j < number.Length; j++)
+                                {
+                                    if (number[j] == 'e' && number[j+1] == '0')
+                                    {
+                                            Console.WriteLine(number);                                       
+                                            var tokenERROR = new Token(number,TokenType.INVALIDFLOAT,_lineNumber);
+                                            addedtolist = true;
+                                            _errorTokenList.Add(tokenERROR);                                       
+                                    }
+                                }
+                            }
+                            //if(currentType == TokenType.FLOATNUM && )
                             
-                            else
+                            if(!addedtolist)
                             {
                                 var token = new Token(number, currentType, _lineNumber);
                                 _tokenList.Add(token);
                             }
 
-                            //i--; // Adjust for over-incrementing in the loop
+                           // i--; // Adjust for over-incrementing in the loop
                         }
 
                         if (i >= _lineString.Length)
