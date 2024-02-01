@@ -311,7 +311,6 @@ public class Lexer{
                                 }
                             default:
                                 //not too sure how to do this...
-                                Console.WriteLine(_lineString[i]);
                                 Token error = new Token(Char.ToString(_lineString[i]),TokenType.INVALIDSYMBOL,_lineNumber);
                                 _errorTokenList.Add(error);
                                 break;
