@@ -1,4 +1,5 @@
-enum TokenType
+                            
+public enum TokenType
 {
     EQ,
     PLUS,
