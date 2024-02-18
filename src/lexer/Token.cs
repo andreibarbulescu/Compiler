@@ -14,6 +14,10 @@ public class Token{
         this._name = name;
         
     }
+
+    public Token(){
+        
+    }
     public string GetName(){
         return _name;
     }

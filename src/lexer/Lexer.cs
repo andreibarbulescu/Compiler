@@ -22,6 +22,22 @@ public class Lexer
 
     }
 
+    public List<Token> GetList(){
+        return _tokenList;
+    }
+
+    public void returnNextToken(int position){
+        try
+        {
+            
+        Console.WriteLine(_tokenList[position]);
+        }
+        catch (System.Exception)
+        {
+            throw; 
+            Console.WriteLine("End of file");
+        }
+    }
     public void readFile()
     {
         try

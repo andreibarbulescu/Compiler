@@ -52,6 +52,7 @@ public enum TokenType
     INVALIDSYMBOL,
     INVALIDINT,
     INVALIDID,
-    INVALIDFLOAT
+    INVALIDFLOAT,
+    END
 
 }
