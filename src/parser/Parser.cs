@@ -393,6 +393,7 @@ public class Parser{
     }
 
     //to Fix
+    //FIIIIX
     private void ReptFuncBody1(){
         VarDeclOrStatement();
         ReptFuncBody1();
@@ -443,6 +444,10 @@ public class Parser{
 
     }
 
+    private void StatBlock(){
+        
+    }
+
     private void RelExpr(){
         ArithExpr();
         RelOp();
@@ -452,6 +457,38 @@ public class Parser{
     private void ArithExpr(){
         Term();
         RightRecArithExpr();
+    }
+
+    private void RightRecArithExpr(){
+        if(lookahead.GetTokenType() == TokenType.PLUS ||
+        lookahead.GetTokenType() == TokenType.MINUS ||
+        lookahead.GetTokenType() == TokenType.OR){
+            Addop();
+            Term();
+            RightRecArithExpr();
+        }
+        else{
+            //do nothing
+        }
+    }
+
+    private void Addop(){
+        switch (lookahead.GetTokenType())
+        {
+            case TokenType.PLUS:
+                match(TokenType.PLUS);
+                break;
+            case TokenType.MINUS:
+                match(TokenType.MINUS);
+                break;
+            case TokenType.OR:
+                match(TokenType.OR);
+                break;
+                        
+            default:
+                Console.WriteLine("Error wrong addop");
+                break;
+        }
     }
 
     private void Term(){
@@ -525,6 +562,30 @@ public class Parser{
         }
     }
 
+    private void ReptVariableOrFunctionCall(){
+        if(lookahead.GetTokenType() == TokenType.DOT){
+            IdNest();
+            ReptVariableOrFunctionCall();
+        }
+    }
+
+    private void IdNest(){
+        match(TokenType.DOT);
+        match(TokenType.ID);
+        IdNest2();
+    }
+
+    private void IdNest2(){
+        if(lookahead.GetTokenType() == TokenType.OPENPAR){
+            match(TokenType.OPENPAR);
+            AParams();
+            match(TokenType.CLOSEPAR);
+        }
+        else{
+            ReptIdNest1();
+        }
+    }
+
     private void Factor2(){
         if(lookahead.GetTokenType() == TokenType.OPENPAR){
             match(TokenType.OPENPAR);
@@ -566,6 +627,21 @@ public class Parser{
         else{
             //do nothing
         }
+    }
+
+    private void ReptAParams1(){
+        if(lookahead.GetTokenType() == TokenType.COMMA){
+            AParamsTail();
+            ReptAParams1();
+        }
+        else{
+            //do nothing
+        }
+    }
+
+    private void AParamsTail(){
+        match(TokenType.COMMA);
+        Expr();
     }
 
     private void Expr(){
