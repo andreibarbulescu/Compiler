@@ -18,7 +18,6 @@ ARRAYSIZE2 -> rsqbr .
 ASSIGNOP -> equal  . 
 
 EXPR -> ARITHEXPR EXPR2 .
-
 EXPR2 -> RELOP ARITHEXPR  .
 EXPR2 ->  .
 
@@ -46,6 +45,8 @@ FUNCDEF -> FUNCHEAD FUNCBODY  .
 FUNCHEAD -> func id lpar FPARAMS rpar arrow RETURNTYPE  . 
 
 IMPLDEF -> impl id lcurbr REPTIMPLDEF3 rcurbr  . 
+
+INDICE -> lsqbr ARITHEXPR rsqbr.
 
 MEMBERDECL -> FUNCDECL  . 
 MEMBERDECL -> VARDECL  . 
@@ -135,7 +136,7 @@ IDNEST -> dot id IDNEST2  .
 IDNEST2 -> lpar APARAMS rpar  .
 IDNEST2 -> REPTIDNEST1  .
 
-REPTIDNEST1 -> lsqbr ARITHEXPR rsqbr REPTIDNEST1  . 
+REPTIDNEST1 -> INDICE REPTIDNEST1  . 
 REPTIDNEST1 ->  . 
 
 REPTVARIABLE ->  VARIDNEST REPTVARIABLE   .
@@ -147,7 +148,7 @@ VARIDNEST2 -> REPTIDNEST1  .
 
 STATEMENT -> if lpar RELEXPR rpar then STATBLOCK else STATBLOCK semi  . 
 STATEMENT -> while lpar RELEXPR rpar STATBLOCK semi  . 
-STATEMENT -> read lpar id VARIABLE rpar semi  . 
+STATEMENT -> read lpar VARIABLE rpar semi  . 
 STATEMENT -> write lpar EXPR rpar semi  . 
 STATEMENT -> return lpar EXPR rpar semi  . 
 

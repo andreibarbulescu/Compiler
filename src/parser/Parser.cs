@@ -1,5 +1,5 @@
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.Serialization;
+using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 public class Parser{
 
@@ -119,6 +119,9 @@ public class Parser{
         match(TokenType.ID);
         if (lookahead.GetTokenType() == TokenType.COMMA){
             ReptOptStructDecl22();   
+        }
+        else{
+            //do  nothing
         }
 
     }
@@ -354,29 +357,264 @@ public class Parser{
         }
     }
     private void ImplDef(){
-
+        match(TokenType.IMPL);
+        match(TokenType.ID);
+        match(TokenType.OPENCUBR);
+        ReptImplDef3();
+        match(TokenType.CLOSECUBR);
     }
 
-    private void FuncDef(){
+    /*
+        REPTIMPLDEF3 -> FUNCDEF REPTIMPLDEF3.
+        REPTIMPLDEF3 ->.
+    */
+    private void ReptImplDef3(){
+        if(lookahead.GetTokenType() == TokenType.FUNC){
+            FuncDef();
+            ReptImplDef3();
+        }
+        else{
+            //do nothng
+        }
 
     }
     /*
+        FUNCDEF -> FUNCHEAD FUNCBODY.
+    */
+    private void FuncDef(){
+        FuncHead();
+        FuncBody();
+    }
+    
+    private void FuncBody(){
+        match(TokenType.OPENCUBR);
+        ReptFuncBody1();
+        match(TokenType.CLOSECUBR);
+    }
 
+    //to Fix
+    private void ReptFuncBody1(){
+        VarDeclOrStatement();
+        ReptFuncBody1();
+    }
 
-    private Boolean OpStructDecl2(){
+    private void VarDeclOrStatement(){
+        if(lookahead.GetTokenType() == TokenType.LET){
+            VarDecl();
+        }
+        else{
+            Statement();
+        }
+    }
+
+    private void Statement(){
+        switch (lookahead.GetTokenType())
+        {
+            case TokenType.ID:
+
+            break;
+
+            case TokenType.IF:
+                match(TokenType.IF);
+                match(TokenType.OPENPAR);
+                RelExpr();
+                match(TokenType.CLOSEPAR);
+                match(TokenType.THEN);
+                StatBlock();
+                match(TokenType.ELSE);
+                StatBlock();
+                match(TokenType.SEMI);
+            break;
+            case TokenType.WHILE:
+            break;
+
+            case TokenType.READ:
+            break;
+
+            case TokenType.WRITE:
+            break;
+
+            case TokenType.RETURN:
+            break;
+
+            default:
+            break;
+        }
 
     }
 
-    private Boolean ReptStructDecl4(){
-
+    private void RelExpr(){
+        ArithExpr();
+        RelOp();
+        ArithExpr();
     }
 
-    private Boolean ReptOpStructDecl2(){
-
+    private void ArithExpr(){
+        Term();
+        RightRecArithExpr();
     }
 
+    private void Term(){
+        Factor();
+        RightRecTerm();
+    }
 
-*/
+    private void RightRecTerm(){
+        if(lookahead.GetTokenType() == TokenType.MULT || 
+            lookahead.GetTokenType() == TokenType.DIV ||
+            lookahead.GetTokenType() == TokenType.AND){
+                MultOp();
+                Factor();
+                RightRecTerm();
+            }
+            else{
+                //do nothing
+            }
+    }
+    
+    private void MultOp(){
+        switch(lookahead.GetTokenType()){
+            case TokenType.MULT:
+                match(TokenType.MULT);
+                break;
+            case TokenType.AND:
+                match(TokenType.AND);
+                break;
+            case TokenType.DIV:
+                match(TokenType.DIV);
+                break;
+            default:
+                Console.WriteLine("iNVALID mult op");
+                break;
+        }
+    }
+
+    private void Factor(){
+        switch(lookahead.GetTokenType()){
+
+            case TokenType.ID:
+            match(TokenType.ID);
+                Factor2();
+                ReptVariableOrFunctionCall();
+            break;
+
+            case TokenType.INTNUM:
+                match(TokenType.INTNUM);
+            break;
+
+            case TokenType.FLOATNUM:
+                match(TokenType.FLOATNUM);
+            break;
+
+            case TokenType.OPENPAR:
+                match(TokenType.OPENPAR);
+                ArithExpr();
+                match(TokenType.CLOSEPAR);
+            break;
+
+            case TokenType.NOT:
+                match(TokenType.NOT);
+                Factor();
+            break;
+
+            case TokenType.PLUS:
+                match(TokenType.PLUS);
+                Factor();
+            break;    
+
+        }
+    }
+
+    private void Factor2(){
+        if(lookahead.GetTokenType() == TokenType.OPENPAR){
+            match(TokenType.OPENPAR);
+            AParams();
+            match(TokenType.CLOSEPAR);
+        }
+        else{
+            ReptIdNest1();
+        }
+    }
+
+    private void ReptIdNest1(){
+        if(lookahead.GetTokenType() == TokenType.OPENSQBR){
+            Indice();
+            ReptIdNest1();
+        }
+        else{
+            //do nothing
+        }
+    }
+
+    private void Indice(){
+        match(TokenType.OPENSQBR);
+        ArithExpr();
+        match(TokenType.CLOSESQBR);
+    }
+
+    private void AParams(){
+        if(lookahead.GetTokenType() == TokenType.ID ||
+        lookahead.GetTokenType() == TokenType.INTNUM ||
+        lookahead.GetTokenType() == TokenType.FLOATNUM ||
+        lookahead.GetTokenType() == TokenType.OPENPAR ||
+        lookahead.GetTokenType() == TokenType.NOT ||
+        lookahead.GetTokenType() == TokenType.PLUS ||
+        lookahead.GetTokenType() == TokenType.MINUS){
+            Expr();
+            ReptAParams1();
+        }
+        else{
+            //do nothing
+        }
+    }
+
+    private void Expr(){
+        ArithExpr();
+        Expr2();
+    }
+
+    private void Expr2(){
+        if(lookahead.GetTokenType() == TokenType.EQ ||
+           lookahead.GetTokenType() == TokenType.NOTEQ ||
+           lookahead.GetTokenType() == TokenType.LT ||
+           lookahead.GetTokenType() == TokenType.GT ||
+           lookahead.GetTokenType() == TokenType.LEQ ||
+           lookahead.GetTokenType() == TokenType.GEQ){
+            RelOp();
+            ArithExpr();
+           }
+        else{
+            //do nothing
+        }
+    }
+
+    private void RelOp(){
+        switch (lookahead.GetTokenType())
+        {
+            case TokenType.EQ:
+                match(TokenType.EQ);
+                break;
+            case TokenType.NOTEQ:
+                match(TokenType.NOTEQ);
+                break;
+            case TokenType.LT:
+                match(TokenType.LT);
+                break;
+            case TokenType.GT:
+                match(TokenType.GT);
+                break;
+            case TokenType.LEQ:
+                match(TokenType.LEQ);
+                break;
+            case TokenType.GEQ:
+                match(TokenType.GEQ);
+                break;
+            default:
+                Console.WriteLine("Invalid Relop");
+                break;
+        }
+    }
+ 
     public void write(){
         try
         {
@@ -394,29 +632,3 @@ public class Parser{
 
 }
 
-[Serializable]
-internal class ParseException : Exception
-{
-    private object value;
-
-    public ParseException()
-    {
-    }
-
-    public ParseException(object value)
-    {
-        this.value = value;
-    }
-
-    public ParseException(string? message) : base(message)
-    {
-    }
-
-    public ParseException(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
-
-    protected ParseException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-}
