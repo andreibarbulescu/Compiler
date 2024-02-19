@@ -412,7 +412,9 @@ public class Parser{
         switch (lookahead.GetTokenType())
         {
             case TokenType.ID:
-
+                match(TokenType.ID);
+                AssignStatOrFuncCall();
+                match(TokenType.SEMI);
             break;
 
             case TokenType.IF:
@@ -427,25 +429,156 @@ public class Parser{
                 match(TokenType.SEMI);
             break;
             case TokenType.WHILE:
+                match(TokenType.WHILE);
+                match(TokenType.OPENPAR);
+                RelExpr();
+                match(TokenType.CLOSEPAR);
+                StatBlock();
+                match(TokenType.SEMI);
             break;
 
             case TokenType.READ:
+                match(TokenType.READ);
+                match(TokenType.OPENPAR);
+                Variable();
+                match(TokenType.CLOSEPAR);
+                match(TokenType.SEMI);
             break;
 
             case TokenType.WRITE:
+                match(TokenType.WRITE);
+                match(TokenType.OPENPAR);
+                Expr();
+                match(TokenType.CLOSEPAR);
+                match(TokenType.SEMI);
             break;
 
             case TokenType.RETURN:
+                match(TokenType.RETURN);
+                match(TokenType.OPENPAR);
+                Expr();
+                match(TokenType.CLOSEPAR);
+                match(TokenType.SEMI);
             break;
 
             default:
+                Console.WriteLine("Error in the statement");
             break;
         }
 
     }
 
-    private void StatBlock(){
+    public void AssignStatOrFuncCall(){
+        if(lookahead.GetTokenType() == TokenType.OPENPAR){
+            match(TokenType.OPENPAR);
+            AParams();
+            match(TokenType.CLOSEPAR);
+            AssignStatOrFuncCall3();
+        }
+        else{
+            ReptIdNest1();
+            AssignStatOrFuncCall2();
+        }
+    }
+
+    public void AssignStatOrFuncCall2(){
+        if(lookahead.GetTokenType() == TokenType.DOT){
+            match(TokenType.DOT);
+            match(TokenType.ID);
+            AssignStatOrFuncCall();
+        }
+        else {
+            match(TokenType.EQ);
+            Expr();
+        }
+    }
+
+    public void AssignStatOrFuncCall3(){
+        if(lookahead.GetTokenType() == TokenType.DOT){
+            match(TokenType.DOT);
+            match(TokenType.ID);
+            AssignStatOrFuncCall();
+        }
+        else{
+            //Do nothing
+        }
+    }
+
+    public void Variable(){
+        match(TokenType.ID);
+        Variable2();
+    }
+
+    public void Variable2(){
+        if(lookahead.GetTokenType() == TokenType.OPENPAR){
+            match(TokenType.OPENPAR);
+            AParams();
+            match(TokenType.CLOSEPAR);
+            VarIdNest();
+        }else{
+            ReptIdNest1();
+            ReptVariable();
+        }
+    }
+
+    public void ReptVariable(){
+        if(lookahead.GetTokenType() == TokenType.DOT){
+            VarIdNest();
+            ReptVariable();
+        }
+        else{
+            //do nothing
+        }
+    }
+
+    private void VarIdNest(){
         
+                match(TokenType.DOT);
+                match(TokenType.ID);
+                VarIdNest2();
+    }
+
+    private void VarIdNest2(){
+        if(lookahead.GetTokenType() == TokenType.OPENPAR){
+            match(TokenType.OPENPAR);
+            AParams();
+            match(TokenType.CLOSEPAR);
+            VarIdNest();
+        }else{
+            ReptIdNest1();
+        }
+    }
+
+
+
+    private void StatBlock(){
+       switch(lookahead.GetTokenType()) {
+            case TokenType.OPENCUBR:
+            match(TokenType.OPENCUBR);
+            break;
+
+            case TokenType.ID:
+            Statement();
+            break;
+            case TokenType.IF:
+            Statement();
+            break;                        
+
+            case TokenType.WHILE:
+            Statement();
+            break;
+            case TokenType.READ:
+            Statement();
+            break;
+            case TokenType.WRITE:
+            Statement();
+            break;
+            case TokenType.RETURN:
+            Statement();
+            break;
+            default:
+                break;
+       }
     }
 
     private void RelExpr(){
