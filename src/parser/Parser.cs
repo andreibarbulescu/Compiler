@@ -395,8 +395,20 @@ public class Parser{
     //to Fix
     //FIIIIX
     private void ReptFuncBody1(){
-        VarDeclOrStatement();
-        ReptFuncBody1();
+        
+        if(lookahead.GetTokenType() == TokenType.LET ||
+            lookahead.GetTokenType() == TokenType.ID ||
+            lookahead.GetTokenType() == TokenType.IF ||
+            lookahead.GetTokenType() == TokenType.WHILE||
+            lookahead.GetTokenType() == TokenType.READ ||
+            lookahead.GetTokenType() == TokenType.WRITE||
+            lookahead.GetTokenType() == TokenType.RETURN){
+
+            VarDeclOrStatement();
+            ReptFuncBody1();
+        }else{
+            //do nothing
+        }
     }
 
     private void VarDeclOrStatement(){
@@ -434,6 +446,7 @@ public class Parser{
                 RelExpr();
                 match(TokenType.CLOSEPAR);
                 StatBlock();
+                lookahead.GetTokenType();
                 match(TokenType.SEMI);
             break;
 
@@ -488,7 +501,7 @@ public class Parser{
             AssignStatOrFuncCall();
         }
         else {
-            match(TokenType.EQ);
+            match(TokenType.ASSIGN);
             Expr();
         }
     }
@@ -549,35 +562,66 @@ public class Parser{
         }
     }
 
-
+    public void ReptStatBlock1(){
+         switch(lookahead.GetTokenType()) {
+            
+            case TokenType.ID:
+                Statement();
+                ReptStatBlock1();
+            break;
+            case TokenType.IF:
+                Statement();
+                ReptStatBlock1();
+            break;                        
+            case TokenType.WHILE:
+                Statement();
+                ReptStatBlock1();
+            break;
+            case TokenType.READ:
+                Statement();
+                ReptStatBlock1();
+            break;
+            case TokenType.WRITE:
+                Statement();
+                ReptStatBlock1();
+            break;
+            case TokenType.RETURN:
+                Statement();
+                ReptStatBlock1();
+            break;
+            default:
+            break;
+       }
+    }
 
     private void StatBlock(){
        switch(lookahead.GetTokenType()) {
             case TokenType.OPENCUBR:
-            match(TokenType.OPENCUBR);
+                match(TokenType.OPENCUBR);
+                ReptStatBlock1();
+                match(TokenType.CLOSECUBR);
             break;
 
             case TokenType.ID:
-            Statement();
+                Statement();
             break;
             case TokenType.IF:
-            Statement();
+                Statement();
             break;                        
-
             case TokenType.WHILE:
-            Statement();
+                Statement();
             break;
             case TokenType.READ:
-            Statement();
+                Statement();
             break;
             case TokenType.WRITE:
-            Statement();
+                Statement();
             break;
             case TokenType.RETURN:
-            Statement();
+                Statement();
             break;
             default:
-                break;
+            break;
        }
     }
 
