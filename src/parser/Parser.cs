@@ -8,10 +8,12 @@ public class Parser{
     private int counter = 0;
     private Token lookahead = new Token();
     String outputStr = "";
+    private List<String> derivation;
     
 
     public Parser(string path, List<Token> list)
     {
+        derivation = new List<string>();
         this.outputFilePath = path;
         this.tokenList = list;
         this.lookahead = tokenList[counter];
@@ -20,6 +22,7 @@ public class Parser{
     private void match(TokenType t){
         if(lookahead.GetTokenType() == t){
             outputStr += lookahead.GetName() + " ";
+            derivation.Add(lookahead.GetName() + " ");
             lookahead = nextToken();
              
         }
@@ -53,7 +56,9 @@ public class Parser{
 
     private void Start()
     {
-        Console.WriteLine("Start -> Prog");
+        derivation.Add("Start");
+        printDerivation();
+
         Prog();
         if(lookahead.GetTokenType() == TokenType.END){
             Console.WriteLine("Parsing ended, reached end of file");
@@ -63,14 +68,43 @@ public class Parser{
         }
     }
 
+    private void printDerivation(){
+        foreach (var item in derivation)
+                {
+                    
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine();
+    }
+
+    private void replace(string itemToReplace, string newItem){
+        int index = derivation.IndexOf(itemToReplace);
+        if (index != -1) // Check if the item was found
+        {
+            derivation[index] = newItem; // Replace the item
+        }
+        else
+        {
+            Console.WriteLine("Item not found.");
+        }
+        printDerivation();
+        
+    }
+
+
     private void Prog()
     {
+
         outputStr += "Prog\n";
+        replace("Start", "Prog");
+        replace("Prog","ReptProg0");
         ReptProg0();
     }
 
     private void ReptProg0(){
-
+        
+        replace("ReptProg0", "StructOrImplOrFunc");
+        derivation.Add("ReptProg0");
         outputStr += "ReptProg0\n";
         if(lookahead.GetTokenType() == TokenType.STRUCT){
             outputStr += "StructDecl ReptProg0 \n";

@@ -58,7 +58,7 @@
 | | function call as expression factor
 | | expression as parameter
 
-    variable declaration
+     declaration
     --------------------------------------
 |X| type: integer
 | | type: float

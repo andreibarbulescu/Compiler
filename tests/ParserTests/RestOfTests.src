@@ -1,0 +1,37 @@
+struct test inherits POLYNOMIAL, MONOMIAL {
+
+};
+
+
+  func evaluate2() -> void
+  {
+  }
+
+
+func evaluate(x: int , y: int) -> integer
+  {
+        return (3);
+  }
+  func evaluate() -> integer
+  {
+    let x: w;
+    result = x;
+    result = result * x + w;
+    result = result * x + w;
+    return (x);
+  }
+
+  func testsAgain() -> void{
+        let x: int;
+        x = 10;
+        while(true){}; 
+
+        while(true){
+            x = x+1;
+        };
+  }
+
+  func main() -> void
+    {
+        evaluate();
+    }

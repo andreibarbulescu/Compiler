@@ -1,0 +1,73 @@
+    classes
+    --------------------------------------
+|X| class declaration
+|X| no member function declaration
+|X| no member
+|X| multiple inherited classes
+
+   functions: definitions
+    --------------------------------------
+| | no main function definition
+|X| return type: integer
+| | return type: array (not allowed)
+
+    functions: formal parameters
+    --------------------------------------
+| | type: id
+| | type: n-dim array
+| | type: array (with size)
+
+functions: calls
+    --------------------------------------
+|X| parameters:0
+| | array parameter - n-dim
+| | array parameter - with size
+| | array parameter - without size
+| | function call as statement
+| | expression as parameter
+
+    variable declaration
+    --------------------------------------
+| | type: float
+| | type: string
+| | type: n-dim array
+| | type: array (without size) (not allowed)
+
+    function body: local variable declarations
+    --------------------------------------
+|X| no local variable declarations
+| | intertwined statements and variable declarations
+
+    function body: statements
+    --------------------------------------
+|X| no statement
+|X| 1 statement
+| | if: 1-statement then or else blocks
+|X| while: empty block
+|X| while: 1-statement block
+| | read(<variable>) statement
+
+    variable + idnest
+    --------------------------------------
+| | id(id).id
+| | id(id).id()
+| | id.id[id]
+| | id[id].id
+| | id[id].id[id]
+| | id.id[id][id]
+| | id[id][id].id
+| | id[id][id].id[id][id]
+| | id(id).id[id]
+| | id(id).id[id][id]
+| | expression as array index
+
+    expressions
+    --------------------------------------
+| | involving multop
+| | involving addop + multop + relop
+| | involving parentheses
+| | involving nested parentheses
+| | involving not
+| | involving sign
+| | involving all the above in one expression
+

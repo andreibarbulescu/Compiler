@@ -5,7 +5,7 @@
 [LET, let, 5][ID, j, 5][COLON, :, 5][INTEGER, integer, 5][SEMI, ;, 5]
 [LET, let, 6][ID, temp, 6][COLON, :, 6][INTEGER, integer, 6][SEMI, ;, 6]
 [ID, n, 7][ASSIGN, =, 7][ID, size, 7][SEMI, ;, 7]
-[ID, i, 8][ASSIGN, =, 8][INTNUM, 0, 8][SEMI, ;, 8]
+[ID, i, 8][ASSIGN, =, 9][INTNUM, 0, 8][SEMI, ;, 8]
 [ID, j, 9][ASSIGN, =, 9][INTNUM, 0, 9][SEMI, ;, 9]
 [ID, temp, 10][ASSIGN, =, 10][INTNUM, 0, 10][SEMI, ;, 10]
 [WHILE, while, 11][OPENPAR, (, 11][ID, i, 11][LT, <, 11][ID, n, 11][MINUS, -, 11][INTNUM, 1, 11][CLOSEPAR, ), 11][OPENCUBR, {, 11]
