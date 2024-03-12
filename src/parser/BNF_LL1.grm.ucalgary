@@ -21,7 +21,7 @@ EXPR -> ARITHEXPR EXPR2.
 EXPR2 -> RELOP ARITHEXPR.
 EXPR2 ->.
 
-FPARAMS -> id colon TYPE REPTFPARAMS3 REPTFPARAMS4.
+FPARAMS -> (Action 1)id colon TYPE REPTFPARAMS3 REPTFPARAMS4 .
 FPARAMS ->.
 
 FPARAMSTAIL -> comma id colon TYPE REPTFPARAMSTAIL4.
@@ -45,7 +45,7 @@ FUNCDECL -> FUNCHEAD semi.
 
 FUNCDEF -> FUNCHEAD FUNCBODY.
 
-FUNCHEAD -> func id lpar FPARAMS rpar arrow RETURNTYPE.
+FUNCHEAD -> func (Action 1) id lpar (Action 1)FPARAMS rpar arrow RETURNTYPE (Action 7).
 
 IDNEST -> dot id IDNEST2.
 IDNEST2 -> lpar APARAMS rpar.
@@ -62,7 +62,7 @@ MULTOP -> mult.
 MULTOP -> div.
 MULTOP -> and.
 
-OPTSTRUCTDECL2 -> inherits id REPTOPTSTRUCTDECL22.
+OPTSTRUCTDECL2 -> inherits (Action 1) id REPTOPTSTRUCTDECL22 (Action 4).
 OPTSTRUCTDECL2 ->.
 
 PROG -> REPTPROG0.
@@ -97,7 +97,7 @@ REPTIDNEST1 ->.
 REPTIMPLDEF3 -> FUNCDEF REPTIMPLDEF3.
 REPTIMPLDEF3 ->.
 
-REPTOPTSTRUCTDECL22 -> comma id REPTOPTSTRUCTDECL22.
+REPTOPTSTRUCTDECL22 -> comma id (Action 1) REPTOPTSTRUCTDECL22 (Action 4).
 REPTOPTSTRUCTDECL22 ->.
 
 REPTPROG0 -> STRUCTORIMPLORFUNC REPTPROG0.
@@ -106,7 +106,7 @@ REPTPROG0 ->.
 REPTSTATBLOCK1 -> STATEMENT REPTSTATBLOCK1.
 REPTSTATBLOCK1 ->.
 
-REPTSTRUCTDECL4 -> VISIBILITY MEMBERDECL REPTSTRUCTDECL4.
+REPTSTRUCTDECL4 -> VISIBILITY MEMBERDECL REPTSTRUCTDECL4 (Action 5).
 REPTSTRUCTDECL4 ->.
 
 REPTVARDECL4 -> ARRAYSIZE REPTVARDECL4.
@@ -143,7 +143,7 @@ ASSIGNSTATORFUNCCALL2 -> ASSIGNOP EXPR .
 ASSIGNSTATORFUNCCALL3 -> dot id ASSIGNSTATORFUNCCALL.
 ASSIGNSTATORFUNCCALL3 -> .
 
-STRUCTDECL -> struct id OPTSTRUCTDECL2 lcurbr REPTSTRUCTDECL4 rcurbr semi.
+STRUCTDECL -> struct (Action 1) id OPTSTRUCTDECL2 (Action 4) lcurbr REPTSTRUCTDECL4 rcurbr semi (Action 6).
 
 STRUCTORIMPLORFUNC -> STRUCTDECL.
 STRUCTORIMPLORFUNC -> IMPLDEF.
@@ -151,11 +151,11 @@ STRUCTORIMPLORFUNC -> FUNCDEF.
 
 TERM -> FACTOR RIGHTRECTERM.
 
-TYPE -> integer.
-TYPE -> float.
-TYPE -> id.
+TYPE -> integer (Action1).
+TYPE -> float (Action1).
+TYPE -> id (Action1).
 
-VARDECL -> let id colon TYPE REPTVARDECL4 semi.
+VARDECL -> let (Action1) id colon TYPE REPTVARDECL4 semi.
 
 VARDECLORSTAT -> VARDECL.
 VARDECLORSTAT -> STATEMENT.
@@ -172,5 +172,22 @@ VARIDNEST -> dot id VARIDNEST2.
 VARIDNEST2 -> lpar APARAMS rpar VARIDNEST.
 VARIDNEST2 -> REPTIDNEST1.
 
-VISIBILITY -> public.
-VISIBILITY -> private.
+VISIBILITY -> public (Action 1).
+VISIBILITY -> private (Action 1).
+
+Action 0 -> makeNull()
+Action 1 -> createNode(token)
+Action 2 -> makeFamily(Array)
+Action 3 -> makeFamily(VarDecl)
+Action 4 -> makeFamily(inheritanceList)
+Action 5 -> makeFamily(MemberDecl)
+Action 6 -> makeFamily(struct)
+Action 7 -> makeFamily(funcHead)
+Action 8 -> makeFamily(fParams)
+Action 9 -> makeFamily(ArrSize)
+Action 10 -> makeFamily(FParams)
+Action 11 -> makeFamily(FParamsTail)
+Action 12 -> makeFamily(IMPLDEF)
+Action 13 -> makeFamily(FUNCLIST)
+Action 14 -> makeFamily(FUNCDEF)
+Action 15 -> makeFamily(VARORSTATLIST)

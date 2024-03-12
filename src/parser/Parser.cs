@@ -1,3 +1,4 @@
+using System.Formats.Asn1;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
@@ -9,6 +10,8 @@ public class Parser{
     private Token lookahead = new Token();
     String outputStr = "";
     private List<String> derivation;
+
+    private Node ast;
     
 
     public Parser(string path, List<Token> list)
@@ -17,19 +20,21 @@ public class Parser{
         this.outputFilePath = path;
         this.tokenList = list;
         this.lookahead = tokenList[counter];
+        ast = new Node();
     }
+
+    private int idNodeCount;
 
     private void match(TokenType t){
         if(lookahead.GetTokenType() == t){
             outputStr += lookahead.GetName() + " ";
             derivation.Add(lookahead.GetName() + " ");
-            lookahead = nextToken();
-             
+            lookahead = nextToken();             
         }
+
         else{
             lookahead = nextToken();
-            throw new ParseException("Unexpected token: expected " + t + " but found " + lookahead);
-        
+            throw new ParseException("Unexpected token: expected " + t + " but found " + lookahead);       
         }
     }
 
@@ -125,75 +130,138 @@ public class Parser{
     /*
         STRUCTDECL -> struct id OPTSTRUCTDECL2 lcurbr REPTSTRUCTDECL4 rcurbr semi 
     */
-    private void StructDecl(){
-
+    private Node StructDecl(){
+            Node structNode = new();
         match(TokenType.STRUCT);
+            Node idNode = new Node("struct id " + lookahead.GetName(),NodeType.ID);
+            idNode._value += idNodeCount;
+            idNodeCount++;
         match(TokenType.ID);
+            Node inheritanceNode = new();
         if(lookahead.GetTokenType() == TokenType.INHERITS){
-            OptStructDecl2();
+             inheritanceNode = OptStructDecl2();
+        }
+        else{
+            inheritanceNode = ast.MakeEmptyNode();
+            inheritanceNode._value = "Empty inheritance list";
         }
 
         match(TokenType.OPENCUBR);
-
-        outputStr += "ReptStructDecl4 ";
+        Node contentNode = new();
         if(lookahead.GetTokenType() == TokenType.PUBLIC ||lookahead.GetTokenType() == TokenType.PRIVATE){
-            ReptStructDecl4();
+            contentNode = ReptStructDecl4();
+            contentNode._value = "Content Node";
         }
         match(TokenType.CLOSECUBR);
         match(TokenType.SEMI);
+        structNode = ast.makeFamily(NodeType.STRUCT,idNode,inheritanceNode,contentNode);
+        structNode._value = "Struct ";
+        Console.WriteLine(structNode.ToDotString());
         
+        return structNode;
     }
 
     /*
         OPTSTRUCTDECL2 -> inherits id REPTOPTSTRUCTDECL22  . 
         OPTSTRUCTDECL2 ->  . 
     */
-    private void OptStructDecl2(){
+    private Node OptStructDecl2(){
+        int count = 0;
         match(TokenType.INHERITS);
+            Node idNode = new Node(lookahead.GetName(), NodeType.ID);
+            idNode._value += idNodeCount;
+            idNodeCount++;
         match(TokenType.ID);
-        if (lookahead.GetTokenType() == TokenType.COMMA){
-            ReptOptStructDecl22();   
+        // if (lookahead.GetTokenType() == TokenType.COMMA){
+        //     ReptOptStructDecl22();   
+        // }
+        // else{
+        //     //do  nothing
+        // }
+        List<Node> parameters = new()
+        {
+            idNode
+        };
+        while(lookahead.GetTokenType() == TokenType.COMMA){
+            parameters.Add(ReptOptStructDecl22());
         }
-        else{
-            //do  nothing
-        }
-
+        Node inheritsNode = new Node();
+        inheritsNode = ast.makeFamily(NodeType.INHERITSLIST,parameters.ToArray());
+        inheritsNode._value = "inherits list " + count;
+        count++;
+        return inheritsNode;
     }
 
     /*
         REPTOPTSTRUCTDECL22 -> comma id REPTOPTSTRUCTDECL22  . 
         REPTOPTSTRUCTDECL22 ->  .
     */
-    private void ReptOptStructDecl22(){
+    private Node ReptOptStructDecl22(){
+        
         match(TokenType.COMMA);
+            Node idNode = new Node(lookahead.GetName(),NodeType.ID);
+            idNode._value += idNodeCount;
+            idNodeCount++;
         match(TokenType.ID);
-        if(lookahead.GetTokenType() == TokenType.COMMA){
-            ReptOptStructDecl22();
+        List<Node> parameters = new() { idNode };
+        // if(lookahead.GetTokenType() == TokenType.COMMA){
+        //     ReptOptStructDecl22();
+        // }
+        // else{
+        //     //do nothing
+        // }
+        while(lookahead.GetTokenType() == TokenType.COMMA){
+            parameters.Add(ReptOptStructDecl22());
         }
-        else{
-            //do nothing
-        }
+        return ast.makeFamily(NodeType.INHERITSLIST,parameters.ToArray());
+
     }
 
     /*
         REPTSTRUCTDECL4 -> VISIBILITY MEMBERDECL REPTSTRUCTDECL4  . 
         REPTSTRUCTDECL4 ->  . 
     */
-    private void ReptStructDecl4(){
+    private Node ReptStructDecl4(){
 
-        if(lookahead.GetTokenType() == TokenType.PUBLIC){
-            match(TokenType.PUBLIC);
-            MemberDecl();
-            ReptStructDecl4();
+        // if(lookahead.GetTokenType() == TokenType.PUBLIC){
+        //     match(TokenType.PUBLIC);
+        //     MemberDecl();
+        //     ReptStructDecl4();
+        // }
+        // else if(lookahead.GetTokenType() == TokenType.PRIVATE){
+        //     match(TokenType.PRIVATE);
+        //     MemberDecl();
+        //     ReptStructDecl4();
+        // }
+        // else{
+        //     //do nothing
+        // }
+        List<Node> declarationList = new();
+        int count = 0;
+        while(lookahead.GetTokenType() == TokenType.PUBLIC || lookahead.GetTokenType() == TokenType.PRIVATE){
+            if(lookahead.GetTokenType() == TokenType.PUBLIC){
+                match(TokenType.PUBLIC);
+                Node publicNode = new Node(NodeType.PUBLIC);
+                Node decl = MemberDecl();
+                decl._value += count;
+                declarationList.Add(decl);
+                count ++;
+                
+            }
+            else if(lookahead.GetTokenType() == TokenType.PRIVATE){
+                Node privateNode = new Node(NodeType.PRIVATE);
+                match(TokenType.PRIVATE);
+                Node decl = MemberDecl();
+                decl._value += count;
+                declarationList.Add(decl);
+                count ++;
+            }
+            else{
+                //do nothing
+            }
         }
-        else if(lookahead.GetTokenType() == TokenType.PRIVATE){
-            match(TokenType.PRIVATE);
-            MemberDecl();
-            ReptStructDecl4();
-        }
-        else{
-            //do nothing
-        }
+        Node memberDeclNode = ast.makeFamily(NodeType.MEMBERDECL,declarationList.ToArray());
+        return memberDeclNode;
 
     }
 
@@ -201,90 +269,173 @@ public class Parser{
         MEMBERDECL -> FUNCDECL  . 
         MEMBERDECL -> VARDECL  . 
     */
-    private void MemberDecl(){
+    private Node MemberDecl(){
         if(lookahead.GetTokenType() == TokenType.FUNC){
-            FuncDecl();
+            return FuncDecl();
         }
         else if(lookahead.GetTokenType() == TokenType.LET){
-            VarDecl();
+            return VarDecl();
+        }
+        else{
+            return new Node("No Member or Var Decl",NodeType.EMPTY);
         }
     }
 
     /*
         FUNCDECL -> FUNCHEAD semi  .
     */
-    private void FuncDecl(){
-        FuncHead();
+    private Node FuncDecl(){
+        Node FuncDecl = FuncHead();
+        
         match(TokenType.SEMI);
+        return FuncDecl;
     }
 
 
     /*
         FUNCHEAD -> func id lpar FPARAMS rpar arrow RETURNTYPE  .
     */
-    private void FuncHead(){
+    private int fParamsCount = 1;
+    private int returnTypeCount = 1;
+    private Node FuncHead(){
+            Node funcHead = new Node();
         match(TokenType.FUNC);
+            Node funcId = new Node(lookahead.GetName(),NodeType.ID);
+            funcId._value += idNodeCount;
+            idNodeCount++;
         match(TokenType.ID);
         match(TokenType.OPENPAR);
+            Node parameters = new Node();
         if(lookahead.GetTokenType() == TokenType.ID){
-            Fparams();
+            parameters = Fparams();
+            parameters._value += fParamsCount;
+            fParamsCount ++;
         }
         match(TokenType.CLOSEPAR);
         match(TokenType.ARROW);
-        ReturnType();
+            Node returnType = new Node();
+            returnType = ReturnType();
+            returnType._value = "Return " + returnType._value ;
+            
+        //might be wrong
+        if(parameters._value == ""){
+            funcHead = ast.makeFamily(NodeType.FUNCHEAD,funcId,returnType);
+        }else{
+            funcHead = ast.makeFamily(NodeType.FUNCHEAD, funcId, parameters, returnType);
+        }
+        funcHead._value = "FuncHead";
+        return funcHead;
     }
 
     /*
         FPARAMS -> id colon TYPE REPTFPARAMS3 REPTFPARAMS4  . 
         FPARAMS ->  .
     */
-    private void Fparams(){
+    private int fParamType;
+    private int noArrayElement;
+    private Node Fparams(){
+        Node fParams = new Node();
         if(lookahead.GetTokenType() == TokenType.ID){
+            Node idNode = new Node(lookahead.GetName(),NodeType.ID);
+            idNode._value += idNodeCount;
+            idNodeCount++;
             match(TokenType.ID);
             match(TokenType.COLON);
-            Type();
-            ReptFParams3();
-            ReptFParams4();
+                var typeNode = Type();
+                typeNode._value = "Param Type: " + typeNode._type + fParamType;
+                fParamType ++;
+                //potential arrayParameter
+                Node arrayParams = ReptFParams3();
+
+
+            Node restOfParams = ReptFParams4();
+            if(arrayParams._value == ""){
+                arrayParams._value = "No Array Element" + noArrayElement;
+                noArrayElement ++;
+            }           
+            fParams = ast.makeFamily(NodeType.FPARAMS, typeNode, idNode, arrayParams,restOfParams);    
+            
+            // else{
+            //     fParams = ast.makeFamily(NodeType.FPARAMS,typeNode,idNode,restOfParams);
+            // }
+                fParams._value = "fParams";
+            return fParams;
         }
         else{
             //do nothing
+            return null;
         }
+
     }
 
     /*
         REPTFPARAMS3 -> ARRAYSIZE REPTFPARAMS3  . 
         REPTFPARAMS3 ->  .
     */
-    private void ReptFParams3(){
-        if(lookahead.GetTokenType() == TokenType.OPENSQBR){
-            ArraySize();
-            ReptFParams3();
+    private Node ReptFParams3(){
+        List<Node> parameters = new();
+        // if(lookahead.GetTokenType() == TokenType.OPENSQBR){
+        //     ArraySize();
+        //     ReptFParams3();
+        // }
+        // else{
+        //     //do nothing
+        // }
+        while(lookahead.GetTokenType() == TokenType.OPENSQBR){
+            parameters.Add(ArraySize());
+        }
+        // if(parameters.Count > 0 && parameters[parameters.Count-1] == null){
+        //     parameters.RemoveAt(parameters.Count-1);
+        // }
+        if(parameters.Count == 0){
+            return ast.MakeEmptyNode();
         }
         else{
-            //do nothing
+            for (int i = 0; i < parameters.Count; i++)
+            {
+                if (parameters[i] == null)
+                {
+                    var newNode = new Node();
+                    newNode._type = NodeType.ARR;
+                    newNode._value = "[]" +i ;
+                    parameters[i] = newNode;
+                }               
+                
+            }
+
+            //Console.WriteLine(parameters);
+            Node reptFParams3 = ast.makeFamily(NodeType.ARRSIZE,parameters.ToArray());
+            reptFParams3._value = "Array Size" + String.Concat(Enumerable.Repeat(" ", ArraySizeCount));
+            ArraySizeCount++;
+            return reptFParams3;        
         }
+
 
     }
 
     /*
         ARRAYSIZE -> lsqbr ARRAYSIZE2  .
     */
-    public void ArraySize(){
+    public Node ArraySize(){
         match(TokenType.OPENSQBR);
-        ArraySize2();
+        return ArraySize2();
     }
 
     /*
         ARRAYSIZE2 -> intlit rsqbr .
         ARRAYSIZE2 -> rsqbr .
     */
-    public void ArraySize2(){
+    public Node ArraySize2(){
         if(lookahead.GetTokenType() == TokenType.INTNUM){
+            string num = lookahead.GetName();
             match(TokenType.INTNUM);
+            
             match(TokenType.CLOSESQBR);
+            return new Node(num,NodeType.INTLIT);
         }
         else{
             match(TokenType.CLOSESQBR);
+            return null;
         }
     }
 
@@ -292,52 +443,121 @@ public class Parser{
         REPTFPARAMS4 -> FPARAMSTAIL REPTFPARAMS4  . 
         REPTFPARAMS4 ->  . 
     */
-    private void ReptFParams4(){
-        if(lookahead.GetTokenType() == TokenType.COMMA){
-            FParamsTail();
-            ReptFParams4();
+    private int paramTailCount = 0;
+    private Node ReptFParams4(){
+        // if(lookahead.GetTokenType() == TokenType.COMMA){
+        //     FParamsTail();
+        //     ReptFParams4();
+        // }
+        // else{
+        //     //do nothing
+        // }
+        List<Node> parameters = new List<Node>();
+        while(lookahead.GetTokenType() == TokenType.COMMA){
+            parameters.Add(FParamsTail());
+        }
+
+        if(parameters.Count > 0 && parameters[parameters.Count-1] == null){
+            parameters.RemoveAt(parameters.Count-1);
+        }
+        
+
+        foreach (var item in parameters)
+        {
+            item._value = "parameter Tail " + paramTailCount;
+            paramTailCount++;
+        }
+
+        Node reptFParams = ast.makeFamily(NodeType.FPARAMS,parameters.ToArray());
+        if(parameters.Count == 0){
+            Node tail = new Node("No param tail " + paramTailCount,NodeType.EMPTY);
+            paramTailCount++;
+            return tail;
         }
         else{
-            //do nothing
-        }           
+            reptFParams._value = "FParam Tail " + paramTailCount;
+            paramTailCount++;
+            return reptFParams;        
+        }
+
     }
 
     /*
         FPARAMSTAIL -> comma id colon TYPE REPTFPARAMSTAIL4  .
     */
-    private void FParamsTail(){
+    private Node FParamsTail(){
+        
         match(TokenType.COMMA);
+        Node idNode = new Node(lookahead.GetName(), NodeType.ID);
+        idNode._value += idNodeCount;
+        idNodeCount++;
         match(TokenType.ID);
         match(TokenType.COLON);
-        Type();
-        ReptFParamsTail4();
+        Node type = Type();
+        
+        Node potentialArrSize = ReptFParamsTail4();
+        
 
+        Node FParamsTail = new Node();
+        FParamsTail = ast.makeFamily(NodeType.FPARAMSTAIL,type,idNode,potentialArrSize);
+        
+        return FParamsTail;
     }
 
     /*
         REPTFPARAMSTAIL4 -> ARRAYSIZE REPTFPARAMSTAIL4  . 
         REPTFPARAMSTAIL4 ->  .
     */
-    private void ReptFParamsTail4(){
-        if(lookahead.GetTokenType() == TokenType.OPENSQBR){
-            ArraySize();
-            ReptFParamsTail4();
+    private Node ReptFParamsTail4(){
+        // if(lookahead.GetTokenType() == TokenType.OPENSQBR){
+        //     ArraySize();
+        //     ReptFParamsTail4();
+        // }
+        // else{
+        //     //do nothing
+        // }
+        List<Node> parameters = new();
+        while(lookahead.GetTokenType() == TokenType.OPENSQBR){
+            parameters.Add(ArraySize());
+        }
+
+        if(parameters.Count == 0){
+            return ast.MakeEmptyNode();
         }
         else{
-            //do nothing
+            for (int i = 0; i < parameters.Count; i++)
+            {
+                if (parameters[i] == null)
+                {
+                    var newNode = new Node();
+                    newNode._type = NodeType.ARR;
+                    newNode._value = "[]" +i ;
+                    parameters[i] = newNode;
+                }               
+                
+            }
+
+            //Console.WriteLine(parameters);
+            Node reptFParams = ast.makeFamily(NodeType.ARRSIZE,parameters.ToArray());
+            reptFParams._value = "Array Size" + String.Concat(Enumerable.Repeat(" ", ArraySizeCount));
+            ArraySizeCount++;
+            return reptFParams;        
         }
+                
+
     }
 
     /*
         RETURNTYPE -> TYPE  . 
         RETURNTYPE -> void  .
     */
-    private void ReturnType(){
+    private Node ReturnType(){
         if(lookahead.GetTokenType() == TokenType.VOID){
             match(TokenType.VOID);
+            return new Node("void",NodeType.VOID);
            }
         else{
-            Type();
+            return Type();
         }
     }
 
@@ -346,115 +566,203 @@ public class Parser{
         TYPE -> float  . 
         TYPE -> id  .
     */
-    private void Type(){
+    private Node Type(){
+        string tok = lookahead.GetName();
+        Node typeNode = new Node();
         switch (lookahead.GetTokenType())
         {
             case TokenType.INTEGER:
+                
                 match(TokenType.INTEGER);
-                break;
+                typeNode._type = NodeType.INT;
+                typeNode._value = "Type: " + typeNode._type + returnTypeCount;
+                returnTypeCount++;
+                return typeNode;
+                
             case TokenType.FLOAT:
                 match(TokenType.FLOAT);
-                break;
+                
+                typeNode._type = NodeType.FLOAT;
+                typeNode._value = "Type: " + typeNode._type + returnTypeCount;
+                returnTypeCount++;
+                return typeNode;
+
             case TokenType.ID:
                 match(TokenType.ID);
-                break;
+                typeNode._type = NodeType.ID;
+                typeNode._value = "Type: " + typeNode._type + returnTypeCount;
+                returnTypeCount++;
+                return typeNode;
+           
             default:
                 Console.WriteLine("Error buddy");
-                break;
+                return null;
         }
 
     }
     /*
         VARDECL -> let id colon TYPE REPTVARDECL4 semi  . 
     */
-    private void VarDecl(){
+    private Node VarDecl(){
+            Node VarDecl = new();
         match(TokenType.LET);
+
+            var idNode = new Node(lookahead.GetName(),NodeType.ID);
+            idNode._value += idNodeCount;
+            idNodeCount++;
         match(TokenType.ID);
         match(TokenType.COLON);
-        Type();
-        ReptVarDecl4();
+
+            Node type = Type();
+            Node array = ReptVarDecl4();
+
         match(TokenType.SEMI);
-        
+
+            if (array._value == "")
+            {
+                VarDecl = ast.makeFamily(NodeType.VARDECL,type,idNode);
+                VarDecl._value = "Variable declaration";
+            }
+            else{
+                VarDecl = ast.makeFamily(NodeType.VARDECL,type,idNode,array);
+                VarDecl._value = "variable declaration";
+            }
+        return VarDecl;
     }
 
     /*
         REPTVARDECL4 -> ARRAYSIZE REPTVARDECL4  . 
         REPTVARDECL4 ->  .
     */
-    private void ReptVarDecl4(){
-        if(lookahead.GetTokenType() == TokenType.OPENSQBR){
-            ArraySize();
-            ReptVarDecl4();
+    private int ArraySizeCount = 0;
+    private Node ReptVarDecl4(){
+        List<Node> parameters = new();
+
+        while(lookahead.GetTokenType() == TokenType.OPENSQBR){
+            parameters.Add(ArraySize());            
+        }
+        
+        // if(lookahead.GetTokenType() == TokenType.OPENSQBR){
+        //     parameters.Add(ArraySize());
+        //     ReptVarDecl4();
+        // }
+        // else{
+        //     //do nothing
+        //     return null;
+        // }
+        if(parameters.Count > 0 && parameters[parameters.Count-1] == null){
+            parameters.RemoveAt(parameters.Count-1);
+        }
+        Node reptVarDecl4 = ast.makeFamily(NodeType.ARRSIZE,parameters.ToArray());
+        if(parameters.Count == 0){
+            return ast.MakeEmptyNode();
         }
         else{
-            //do nothing
+            reptVarDecl4._value = "Array Size" + String.Concat(Enumerable.Repeat(" ", ArraySizeCount));
+            ArraySizeCount++;
+            return reptVarDecl4;        
         }
+
     }
-    private void ImplDef(){
+    private Node ImplDef(){
         match(TokenType.IMPL);
+            Node idNode = new Node(lookahead.GetName(),NodeType.ID);
         match(TokenType.ID);
         match(TokenType.OPENCUBR);
-        ReptImplDef3();
+        Node implContent = ReptImplDef3();
         match(TokenType.CLOSECUBR);
+            Node implDef = new();
+            implDef = ast.makeFamily(NodeType.IMPLDEF,idNode,implContent);
+            implDef._value = "Implementation Definition";
+        Console.WriteLine(implDef.ToDotString());    
+            return implDef;
+        
     }
 
     /*
         REPTIMPLDEF3 -> FUNCDEF REPTIMPLDEF3.
         REPTIMPLDEF3 ->.
     */
-    private void ReptImplDef3(){
-        if(lookahead.GetTokenType() == TokenType.FUNC){
-            FuncDef();
-            ReptImplDef3();
+    private Node ReptImplDef3(){
+        // if(lookahead.GetTokenType() == TokenType.FUNC){
+        //     FuncDef();
+        //     ReptImplDef3();
+        // }
+        // else{
+        //     //do nothng
+        // }
+        List<Node> implList = new();
+        while(lookahead.GetTokenType() == TokenType.FUNC){
+            implList.Add(FuncDef());
         }
-        else{
-            //do nothng
-        }
+
+        Node implListNode = new();
+        implListNode = ast.makeFamily(NodeType.FUNCLIST,implList.ToArray());
+        return implListNode;
 
     }
     /*
         FUNCDEF -> FUNCHEAD FUNCBODY.
     */
-    private void FuncDef(){
-        FuncHead();
-        FuncBody();
+    private Node FuncDef(){
+        Node funcHead = FuncHead();
+        Node funcBody = FuncBody();
+        Node FuncDef = new Node();
+        FuncDef = ast.makeFamily(NodeType.FUNCDEF, funcHead, funcBody);
+        return FuncDef;
     }
     
-    private void FuncBody(){
+    private Node FuncBody(){
         match(TokenType.OPENCUBR);
-        ReptFuncBody1();
+        Node FuncBody = ReptFuncBody1();
         match(TokenType.CLOSECUBR);
+        return FuncBody;
     }
 
     //to Fix
     //FIIIIX
-    private void ReptFuncBody1(){
+    private Node ReptFuncBody1(){
         
-        if(lookahead.GetTokenType() == TokenType.LET ||
+        // if(lookahead.GetTokenType() == TokenType.LET ||
+        //     lookahead.GetTokenType() == TokenType.ID ||
+        //     lookahead.GetTokenType() == TokenType.IF ||
+        //     lookahead.GetTokenType() == TokenType.WHILE||
+        //     lookahead.GetTokenType() == TokenType.READ ||
+        //     lookahead.GetTokenType() == TokenType.WRITE||
+        //     lookahead.GetTokenType() == TokenType.RETURN){
+
+        //     VarDeclOrStatement();
+        //     ReptFuncBody1();
+        // }else{
+        //     //do nothing
+        // }
+        List<Node> varOrStatementList = new();
+        while(lookahead.GetTokenType() == TokenType.LET ||
             lookahead.GetTokenType() == TokenType.ID ||
             lookahead.GetTokenType() == TokenType.IF ||
             lookahead.GetTokenType() == TokenType.WHILE||
             lookahead.GetTokenType() == TokenType.READ ||
             lookahead.GetTokenType() == TokenType.WRITE||
             lookahead.GetTokenType() == TokenType.RETURN){
+                varOrStatementList.Add(VarDeclOrStatement());
+            }
+        Node reptFuncBody1Node = new Node();
+        reptFuncBody1Node = ast.makeFamily(NodeType.VARORSTATLIST,varOrStatementList.ToArray());
+        return reptFuncBody1Node;    
 
-            VarDeclOrStatement();
-            ReptFuncBody1();
-        }else{
-            //do nothing
-        }
+
     }
 
-    private void VarDeclOrStatement(){
+    private Node VarDeclOrStatement(){
         if(lookahead.GetTokenType() == TokenType.LET){
-            VarDecl();
+            return VarDecl();
         }
         else{
-            Statement();
+            return Statement();
         }
     }
 
-    private void Statement(){
+    private Node Statement(){
         switch (lookahead.GetTokenType())
         {
             case TokenType.ID:
@@ -512,6 +820,7 @@ public class Parser{
                 Console.WriteLine("Error in the statement");
             break;
         }
+        return new Node();
 
     }
 

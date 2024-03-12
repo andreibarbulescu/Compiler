@@ -1,3 +1,7 @@
 struct simple inherits anotherClass{
 
 };
+
+struct POLYNOMIAL {
+	public func evaluate(x: float) -> float;
+};
