@@ -61,7 +61,7 @@ impl LINEAR {
   func evaluate(x: float) -> float 
   {
     let result: float;
-    result = 0.0;
+    result = 2.2;
     result = a * x + b;
     return (result);
   }
@@ -73,7 +73,7 @@ func main() -> void
   let f2: QUADRATIC;
   let counter: integer;
   f1 = f1.build(2, 3.5);
-  f2 = f2.build(-2.0, 1.0, 0.0);
+  f2 = f2.build(2, 9);
   counter = 1;
 	
   while(counter <= 10)

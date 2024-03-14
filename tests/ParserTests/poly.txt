@@ -1,0 +1,16 @@
+impl LINEAR {
+  func build(A: float, B: float) -> LINEAR 
+  {
+    let new_function: LINEAR;
+    new_function.a = A;
+    new_function.b = B;
+    return (new_function);
+  }
+  func evaluate(x: float) -> float 
+  {
+    let result: float;
+    result = 5;
+    result = a * x + b;
+    return (result);
+  }
+} 

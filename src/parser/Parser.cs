@@ -104,7 +104,11 @@ public class Parser{
         replace("Start", "Prog");
         replace("Prog","ReptProg0");
         ReptProg0();
+        foreach(var item in members){
+            Console.WriteLine(item.ToDotString());
+        }
     }
+    private List<Node> members = new();
 
     private void ReptProg0(){
         
@@ -113,15 +117,16 @@ public class Parser{
         outputStr += "ReptProg0\n";
         if(lookahead.GetTokenType() == TokenType.STRUCT){
             outputStr += "StructDecl ReptProg0 \n";
-            StructDecl();
+            members.Add(StructDecl());
             ReptProg0();
         }
         else if(lookahead.GetTokenType() == TokenType.IMPL){
-            ImplDef();
+            members.Add(ImplDef());
             ReptProg0();
         }
         else if (lookahead.GetTokenType() == TokenType.FUNC){
-            FuncDef();
+            members.Add(FuncDef());
+            //Console.WriteLine(func.ToDotString());
             ReptProg0();
         }
         
@@ -130,11 +135,12 @@ public class Parser{
     /*
         STRUCTDECL -> struct id OPTSTRUCTDECL2 lcurbr REPTSTRUCTDECL4 rcurbr semi 
     */
+    int structCount = 0;
     private Node StructDecl(){
             Node structNode = new();
         match(TokenType.STRUCT);
             Node idNode = new Node("struct id " + lookahead.GetName(),NodeType.ID);
-            idNode._value += idNodeCount;
+            idNode._value = "struct id" + String.Concat(Enumerable.Repeat(" ", idNodeCount));
             idNodeCount++;
         match(TokenType.ID);
             Node inheritanceNode = new();
@@ -155,7 +161,8 @@ public class Parser{
         match(TokenType.CLOSECUBR);
         match(TokenType.SEMI);
         structNode = ast.makeFamily(NodeType.STRUCT,idNode,inheritanceNode,contentNode);
-        structNode._value = "Struct ";
+        structNode._value = "Struct" + String.Concat(Enumerable.Repeat(" ", structCount));
+        structCount++;
         Console.WriteLine(structNode.ToDotString());
         
         return structNode;
@@ -169,15 +176,10 @@ public class Parser{
         int count = 0;
         match(TokenType.INHERITS);
             Node idNode = new Node(lookahead.GetName(), NodeType.ID);
-            idNode._value += idNodeCount;
+            idNode._value = lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount));
             idNodeCount++;
         match(TokenType.ID);
-        // if (lookahead.GetTokenType() == TokenType.COMMA){
-        //     ReptOptStructDecl22();   
-        // }
-        // else{
-        //     //do  nothing
-        // }
+
         List<Node> parameters = new()
         {
             idNode
@@ -200,16 +202,11 @@ public class Parser{
         
         match(TokenType.COMMA);
             Node idNode = new Node(lookahead.GetName(),NodeType.ID);
-            idNode._value += idNodeCount;
+            idNode._value +=idNode._value = lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)); 
             idNodeCount++;
         match(TokenType.ID);
         List<Node> parameters = new() { idNode };
-        // if(lookahead.GetTokenType() == TokenType.COMMA){
-        //     ReptOptStructDecl22();
-        // }
-        // else{
-        //     //do nothing
-        // }
+
         while(lookahead.GetTokenType() == TokenType.COMMA){
             parameters.Add(ReptOptStructDecl22());
         }
@@ -223,19 +220,6 @@ public class Parser{
     */
     private Node ReptStructDecl4(){
 
-        // if(lookahead.GetTokenType() == TokenType.PUBLIC){
-        //     match(TokenType.PUBLIC);
-        //     MemberDecl();
-        //     ReptStructDecl4();
-        // }
-        // else if(lookahead.GetTokenType() == TokenType.PRIVATE){
-        //     match(TokenType.PRIVATE);
-        //     MemberDecl();
-        //     ReptStructDecl4();
-        // }
-        // else{
-        //     //do nothing
-        // }
         List<Node> declarationList = new();
         int count = 0;
         while(lookahead.GetTokenType() == TokenType.PUBLIC || lookahead.GetTokenType() == TokenType.PRIVATE){
@@ -301,7 +285,7 @@ public class Parser{
             Node funcHead = new Node();
         match(TokenType.FUNC);
             Node funcId = new Node(lookahead.GetName(),NodeType.ID);
-            funcId._value += idNodeCount;
+            funcId._value = lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount));
             idNodeCount++;
         match(TokenType.ID);
         match(TokenType.OPENPAR);
@@ -337,7 +321,7 @@ public class Parser{
         Node fParams = new Node();
         if(lookahead.GetTokenType() == TokenType.ID){
             Node idNode = new Node(lookahead.GetName(),NodeType.ID);
-            idNode._value += idNodeCount;
+            idNode._value = lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount));
             idNodeCount++;
             match(TokenType.ID);
             match(TokenType.COLON);
@@ -464,18 +448,18 @@ public class Parser{
 
         foreach (var item in parameters)
         {
-            item._value = "parameter Tail " + paramTailCount;
+            item._value = "parameter Tail " + String.Concat(Enumerable.Repeat(" ", paramTailCount));
             paramTailCount++;
         }
 
         Node reptFParams = ast.makeFamily(NodeType.FPARAMS,parameters.ToArray());
         if(parameters.Count == 0){
-            Node tail = new Node("No param tail " + paramTailCount,NodeType.EMPTY);
+            Node tail = new Node("No param tail " + String.Concat(Enumerable.Repeat(" ", paramTailCount)),NodeType.EMPTY);
             paramTailCount++;
             return tail;
         }
         else{
-            reptFParams._value = "FParam Tail " + paramTailCount;
+            reptFParams._value = "FParam Tail " + String.Concat(Enumerable.Repeat(" ", paramTailCount));
             paramTailCount++;
             return reptFParams;        
         }
@@ -508,6 +492,7 @@ public class Parser{
         REPTFPARAMSTAIL4 -> ARRAYSIZE REPTFPARAMSTAIL4  . 
         REPTFPARAMSTAIL4 ->  .
     */
+    private int emptyNodeCount = 0;
     private Node ReptFParamsTail4(){
         // if(lookahead.GetTokenType() == TokenType.OPENSQBR){
         //     ArraySize();
@@ -522,7 +507,10 @@ public class Parser{
         }
 
         if(parameters.Count == 0){
-            return ast.MakeEmptyNode();
+            Node empty = new("empty",NodeType.EMPTY);
+            empty._value = "empty" + String.Concat(Enumerable.Repeat(" ", emptyNodeCount));
+            emptyNodeCount++;
+            return empty;
         }
         else{
             for (int i = 0; i < parameters.Count; i++)
@@ -575,7 +563,7 @@ public class Parser{
                 
                 match(TokenType.INTEGER);
                 typeNode._type = NodeType.INT;
-                typeNode._value = "Type: " + typeNode._type + returnTypeCount;
+                typeNode._value = "Type: " + typeNode._type + String.Concat(Enumerable.Repeat(" ", returnTypeCount));
                 returnTypeCount++;
                 return typeNode;
                 
@@ -583,14 +571,14 @@ public class Parser{
                 match(TokenType.FLOAT);
                 
                 typeNode._type = NodeType.FLOAT;
-                typeNode._value = "Type: " + typeNode._type + returnTypeCount;
+                typeNode._value = "Type: " + typeNode._type + String.Concat(Enumerable.Repeat(" ", returnTypeCount));
                 returnTypeCount++;
                 return typeNode;
 
             case TokenType.ID:
                 match(TokenType.ID);
                 typeNode._type = NodeType.ID;
-                typeNode._value = "Type: " + typeNode._type + returnTypeCount;
+                typeNode._value = "Type: " + typeNode._type + String.Concat(Enumerable.Repeat(" ", returnTypeCount));
                 returnTypeCount++;
                 return typeNode;
            
@@ -673,8 +661,7 @@ public class Parser{
         match(TokenType.CLOSECUBR);
             Node implDef = new();
             implDef = ast.makeFamily(NodeType.IMPLDEF,idNode,implContent);
-            implDef._value = "Implementation Definition";
-        Console.WriteLine(implDef.ToDotString());    
+            implDef._value = "Implementation Definition";           
             return implDef;
         
     }
@@ -683,6 +670,7 @@ public class Parser{
         REPTIMPLDEF3 -> FUNCDEF REPTIMPLDEF3.
         REPTIMPLDEF3 ->.
     */
+    int funcImplListCount = 0;
     private Node ReptImplDef3(){
         // if(lookahead.GetTokenType() == TokenType.FUNC){
         //     FuncDef();
@@ -698,18 +686,29 @@ public class Parser{
 
         Node implListNode = new();
         implListNode = ast.makeFamily(NodeType.FUNCLIST,implList.ToArray());
+            implListNode._value = "Func Impl List" + String.Concat(Enumerable.Repeat(" ", funcImplListCount));
+            funcImplListCount++;
         return implListNode;
 
     }
     /*
         FUNCDEF -> FUNCHEAD FUNCBODY.
     */
+    int funcDefCount = 0;
+    int FuncHeadspace = 0;
+    int funcBodyCount = 0;
     private Node FuncDef(){
         Node funcHead = FuncHead();
+            funcHead._value = "Func Head" + String.Concat(Enumerable.Repeat(" ", FuncHeadspace));
+            FuncHeadspace++;
         Node funcBody = FuncBody();
-        Node FuncDef = new Node();
-        FuncDef = ast.makeFamily(NodeType.FUNCDEF, funcHead, funcBody);
-        return FuncDef;
+            funcBody._value = "Func Body" + String.Concat(Enumerable.Repeat(" ", funcBodyCount));
+            funcBodyCount++;
+        Node funcDef = new Node();
+        funcDef = ast.makeFamily(NodeType.FUNCDEF, funcHead, funcBody);
+        funcDef._value = "Func Def" + String.Concat(Enumerable.Repeat(" ", funcDefCount));
+        funcDefCount++;
+        return funcDef;
     }
     
     private Node FuncBody(){
@@ -722,20 +721,6 @@ public class Parser{
     //to Fix
     //FIIIIX
     private Node ReptFuncBody1(){
-        
-        // if(lookahead.GetTokenType() == TokenType.LET ||
-        //     lookahead.GetTokenType() == TokenType.ID ||
-        //     lookahead.GetTokenType() == TokenType.IF ||
-        //     lookahead.GetTokenType() == TokenType.WHILE||
-        //     lookahead.GetTokenType() == TokenType.READ ||
-        //     lookahead.GetTokenType() == TokenType.WRITE||
-        //     lookahead.GetTokenType() == TokenType.RETURN){
-
-        //     VarDeclOrStatement();
-        //     ReptFuncBody1();
-        // }else{
-        //     //do nothing
-        // }
         List<Node> varOrStatementList = new();
         while(lookahead.GetTokenType() == TokenType.LET ||
             lookahead.GetTokenType() == TokenType.ID ||
@@ -752,24 +737,45 @@ public class Parser{
 
 
     }
-
+    int statementCount = 0;
+    int varDeclCount = 0;
     private Node VarDeclOrStatement(){
         if(lookahead.GetTokenType() == TokenType.LET){
-            return VarDecl();
+            Node varDecl = VarDecl();
+            varDecl._value = "Var Declaration" + String.Concat(Enumerable.Repeat(" ", varDeclCount));
+            varDeclCount++;
+            return varDecl;
         }
         else{
-            return Statement();
+            Node stateNode = new();
+            stateNode = Statement();
+            statementCount++;
+            return stateNode;
         }
     }
+    private int returnNodeCount;
+    private int ifNodeCount;
+    private int whileNodeCount;
+    private int readNodeCount;
+    private int writeNodeCount;
 
-    private Node Statement(){
+    private int statAssOrFunc = 0;
+    public Node Statement(){
+        Node statNode = new();
+        Node returnNode = new();
         switch (lookahead.GetTokenType())
         {
             case TokenType.ID:
+                Node idNode = new(lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)),NodeType.ID);
+                idNodeCount++;
                 match(TokenType.ID);
-                AssignStatOrFuncCall();
+                Node statParams = AssignStatOrFuncCall();
                 match(TokenType.SEMI);
-            break;
+                statNode = ast.makeFamily(NodeType.STATEMENT,idNode,statParams);
+                statNode._value = "Assign or Func Stat"+ String.Concat(Enumerable.Repeat(" ", statAssOrFunc));
+                statAssOrFunc++;
+                return statNode;
+            
 
             case TokenType.IF:
                 match(TokenType.IF);
@@ -788,7 +794,6 @@ public class Parser{
                 RelExpr();
                 match(TokenType.CLOSEPAR);
                 StatBlock();
-                lookahead.GetTokenType();
                 match(TokenType.SEMI);
             break;
 
@@ -809,11 +814,16 @@ public class Parser{
             break;
 
             case TokenType.RETURN:
+                
                 match(TokenType.RETURN);
                 match(TokenType.OPENPAR);
-                Expr();
+                 
+                returnNode = Expr();
+                returnNode._value = "Function Returns" + String.Concat(Enumerable.Repeat(" ", returnNodeCount));
+                returnNodeCount++;
                 match(TokenType.CLOSEPAR);
                 match(TokenType.SEMI);
+                return returnNode;
             break;
 
             default:
@@ -823,317 +833,476 @@ public class Parser{
         return new Node();
 
     }
-
-    public void AssignStatOrFuncCall(){
+private int assorFuncCount = 0;
+    public Node AssignStatOrFuncCall(){
+        Node assOrFun = new();
         if(lookahead.GetTokenType() == TokenType.OPENPAR){
             match(TokenType.OPENPAR);
-            AParams();
+            Node aparams = AParams();
             match(TokenType.CLOSEPAR);
-            AssignStatOrFuncCall3();
+            Node assOrFun3 = AssignStatOrFuncCall3();
+            assOrFun = ast.makeFamily(NodeType.ASSORFUNC,aparams,assOrFun3);
         }
         else{
-            ReptIdNest1();
-            AssignStatOrFuncCall2();
+            Node reptIDNest = ReptIdNest1();
+            Node assOrFunc2 = AssignStatOrFuncCall2();
+            assOrFun = ast.makeFamily(NodeType.ASSORFUNC,reptIDNest,assOrFunc2);
         }
+        assOrFun._value = "Assign or Func"+ String.Concat(Enumerable.Repeat(" ", assorFuncCount));
+            assorFuncCount++;
+        return assOrFun;
     }
-
-    public void AssignStatOrFuncCall2(){
+    private int assignCount = 0;
+    private int dotCount = 0;
+    public Node AssignStatOrFuncCall2(){
+        Node assOrFun2 = new();
         if(lookahead.GetTokenType() == TokenType.DOT){
             match(TokenType.DOT);
+                Node idNode = new(lookahead.GetName(),NodeType.ID);
             match(TokenType.ID);
-            AssignStatOrFuncCall();
+
+            Node assOrFun = AssignStatOrFuncCall();
+            assOrFun2 = ast.makeFamily(NodeType.FUNCCALL,idNode,assOrFun);
+            assOrFun2._value = "Func Call" + String.Concat(Enumerable.Repeat(" ", dotCount));
+            dotCount++;
         }
         else {
             match(TokenType.ASSIGN);
-            Expr();
+            Node espr = Expr();
+            assOrFun2 = ast.makeFamily(NodeType.ASSIGNEXPR,espr);
+            assOrFun2._value = "=" + String.Concat(Enumerable.Repeat(" ", assignCount));
+            assignCount++;
         }
+        return assOrFun2;
     }
 
-    public void AssignStatOrFuncCall3(){
+    public Node AssignStatOrFuncCall3(){
+        Node A3 = new();
         if(lookahead.GetTokenType() == TokenType.DOT){
             match(TokenType.DOT);
+                Node idNode = new(lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)),NodeType.ID);
+                idNodeCount++;
             match(TokenType.ID);
-            AssignStatOrFuncCall();
+            Node assignStatOrFuncCall = AssignStatOrFuncCall();
+            A3 = ast.makeFamily(NodeType.DOT, idNode,assignStatOrFuncCall);
         }
         else{
             //Do nothing
         }
+        return A3;
     }
 
-    public void Variable(){
+    public Node Variable(){
+        Node idNode = new(lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)),NodeType.ID);
+        idNodeCount++;
         match(TokenType.ID);
-        Variable2();
+        Node var2 = Variable2();
+        Node variable = ast.makeFamily(NodeType.VARIABLE,idNode,var2);
+        return variable;
     }
 
-    public void Variable2(){
+    public Node Variable2(){
+        Node variable2 = new();
         if(lookahead.GetTokenType() == TokenType.OPENPAR){
             match(TokenType.OPENPAR);
-            AParams();
+                var aparams = AParams();
             match(TokenType.CLOSEPAR);
-            VarIdNest();
+                var varidNest = VarIdNest();
+            return ast.makeFamily(NodeType.VARIABLE2,aparams,varidNest);
         }else{
-            ReptIdNest1();
-            ReptVariable();
+            var reptidnest = ReptIdNest1();
+            Node reptVariable = ReptVariable();
+            return ast.makeFamily(NodeType.VARIABLE2,reptidnest,reptVariable);
         }
     }
 
-    public void ReptVariable(){
-        if(lookahead.GetTokenType() == TokenType.DOT){
-            VarIdNest();
-            ReptVariable();
+    public Node ReptVariable(){
+        // if(lookahead.GetTokenType() == TokenType.DOT){
+        //     VarIdNest();
+        //     ReptVariable();
+        // }
+        // else{
+        //     //do nothing
+        // }
+    Node reptVariable = new();
+    List<Node> varIDNestList = new();    
+    while(lookahead.GetTokenType() == TokenType.DOT){
+            varIDNestList.Add(VarIdNest());
+            
         }
-        else{
-            //do nothing
-        }
+        reptVariable.makeFamily(NodeType.DOT,varIDNestList.ToArray());
+    return reptVariable;
+
+
     }
 
-    private void VarIdNest(){
+    private Node VarIdNest(){
         
-                match(TokenType.DOT);
-                match(TokenType.ID);
-                VarIdNest2();
+        match(TokenType.DOT);
+            Node idNode = new(lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)),NodeType.ID);
+                idNodeCount++;
+        match(TokenType.ID);
+            Node varidnest2 = VarIdNest2();
+            return ast.makeFamily(NodeType.VARIDNEST,idNode,varidnest2);
     }
 
-    private void VarIdNest2(){
+    private Node VarIdNest2(){
         if(lookahead.GetTokenType() == TokenType.OPENPAR){
             match(TokenType.OPENPAR);
-            AParams();
+            Node aparams = AParams();
             match(TokenType.CLOSEPAR);
-            VarIdNest();
+            Node varIDNest = VarIdNest();
+            return ast.makeFamily(NodeType.VARIDNEST2,aparams,varIDNest);
         }else{
-            ReptIdNest1();
+            return ReptIdNest1();
         }
     }
 
-    public void ReptStatBlock1(){
+    public Node ReptStatBlock1(){
+        Node stat = new();
+        Node statBlock = new();
          switch(lookahead.GetTokenType()) {
             
             case TokenType.ID:
-                Statement();
-                ReptStatBlock1();
+                 stat = Statement();
+                 statBlock = ReptStatBlock1();
+                return ast.makeFamily(NodeType.REPTSTATBLOCK,stat,statBlock);
             break;
             case TokenType.IF:
-                Statement();
-                ReptStatBlock1();
+                 stat = Statement();
+                 statBlock = ReptStatBlock1();
+                return ast.makeFamily(NodeType.REPTSTATBLOCK,stat,statBlock);
             break;                        
             case TokenType.WHILE:
-                Statement();
-                ReptStatBlock1();
+                 stat = Statement();
+                 statBlock = ReptStatBlock1();
+                return ast.makeFamily(NodeType.REPTSTATBLOCK,stat,statBlock);
             break;
             case TokenType.READ:
-                Statement();
-                ReptStatBlock1();
+                 stat = Statement();
+                statBlock = ReptStatBlock1();
+                return ast.makeFamily(NodeType.REPTSTATBLOCK,stat,statBlock);
             break;
             case TokenType.WRITE:
-                Statement();
-                ReptStatBlock1();
+                 stat = Statement();
+                 statBlock = ReptStatBlock1();
+                return ast.makeFamily(NodeType.REPTSTATBLOCK,stat,statBlock);
             break;
             case TokenType.RETURN:
-                Statement();
-                ReptStatBlock1();
+                 stat = Statement();
+                 statBlock = ReptStatBlock1();
+                return ast.makeFamily(NodeType.REPTSTATBLOCK,stat,statBlock);
             break;
             default:
+                return ast.MakeEmptyNode();
             break;
        }
     }
 
-    private void StatBlock(){
+    private Node StatBlock(){
        switch(lookahead.GetTokenType()) {
             case TokenType.OPENCUBR:
                 match(TokenType.OPENCUBR);
-                ReptStatBlock1();
+                Node block = ReptStatBlock1();
                 match(TokenType.CLOSECUBR);
-            break;
-
+                return block;
             case TokenType.ID:
-                Statement();
-            break;
+                return Statement();
             case TokenType.IF:
-                Statement();
-            break;                        
+                return Statement();
             case TokenType.WHILE:
-                Statement();
-            break;
+                return Statement();
             case TokenType.READ:
-                Statement();
-            break;
+                return Statement();
             case TokenType.WRITE:
-                Statement();
-            break;
+                return Statement();
             case TokenType.RETURN:
-                Statement();
-            break;
+                return Statement();
             default:
-            break;
+                return ast.MakeEmptyNode();
        }
     }
 
-    private void RelExpr(){
-        ArithExpr();
-        RelOp();
-        ArithExpr();
+    private Node RelExpr(){
+        Node arithexpr = ArithExpr();
+        Node relOp = RelOp();
+        Node arithexpr2 = ArithExpr();
+        Node relExpr = new();
+        relExpr = ast.makeFamily(NodeType.RELEXPR,arithexpr,relOp,arithexpr2);
+        return relExpr;
+    }
+    private int arithExprCount = 0;
+    private Node ArithExpr(){
+        Node term = Term();
+        Node rightRecArtithExpr = RightRecArithExpr();
+        Node ArithExpr = new();
+        ArithExpr = ast.makeFamily(NodeType.ARITHEXPR, term,rightRecArtithExpr);
+        ArithExpr._value = "Arith Expr"+ String.Concat(Enumerable.Repeat(" ", arithExprCount));
+        arithExprCount++;
+        return ArithExpr;
     }
 
-    private void ArithExpr(){
-        Term();
-        RightRecArithExpr();
+    private int rightRecArithEXPRCount = 0;
+    private int operationCount = 0;
+    private Node RightRecArithExpr(){
+
+        Node rightRecArithExpr = new();
+        List<Node> rightRecArithExprList = new();
+        while(lookahead.GetTokenType()== TokenType.PLUS ||
+         lookahead.GetTokenType() == TokenType.MINUS ||
+         lookahead.GetTokenType() == TokenType.OR){
+            Node addop = Addop();
+            Node term = Term();
+            Node operation = ast.makeFamily(NodeType.ADDOPANDTERM,addop,term);
+            operation._value = "operation"+ String.Concat(Enumerable.Repeat(" ", operationCount));
+            operationCount++;
+            rightRecArithExprList.Add(operation); 
+
+         }
+        rightRecArithExpr = ast.makeFamily(NodeType.RIGHTRECARITHEXPR,rightRecArithExprList.ToArray());
+        rightRecArithExpr._value = "Right RecArith EXpr"+ String.Concat(Enumerable.Repeat(" ", rightRecArithEXPRCount));
+        rightRecArithEXPRCount++;
+         return rightRecArithExpr;
     }
 
-    private void RightRecArithExpr(){
-        if(lookahead.GetTokenType() == TokenType.PLUS ||
-        lookahead.GetTokenType() == TokenType.MINUS ||
-        lookahead.GetTokenType() == TokenType.OR){
-            Addop();
-            Term();
-            RightRecArithExpr();
-        }
-        else{
-            //do nothing
-        }
-    }
-
-    private void Addop(){
+    private int addopCount = 0;
+    private Node Addop(){
+        Node addop = new();
         switch (lookahead.GetTokenType())
         {
             case TokenType.PLUS:
                 match(TokenType.PLUS);
-                break;
+                addop = new Node("+", NodeType.ADD)
+                {
+                    _value = "+" + String.Concat(Enumerable.Repeat(" ", addopCount))
+                };
+                addopCount++;
+                return addop;
             case TokenType.MINUS:
                 match(TokenType.MINUS);
-                break;
+                addop = new Node("-", NodeType.ADD)
+                {
+                    _value = "-" + String.Concat(Enumerable.Repeat(" ", addopCount))
+                };
+                addopCount++;
+                return addop;
             case TokenType.OR:
                 match(TokenType.OR);
-                break;
+                addop = new Node("||", NodeType.ADD)
+                {
+                    _value = "||" + String.Concat(Enumerable.Repeat(" ", addopCount))
+                };
+                addopCount++;
+                return addop;
                         
             default:
                 Console.WriteLine("Error wrong addop");
-                break;
+                return new Node("error Adop",NodeType.EMPTY);
         }
     }
 
-    private void Term(){
-        Factor();
-        RightRecTerm();
+    private int termCount = 0;
+    private Node Term(){
+        Node term = new();
+        Node factor  = Factor();
+        Node rightRecTerm = RightRecTerm();
+        term = ast.makeFamily(NodeType.TERM,factor,rightRecTerm);
+        term._value = "Term"+ String.Concat(Enumerable.Repeat(" ", termCount));
+        termCount ++;
+        return term;
     }
 
-    private void RightRecTerm(){
-        if(lookahead.GetTokenType() == TokenType.MULT || 
+    private int rightRecTermCount = 0;
+    private int multOPCount = 0;
+    private Node RightRecTerm(){
+        List<Node> rightRecTermList = new();
+        Node rightRecTerm = new();
+        while(lookahead.GetTokenType() == TokenType.MULT || 
             lookahead.GetTokenType() == TokenType.DIV ||
             lookahead.GetTokenType() == TokenType.AND){
-                MultOp();
-                Factor();
-                RightRecTerm();
+                Node multOp = MultOp();
+                Node factor = Factor();
+            Node operation = ast.makeFamily(NodeType.ADDOPANDTERM,multOp,factor);
+            operation._value = "Mult Op"+ String.Concat(Enumerable.Repeat(" ", multOPCount));
+            multOPCount++;
+            rightRecTermList.Add(operation);
             }
-            else{
-                //do nothing
-            }
+        rightRecTerm = ast.makeFamily(NodeType.RIGHTRECTERM,rightRecTermList.ToArray());
+        rightRecTerm._value = "Right Rec Term"+ String.Concat(Enumerable.Repeat(" ", rightRecTermCount));
+        rightRecTermCount++;
+        return rightRecTerm;    
+
     }
-    
-    private void MultOp(){
+
+
+    private int multOPeratorCount = 0;
+    private Node MultOp(){
+        Node multop = new();
         switch(lookahead.GetTokenType()){
             case TokenType.MULT:
                 match(TokenType.MULT);
-                break;
+                multop = new("*",NodeType.MULT);
+                multop._value = "*" + String.Concat(Enumerable.Repeat(" ", multOPeratorCount));
+                multOPeratorCount++;
+                return multop;
             case TokenType.AND:
                 match(TokenType.AND);
-                break;
+                multop = new("*",NodeType.MULT);
+                multop._value = "*" + String.Concat(Enumerable.Repeat(" ", multOPeratorCount));
+                multOPeratorCount++;
+                return multop;
             case TokenType.DIV:
                 match(TokenType.DIV);
-                break;
+                multop = new("*",NodeType.MULT);
+                multop._value = "*" + String.Concat(Enumerable.Repeat(" ", multOPeratorCount));
+                multOPeratorCount++;
+                return multop;
             default:
                 Console.WriteLine("iNVALID mult op");
-                break;
+                return new Node("Empty MultOP",NodeType.EMPTY);
         }
     }
 
-    private void Factor(){
+    int factorCount = 0;
+    private Node Factor(){
+        Node factor = new();
         switch(lookahead.GetTokenType()){
 
             case TokenType.ID:
+                Node idNode = new(lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)),NodeType.ID);
+                idNodeCount++;
+
             match(TokenType.ID);
-                Factor2();
-                ReptVariableOrFunctionCall();
-            break;
+                Node factor2 = Factor2();
+                Node reptVarOrDFFuncCall = ReptVariableOrFunctionCall();
+                factor = ast.makeFamily(NodeType.FACTOR, idNode,factor2,reptVarOrDFFuncCall);
+                factor._value = "Factor"+ String.Concat(Enumerable.Repeat(" ", factorCount));
+                factorCount++;
+                return factor;
 
             case TokenType.INTNUM:
+                Node intNode = new(lookahead.GetName(),NodeType.INTLIT);
                 match(TokenType.INTNUM);
-            break;
+                return intNode;
 
             case TokenType.FLOATNUM:
+                Node floatNode = new(lookahead.GetName(),NodeType.FLOATLIT);
                 match(TokenType.FLOATNUM);
-            break;
+                return floatNode;
 
             case TokenType.OPENPAR:
                 match(TokenType.OPENPAR);
-                ArithExpr();
+                Node arithExpr = ArithExpr();
+                arithExpr._value = "Arith Expr" + String.Concat(Enumerable.Repeat(" ", arithExprCount));
+                arithExprCount++;
                 match(TokenType.CLOSEPAR);
-            break;
+                return arithExpr;
+
 
             case TokenType.NOT:
                 match(TokenType.NOT);
-                Factor();
+                return Factor();
             break;
 
             case TokenType.PLUS:
                 match(TokenType.PLUS);
-                Factor();
+                return Factor();
             break;    
 
         }
+        return new Node("Empty Factor",NodeType.EMPTY);
     }
 
-    private void ReptVariableOrFunctionCall(){
-        if(lookahead.GetTokenType() == TokenType.DOT){
-            IdNest();
-            ReptVariableOrFunctionCall();
+    private int reptVarOrFuncCallCount = 0;
+    private Node ReptVariableOrFunctionCall(){
+        // if(lookahead.GetTokenType() == TokenType.DOT){
+        //     IdNest();
+        //     ReptVariableOrFunctionCall();
+        // }
+        List<Node> idnestList = new();
+        
+        while(lookahead.GetTokenType() == TokenType.DOT){
+            idnestList.Add(IdNest());
         }
+        Node idnestListNode = new();
+        idnestListNode = ast.makeFamily(NodeType.IDNESTLIST,idnestList.ToArray());
+        idnestListNode._value = "ReptVarORFunc"+ String.Concat(Enumerable.Repeat(" ", reptVarOrFuncCallCount));
+        reptVarOrFuncCallCount++;
+        return idnestListNode;
     }
 
-    private void IdNest(){
+    private int idNestCount = 0;
+    private Node IdNest(){
+            Node idNestNode = new();
         match(TokenType.DOT);
+            Node idNode = new(lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)),NodeType.ID);
+            idNodeCount++;
         match(TokenType.ID);
-        IdNest2();
+            Node idNest2 = IdNest2();
+            idNestNode = ast.makeFamily(NodeType.IDNEST,idNode,idNest2);
+            idNestNode._value = "idNest"+ String.Concat(Enumerable.Repeat(" ", idNestCount));
+            idNestCount ++;
+        return idNestNode;
     }
 
-    private void IdNest2(){
+    private int aparamsCount = 0;
+    private Node IdNest2(){
         if(lookahead.GetTokenType() == TokenType.OPENPAR){
             match(TokenType.OPENPAR);
-            AParams();
+            Node aparams = AParams();
             match(TokenType.CLOSEPAR);
+            aparams._value = "aparams"+ String.Concat(Enumerable.Repeat(" ", aparamsCount));
+            aparamsCount ++;
+            return aparams;
         }
         else{
-            ReptIdNest1();
+            return ReptIdNest1();
         }
     }
 
-    private void Factor2(){
+    private Node Factor2(){
         if(lookahead.GetTokenType() == TokenType.OPENPAR){
             match(TokenType.OPENPAR);
-            AParams();
+            Node aparams = AParams();
             match(TokenType.CLOSEPAR);
+            aparams._value = "aparams";
+            return aparams;
         }
         else{
-            ReptIdNest1();
+            Node reptIdNest= ReptIdNest1();
+            //reptIdNest._value = "reptIdNest1";
+            return reptIdNest;
         }
     }
+    private int indiceNodeCount = 0;
+    private Node ReptIdNest1(){
 
-    private void ReptIdNest1(){
-        if(lookahead.GetTokenType() == TokenType.OPENSQBR){
-            Indice();
-            ReptIdNest1();
+        List<Node> indiceList = new();
+        while(lookahead.GetTokenType() == TokenType.OPENSQBR){
+            indiceList.Add(Indice());
         }
-        else{
-            //do nothing
-        }
+        Node indiceNode = new();
+        indiceNode = ast.makeFamily(NodeType.INDICELIST,indiceList.ToArray());
+        indiceNode._value = "indice value" + String.Concat(Enumerable.Repeat(" ", indiceNodeCount));
+        indiceNodeCount++;
+        return indiceNode;
     }
 
-    private void Indice(){
+    private int indiceCount = 0;
+    private Node Indice(){
+        Node indice = new();
         match(TokenType.OPENSQBR);
-        ArithExpr();
+        indice = ArithExpr();
+        indice._value = "indice value" + String.Concat(Enumerable.Repeat(" ", indiceCount));
+        indiceCount ++;
         match(TokenType.CLOSESQBR);
+        return indice;
     }
 
-    private void AParams(){
+    
+    private Node AParams(){
+
+        Node aparams = new();
         if(lookahead.GetTokenType() == TokenType.ID ||
         lookahead.GetTokenType() == TokenType.INTNUM ||
         lookahead.GetTokenType() == TokenType.FLOATNUM ||
@@ -1141,72 +1310,101 @@ public class Parser{
         lookahead.GetTokenType() == TokenType.NOT ||
         lookahead.GetTokenType() == TokenType.PLUS ||
         lookahead.GetTokenType() == TokenType.MINUS){
-            Expr();
-            ReptAParams1();
+            Node expr = Expr();
+            Node reptAParams = ReptAParams1();
+            aparams = ast.makeFamily(NodeType.APARAMS,expr,reptAParams);
+            
+            return aparams;
         }
         else{
-            //do nothing
+            return new Node("Empty PArams",NodeType.EMPTY);
         }
     }
 
-    private void ReptAParams1(){
-        if(lookahead.GetTokenType() == TokenType.COMMA){
-            AParamsTail();
-            ReptAParams1();
+    private Node ReptAParams1(){
+        List<Node> list = new();
+        Node reptaparams1 = new();
+        while(lookahead.GetTokenType() == TokenType.COMMA){
+            list.Add(AParamsTail());           
         }
-        else{
-            //do nothing
-        }
+        reptaparams1 = ast.makeFamily(NodeType.REPTAPARAMS,list.ToArray());
+        return reptaparams1;
+        
     }
 
-    private void AParamsTail(){
+    private Node AParamsTail(){
         match(TokenType.COMMA);
-        Expr();
+        return Expr();
     }
 
-    private void Expr(){
-        ArithExpr();
-        Expr2();
+    private int exprCount = 0;
+
+    private Node Expr(){
+        Node arithExpr = ArithExpr();
+
+        Node expr2 = Expr2();
+        Node expr = new();
+
+        expr = ast.makeFamily(NodeType.EXPR,arithExpr,expr2);
+        expr._value = "Expr" + String.Concat(Enumerable.Repeat(" ", exprCount));
+        exprCount++;
+        return expr;
     }
 
-    private void Expr2(){
+    private int expr2Count = 0;
+    private Node Expr2(){
+        Node expr2 = new();
         if(lookahead.GetTokenType() == TokenType.EQ ||
            lookahead.GetTokenType() == TokenType.NOTEQ ||
            lookahead.GetTokenType() == TokenType.LT ||
            lookahead.GetTokenType() == TokenType.GT ||
            lookahead.GetTokenType() == TokenType.LEQ ||
            lookahead.GetTokenType() == TokenType.GEQ){
-            RelOp();
-            ArithExpr();
+            Node relop = RelOp();
+            Node arithExpr = ArithExpr();
+            expr2 = ast.makeFamily(NodeType.EXPR2,relop,arithExpr);
+            expr2._value = "Expr2" + String.Concat(Enumerable.Repeat(" ", expr2Count));
+            expr2Count++;
+            return expr2;
+            
            }
         else{
-            //do nothing
+            expr2._value = "Expr2" + String.Concat(Enumerable.Repeat(" ", expr2Count));
+            expr2Count++;
+            return expr2;
         }
     }
 
-    private void RelOp(){
+    private Node RelOp(){
         switch (lookahead.GetTokenType())
         {
             case TokenType.EQ:
                 match(TokenType.EQ);
+                return new("==",NodeType.EQUALS);
                 break;
             case TokenType.NOTEQ:
                 match(TokenType.NOTEQ);
+                return new("!=",NodeType.NOTEQ);
                 break;
             case TokenType.LT:
                 match(TokenType.LT);
+                return new("<",NodeType.LT);
                 break;
             case TokenType.GT:
                 match(TokenType.GT);
+                return new(">",NodeType.GT);
                 break;
             case TokenType.LEQ:
                 match(TokenType.LEQ);
+                return new("<=",NodeType.LEQ);
                 break;
             case TokenType.GEQ:
                 match(TokenType.GEQ);
+                return new(">=",NodeType.GEQ);
                 break;
             default:
                 Console.WriteLine("Invalid Relop");
+                return new Node("invalid rel op",NodeType.EMPTY);
                 break;
         }
     }
