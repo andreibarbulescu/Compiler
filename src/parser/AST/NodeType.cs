@@ -59,5 +59,8 @@ public enum NodeType{
     VARIABLE2,
     VARIDNEST,
     VARIDNEST2,
-    REPTSTATBLOCK
+    REPTSTATBLOCK,
+    PROG,
+    WHILE,
+    IF
 }

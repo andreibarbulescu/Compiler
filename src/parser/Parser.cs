@@ -104,9 +104,10 @@ public class Parser{
         replace("Start", "Prog");
         replace("Prog","ReptProg0");
         ReptProg0();
-        foreach(var item in members){
-            Console.WriteLine(item.ToDotString());
-        }
+  
+        Node big = ast.makeFamily(NodeType.PROG,members.ToArray());
+        big._value = "begin";
+        Console.WriteLine(big.ToDotString());
     }
     private List<Node> members = new();
 
@@ -136,11 +137,12 @@ public class Parser{
         STRUCTDECL -> struct id OPTSTRUCTDECL2 lcurbr REPTSTRUCTDECL4 rcurbr semi 
     */
     int structCount = 0;
+    int contentNodeCount = 0;
     private Node StructDecl(){
             Node structNode = new();
         match(TokenType.STRUCT);
             Node idNode = new Node("struct id " + lookahead.GetName(),NodeType.ID);
-            idNode._value = "struct id" + String.Concat(Enumerable.Repeat(" ", idNodeCount));
+            idNode._value = lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount));
             idNodeCount++;
         match(TokenType.ID);
             Node inheritanceNode = new();
@@ -156,12 +158,13 @@ public class Parser{
         Node contentNode = new();
         if(lookahead.GetTokenType() == TokenType.PUBLIC ||lookahead.GetTokenType() == TokenType.PRIVATE){
             contentNode = ReptStructDecl4();
-            contentNode._value = "Content Node";
+            contentNode._value = "Content Node" + String.Concat(Enumerable.Repeat(" ", contentNodeCount));
+            contentNodeCount++;;
         }
         match(TokenType.CLOSECUBR);
         match(TokenType.SEMI);
         structNode = ast.makeFamily(NodeType.STRUCT,idNode,inheritanceNode,contentNode);
-        structNode._value = "Struct" + String.Concat(Enumerable.Repeat(" ", structCount));
+        structNode._value = "Struct Decl" + String.Concat(Enumerable.Repeat(" ", structCount));
         structCount++;
         Console.WriteLine(structNode.ToDotString());
         
@@ -218,27 +221,28 @@ public class Parser{
         REPTSTRUCTDECL4 -> VISIBILITY MEMBERDECL REPTSTRUCTDECL4  . 
         REPTSTRUCTDECL4 ->  . 
     */
+    int pubMemberDecl = 10;
+    int  memberDecl = 0;
     private Node ReptStructDecl4(){
 
         List<Node> declarationList = new();
-        int count = 0;
         while(lookahead.GetTokenType() == TokenType.PUBLIC || lookahead.GetTokenType() == TokenType.PRIVATE){
             if(lookahead.GetTokenType() == TokenType.PUBLIC){
                 match(TokenType.PUBLIC);
                 Node publicNode = new Node(NodeType.PUBLIC);
                 Node decl = MemberDecl();
-                decl._value += count;
+                decl._value += pubMemberDecl;
                 declarationList.Add(decl);
-                count ++;
+                pubMemberDecl ++;
                 
             }
             else if(lookahead.GetTokenType() == TokenType.PRIVATE){
                 Node privateNode = new Node(NodeType.PRIVATE);
                 match(TokenType.PRIVATE);
                 Node decl = MemberDecl();
-                decl._value += count;
+                decl._value += memberDecl;
                 declarationList.Add(decl);
-                count ++;
+                memberDecl ++;
             }
             else{
                 //do nothing
@@ -409,13 +413,17 @@ public class Parser{
         ARRAYSIZE2 -> intlit rsqbr .
         ARRAYSIZE2 -> rsqbr .
     */
+    int array2Count = 0;
     public Node ArraySize2(){
         if(lookahead.GetTokenType() == TokenType.INTNUM){
             string num = lookahead.GetName();
             match(TokenType.INTNUM);
             
             match(TokenType.CLOSESQBR);
-            return new Node(num,NodeType.INTLIT);
+            Node arr = new Node(num +  String.Concat(Enumerable.Repeat(" ", array2Count))
+            ,NodeType.INTLIT);
+            array2Count++;
+            return arr;
         }
         else{
             match(TokenType.CLOSESQBR);
@@ -430,7 +438,7 @@ public class Parser{
     private int paramTailCount = 0;
     private Node ReptFParams4(){
         // if(lookahead.GetTokenType() == TokenType.COMMA){
-        //     FParamsTail();
+        //     node n  = FParamsTail();
         //     ReptFParams4();
         // }
         // else{
@@ -539,10 +547,14 @@ public class Parser{
         RETURNTYPE -> TYPE  . 
         RETURNTYPE -> void  .
     */
+    int voidCount = 0;
     private Node ReturnType(){
         if(lookahead.GetTokenType() == TokenType.VOID){
             match(TokenType.VOID);
-            return new Node("void",NodeType.VOID);
+            Node voidN = new("void",NodeType.VOID);
+            voidN._value +=String.Concat(Enumerable.Repeat(" ", voidCount));
+            voidCount++;
+            return voidN;
            }
         else{
             return Type();
@@ -596,7 +608,8 @@ public class Parser{
         match(TokenType.LET);
 
             var idNode = new Node(lookahead.GetName(),NodeType.ID);
-            idNode._value += idNodeCount;
+            idNode._value += String.Concat(Enumerable.Repeat(" ", idNodeCount));
+            
             idNodeCount++;
         match(TokenType.ID);
         match(TokenType.COLON);
@@ -661,7 +674,7 @@ public class Parser{
         match(TokenType.CLOSECUBR);
             Node implDef = new();
             implDef = ast.makeFamily(NodeType.IMPLDEF,idNode,implContent);
-            implDef._value = "Implementation Definition";           
+            implDef._value = "Implementation Definition "+idNode._value;           
             return implDef;
         
     }
@@ -787,6 +800,7 @@ public class Parser{
                 match(TokenType.ELSE);
                 StatBlock();
                 match(TokenType.SEMI);
+                return new Node("IF",NodeType.IF);
             break;
             case TokenType.WHILE:
                 match(TokenType.WHILE);
@@ -795,6 +809,7 @@ public class Parser{
                 match(TokenType.CLOSEPAR);
                 StatBlock();
                 match(TokenType.SEMI);
+                return new Node("while",NodeType.WHILE);
             break;
 
             case TokenType.READ:
@@ -859,6 +874,8 @@ private int assorFuncCount = 0;
         if(lookahead.GetTokenType() == TokenType.DOT){
             match(TokenType.DOT);
                 Node idNode = new(lookahead.GetName(),NodeType.ID);
+                idNode._value = lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount));
+                idNodeCount++;
             match(TokenType.ID);
 
             Node assOrFun = AssignStatOrFuncCall();

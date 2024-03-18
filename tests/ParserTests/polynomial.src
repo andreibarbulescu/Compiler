@@ -1,8 +1,7 @@
 struct POLYNOMIAL {
 	public func evaluate(x: float) -> float;
   private func param(a: int[][]) -> int;
-  public func more(c: int, b: float) -> something;
-  public func moretwo(c: int, b: float[]) -> something;
+  public func more(c: int, b: float, a:int) -> something;
   
 };
 

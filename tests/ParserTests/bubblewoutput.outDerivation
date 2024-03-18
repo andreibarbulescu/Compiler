@@ -1,7 +1,7 @@
 Prog
 ReptProg0
 StructDecl ReptProg0 
-struct POLYNOMIAL { public func evaluate ( x : float ) -> float ; private func param ( a : int [ ] [ ] ) -> int ; public func more ( c : int , b : float ) -> something ; public func moretwo ( c : int , b : float [ ] ) -> something ; } ; ReptProg0
+struct POLYNOMIAL { public func evaluate ( x : float ) -> float ; private func param ( a : int [ ] [ ] ) -> int ; public func more ( c : int , b : float , a : int ) -> something ; } ; ReptProg0
 StructDecl ReptProg0 
 struct LINEAR inherits POLYNOMIAL { private let a : float ; private let b : float ; private let arr : int [ 55 ] [ 9 ] ; private let anotha : int [ ] ; private let mama : float [ 8 ] [ 7 ] [ 9 ] ; public func build ( A : float , B : float ) -> LINEAR ; public func evaluate ( x : float ) -> float ; } ; ReptProg0
 StructDecl ReptProg0 
