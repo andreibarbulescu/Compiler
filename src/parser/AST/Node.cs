@@ -6,7 +6,9 @@ public class Node{
     public Node? _parent;
     public Node? _rightSibling;
     public Node _leftMostSibling;
-    public string _value; 
+    public string _value;
+    public int _id;
+    public static int _currentId;
     public NodeType _type;
     public Node(string value, NodeType type){
         _LeftMostchild = null; 
@@ -14,6 +16,9 @@ public class Node{
         _type = type;
         _value = value;
         _leftMostSibling = this;
+        _id = _currentId;
+        _currentId++;
+        
     }
 
     public Node(){
@@ -22,6 +27,8 @@ public class Node{
         _value = "";
         _parent = null;
         _leftMostSibling = this;
+        _id = _currentId;
+        _currentId++;
     }
 
     public Node(NodeType type){
@@ -30,6 +37,8 @@ public class Node{
         _type = type;
         _value = "";
         _leftMostSibling = this;
+        _id = _currentId;
+        _currentId++;
 
     }
 
@@ -107,18 +116,34 @@ public class Node{
     }
 
 
+    // public void GenerateDot(Node node, StringBuilder sb, HashSet<Node> visited) {
+    //     if (node == null || visited.Contains(node)) return;
+    //     visited.Add(node);
+
+    //     Node child = node._LeftMostchild;
+    //     while (child != null)
+    //     {
+    //         sb.AppendLine($"{node._id}  [label=\"{node._value}\"];");
+    //         sb.AppendLine($"\"{node._id}\" -> \"{child._id}\";");
+    //         GenerateDot(child, sb, visited);
+    //         child = child._rightSibling;
+    //     }
+    // }
     public void GenerateDot(Node node, StringBuilder sb, HashSet<Node> visited) {
-        if (node == null || visited.Contains(node)) return;
-        visited.Add(node);
+    if (node == null || visited.Contains(node)) return;
+    visited.Add(node);
 
-        Node child = node._LeftMostchild;
-        while (child != null)
-        {
-            sb.AppendLine($"\"{node._value}\" -> \"{child._value}\";");
-            GenerateDot(child, sb, visited);
-            child = child._rightSibling;
-        }
+    // Define the label for the node here, ensuring it's only done once per node
+    sb.AppendLine($"\"{node._id}\" [label=\"{node._value}\"];");
+
+    Node child = node._LeftMostchild;
+    while (child != null)
+    {
+        // Create the edge without redefining the label for the parent node
+        sb.AppendLine($"\"{node._id}\" -> \"{child._id}\";");
+        GenerateDot(child, sb, visited);
+        child = child._rightSibling;
     }
-
+}
     
 }

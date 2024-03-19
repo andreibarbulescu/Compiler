@@ -23,7 +23,6 @@ public class Parser{
         ast = new Node();
     }
 
-    private int idNodeCount;
 
     private void match(TokenType t){
         if(lookahead.GetTokenType() == t){
@@ -141,9 +140,7 @@ public class Parser{
     private Node StructDecl(){
             Node structNode = new();
         match(TokenType.STRUCT);
-            Node idNode = new Node("struct id " + lookahead.GetName(),NodeType.ID);
-            idNode._value = lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount));
-            idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
         match(TokenType.ID);
             Node inheritanceNode = new();
         if(lookahead.GetTokenType() == TokenType.INHERITS){
@@ -178,9 +175,7 @@ public class Parser{
     private Node OptStructDecl2(){
         int count = 0;
         match(TokenType.INHERITS);
-            Node idNode = new Node(lookahead.GetName(), NodeType.ID);
-            idNode._value = lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount));
-            idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
         match(TokenType.ID);
 
         List<Node> parameters = new()
@@ -204,9 +199,7 @@ public class Parser{
     private Node ReptOptStructDecl22(){
         
         match(TokenType.COMMA);
-            Node idNode = new Node(lookahead.GetName(),NodeType.ID);
-            idNode._value +=idNode._value = lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)); 
-            idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
         match(TokenType.ID);
         List<Node> parameters = new() { idNode };
 
@@ -288,9 +281,7 @@ public class Parser{
     private Node FuncHead(){
             Node funcHead = new Node();
         match(TokenType.FUNC);
-            Node funcId = new Node(lookahead.GetName(),NodeType.ID);
-            funcId._value = lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount));
-            idNodeCount++;
+            IdNode funcId = new IdNode(lookahead.GetName(),NodeType.ID);
         match(TokenType.ID);
         match(TokenType.OPENPAR);
             Node parameters = new Node();
@@ -324,9 +315,7 @@ public class Parser{
     private Node Fparams(){
         Node fParams = new Node();
         if(lookahead.GetTokenType() == TokenType.ID){
-            Node idNode = new Node(lookahead.GetName(),NodeType.ID);
-            idNode._value = lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount));
-            idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
             match(TokenType.ID);
             match(TokenType.COLON);
                 var typeNode = Type();
@@ -437,13 +426,7 @@ public class Parser{
     */
     private int paramTailCount = 0;
     private Node ReptFParams4(){
-        // if(lookahead.GetTokenType() == TokenType.COMMA){
-        //     node n  = FParamsTail();
-        //     ReptFParams4();
-        // }
-        // else{
-        //     //do nothing
-        // }
+
         List<Node> parameters = new List<Node>();
         while(lookahead.GetTokenType() == TokenType.COMMA){
             parameters.Add(FParamsTail());
@@ -480,9 +463,7 @@ public class Parser{
     private Node FParamsTail(){
         
         match(TokenType.COMMA);
-        Node idNode = new Node(lookahead.GetName(), NodeType.ID);
-        idNode._value += idNodeCount;
-        idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
         match(TokenType.ID);
         match(TokenType.COLON);
         Node type = Type();
@@ -577,7 +558,8 @@ public class Parser{
                 typeNode._type = NodeType.INT;
                 typeNode._value = "Type: " + typeNode._type + String.Concat(Enumerable.Repeat(" ", returnTypeCount));
                 returnTypeCount++;
-                return typeNode;
+                TypeNode type = new("Type : INT",NodeType.INT);
+                return type;
                 
             case TokenType.FLOAT:
                 match(TokenType.FLOAT);
@@ -585,6 +567,7 @@ public class Parser{
                 typeNode._type = NodeType.FLOAT;
                 typeNode._value = "Type: " + typeNode._type + String.Concat(Enumerable.Repeat(" ", returnTypeCount));
                 returnTypeCount++;
+                return new TypeNode("Type : FLOAT",NodeType.FLOAT);
                 return typeNode;
 
             case TokenType.ID:
@@ -592,6 +575,7 @@ public class Parser{
                 typeNode._type = NodeType.ID;
                 typeNode._value = "Type: " + typeNode._type + String.Concat(Enumerable.Repeat(" ", returnTypeCount));
                 returnTypeCount++;
+                return new TypeNode("Type : ID",NodeType.ID);
                 return typeNode;
            
             default:
@@ -607,10 +591,7 @@ public class Parser{
             Node VarDecl = new();
         match(TokenType.LET);
 
-            var idNode = new Node(lookahead.GetName(),NodeType.ID);
-            idNode._value += String.Concat(Enumerable.Repeat(" ", idNodeCount));
-            
-            idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
         match(TokenType.ID);
         match(TokenType.COLON);
 
@@ -779,8 +760,7 @@ public class Parser{
         switch (lookahead.GetTokenType())
         {
             case TokenType.ID:
-                Node idNode = new(lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)),NodeType.ID);
-                idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
                 match(TokenType.ID);
                 Node statParams = AssignStatOrFuncCall();
                 match(TokenType.SEMI);
@@ -873,9 +853,7 @@ private int assorFuncCount = 0;
         Node assOrFun2 = new();
         if(lookahead.GetTokenType() == TokenType.DOT){
             match(TokenType.DOT);
-                Node idNode = new(lookahead.GetName(),NodeType.ID);
-                idNode._value = lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount));
-                idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
             match(TokenType.ID);
 
             Node assOrFun = AssignStatOrFuncCall();
@@ -897,8 +875,8 @@ private int assorFuncCount = 0;
         Node A3 = new();
         if(lookahead.GetTokenType() == TokenType.DOT){
             match(TokenType.DOT);
-                Node idNode = new(lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)),NodeType.ID);
-                idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
+
             match(TokenType.ID);
             Node assignStatOrFuncCall = AssignStatOrFuncCall();
             A3 = ast.makeFamily(NodeType.DOT, idNode,assignStatOrFuncCall);
@@ -910,8 +888,8 @@ private int assorFuncCount = 0;
     }
 
     public Node Variable(){
-        Node idNode = new(lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)),NodeType.ID);
-        idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
+
         match(TokenType.ID);
         Node var2 = Variable2();
         Node variable = ast.makeFamily(NodeType.VARIABLE,idNode,var2);
@@ -956,8 +934,8 @@ private int assorFuncCount = 0;
     private Node VarIdNest(){
         
         match(TokenType.DOT);
-            Node idNode = new(lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)),NodeType.ID);
-                idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
+
         match(TokenType.ID);
             Node varidnest2 = VarIdNest2();
             return ast.makeFamily(NodeType.VARIDNEST,idNode,varidnest2);
@@ -1186,8 +1164,8 @@ private int assorFuncCount = 0;
         switch(lookahead.GetTokenType()){
 
             case TokenType.ID:
-                Node idNode = new(lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)),NodeType.ID);
-                idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
+
 
             match(TokenType.ID);
                 Node factor2 = Factor2();
@@ -1252,8 +1230,8 @@ private int assorFuncCount = 0;
     private Node IdNest(){
             Node idNestNode = new();
         match(TokenType.DOT);
-            Node idNode = new(lookahead.GetName() + String.Concat(Enumerable.Repeat(" ", idNodeCount)),NodeType.ID);
-            idNodeCount++;
+            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
+
         match(TokenType.ID);
             Node idNest2 = IdNest2();
             idNestNode = ast.makeFamily(NodeType.IDNEST,idNode,idNest2);

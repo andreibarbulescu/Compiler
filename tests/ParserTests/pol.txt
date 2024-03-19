@@ -1,9 +1,6 @@
 impl LINEAR { 
   func evaluate(x: float) -> float 
   {
-    let result: float;
-    result = 5;
-    result = a * x + b + 2;
-    return (result);
+    x.a = 4;
   }
 } 
