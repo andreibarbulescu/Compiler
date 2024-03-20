@@ -2,5 +2,10 @@ impl LINEAR {
   func evaluate(x: float) -> float 
   {
     x.a = 4;
+    x.b = 6;
+    somef();
+    another(5);
+    somesoem(5,4,6);
+    lastOne(hello);
   }
 } 

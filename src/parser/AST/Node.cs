@@ -90,7 +90,7 @@ public class Node{
     }
  
 
-    public Node makeFamily(NodeType type, params Node[] children)
+public Node makeFamily(NodeType type, params Node[] children)
     {
     var parent = MakeNode(type);
     if (children.Length > 0)

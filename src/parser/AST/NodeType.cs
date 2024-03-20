@@ -62,5 +62,6 @@ public enum NodeType{
     REPTSTATBLOCK,
     PROG,
     WHILE,
-    IF
+    IF,
+    RETURN
 }

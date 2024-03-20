@@ -1,13 +1,4 @@
 Prog
 ReptProg0
-StructDecl ReptProg0 
-struct POLYNOMIAL { public func evaluate ( x : float ) -> float ; private func param ( a : int [ ] [ ] ) -> int ; public func more ( c : int , b : float , a : int ) -> something ; } ; ReptProg0
-StructDecl ReptProg0 
-struct LINEAR inherits POLYNOMIAL { private let a : float ; private let b : float ; private let arr : int [ 55 ] [ 9 ] ; private let anotha : int [ ] ; private let mama : float [ 8 ] [ 7 ] [ 9 ] ; public func build ( A : float , B : float ) -> LINEAR ; public func evaluate ( x : float ) -> float ; } ; ReptProg0
-StructDecl ReptProg0 
-struct QUADRATIC inherits POLYNOMIAL { private let a : float ; private let b : float ; private let c : float ; public func build ( A : float , B : float , C : float ) -> QUADRATIC ; public func evaluate ( x : float ) -> float ; } ; ReptProg0
-impl POLYNOMIAL { func evaluate ( x : float ) -> float { return ( 0 ) ; } } ReptProg0
-impl QUADRATIC { func evaluate ( x : float ) -> float { let result : float ; result = a ; result = result * x + b ; result = result * x + c ; return ( result ) ; } func build ( A : float , B : float , C : float ) -> QUADRATIC { let new_function : QUADRATIC ; new_function . a = A ; new_function . b = B ; new_function . c = C ; return ( new_function ) ; } } ReptProg0
-impl LINEAR { func build ( A : float , B : float ) -> LINEAR { let new_function : LINEAR ; new_function . a = A ; new_function . b = B ; return ( new_function ) ; } func evaluate ( x : float ) -> float { let result : float ; result = 2.2 ; result = a * x + b ; return ( result ) ; } } ReptProg0
-func main ( ) -> void { let f1 : LINEAR ; let f2 : QUADRATIC ; let counter : integer ; f1 = f1 . build ( 2 , 3.5 ) ; f2 = f2 . build ( 2 , 9 ) ; counter = 1 ; while ( counter <= 10 ) { write ( counter ) ; write ( f1 . evaluate ( counter ) ) ; write ( f2 . evaluate ( counter ) ) ; } ; } ReptProg0
+impl LINEAR { func evaluate ( x : float ) -> float { x . a = 4 ; x . b = 6 ; somef ( ) ; another ( 5 ) ; somesoem ( 5 , 4 , 6 ) ; lastOne ( hello ) ; } } ReptProg0
 Parsing Complete
