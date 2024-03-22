@@ -12,5 +12,11 @@ impl LINEAR {
     result = 5;
     result = a * x + b;
     return (result);
+    a = 3*5;
+    x.a.b.c = 4;
+    somef();
+    another(5);
+    somesoem(5,4,6);
+    x = 5;
   }
 } 
