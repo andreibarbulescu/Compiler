@@ -1,4 +1,9 @@
 Prog
 ReptProg0
-impl LINEAR { func evaluate ( x : float ) -> float { a = 1 * 2 * 3 * 4 ; b = 1 * 2 ; c = 1 * 2 * 3 ; } } ReptProg0
+StructDecl ReptProg0 
+struct POLYNOMIAL { public func evaluate ( x : float ) -> float ; private func param ( a : int [ ] [ ] ) -> int ; public func more ( c : int , b : float , a : int ) -> something ; private func idea ( ) -> void ; } ; ReptProg0
+StructDecl ReptProg0 
+struct LINEAR inherits POLYNOMIAL { private let a : float ; private let b : float ; private let arr : int [ 55 ] [ 9 ] ; private let anotherf : int [ ] ; private let mama : float [ 8 ] [ 7 ] [ 9 ] ; public func build ( A : float , B : float ) -> LINEAR ; public func evaluate ( x : float ) -> float ; } ; ReptProg0
+StructDecl ReptProg0 
+struct QUADRATIC inherits POLYNOMIAL { private let a : float ; private let b : float ; private let c : float ; public func build ( A : float , B : float , C : float ) -> QUADRATIC ; public func evaluate ( x : float ) -> float ; } ; ReptProg0
 Parsing Complete

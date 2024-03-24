@@ -10,6 +10,8 @@ public class Node{
     public int _id;
     public static int _currentId;
     public NodeType _type;
+    public  SymbolTable _symbolTable             = null;
+    public  SymbolEntry m_symtabentry        = null;
     public Node(string value, NodeType type){
         _LeftMostchild = null; 
         _parent = null;
@@ -54,7 +56,18 @@ public class Node{
         return new Node();
     }
 
-    //TEACHER'S NOTES
+    public List<Node> getChildren (){
+        
+        List<Node> children = new List<Node>();
+        Node? currentChild = _LeftMostchild;
+        while (currentChild != null)
+        {
+            children.Add(currentChild);
+            currentChild = currentChild._rightSibling;
+        }
+        return children;
+    }
+
     public Node newMakeSiblings(Node y){
         var xSibs = this;
         while(xSibs._rightSibling != null){
@@ -74,7 +87,6 @@ public class Node{
         return ySibs;
     }
 
-
     public void newAdoptChildren(Node y){
         if(this._LeftMostchild != null){
             this._LeftMostchild.newMakeSiblings(y);
@@ -89,7 +101,6 @@ public class Node{
         }
     }
  
-
 public Node makeFamily(NodeType type, params Node[] children)
     {
     var parent = MakeNode(type);
@@ -104,8 +115,6 @@ public Node makeFamily(NodeType type, params Node[] children)
     return parent;
 }
 
-
-
     public string ToDotString() {
         var visited = new HashSet<Node>();
         var sb = new StringBuilder();
@@ -115,20 +124,6 @@ public Node makeFamily(NodeType type, params Node[] children)
         return sb.ToString();
     }
 
-
-    // public void GenerateDot(Node node, StringBuilder sb, HashSet<Node> visited) {
-    //     if (node == null || visited.Contains(node)) return;
-    //     visited.Add(node);
-
-    //     Node child = node._LeftMostchild;
-    //     while (child != null)
-    //     {
-    //         sb.AppendLine($"{node._id}  [label=\"{node._value}\"];");
-    //         sb.AppendLine($"\"{node._id}\" -> \"{child._id}\";");
-    //         GenerateDot(child, sb, visited);
-    //         child = child._rightSibling;
-    //     }
-    // }
     public void GenerateDot(Node node, StringBuilder sb, HashSet<Node> visited) {
     if (node == null || visited.Contains(node)) return;
     visited.Add(node);
@@ -145,5 +140,9 @@ public Node makeFamily(NodeType type, params Node[] children)
         child = child._rightSibling;
     }
 }
+
+    public virtual void Accept(IVisitor p_visitor) {
+		p_visitor.Visit(this);
+	}
     
 }
