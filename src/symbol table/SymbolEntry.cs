@@ -8,14 +8,29 @@ public class SymbolEntry
 	public int             _size       = 0;
 	public int             _offset     = 0;
 	public SymbolTable     _subtable   = null;
-	public List<int>       _dimensions ;
+	public List<int>       _dimensions = new();
 	
 	public SymbolEntry() {}
-	
-	public SymbolEntry(String p_kind, String p_type, String p_name, SymbolTable p_subtable){
-		_kind = p_kind;
-		_type = p_type;
-		_name = p_name;
-		_subtable = p_subtable;
+
+	public SymbolEntry(string type, string name, SymbolTable table){
+		_type = type;
+		_name = name;
+		_subtable = table;
+		_dimensions = new List<int>();
 	}
+	
+	public SymbolEntry(String kind, String type, String name, SymbolTable subtable){
+		_kind = kind;
+		_type = type;
+		_name = name;
+		_subtable = subtable;
+		_dimensions = new List<int>();
+	}
+
+	public override string ToString(){
+		return "kind : " + _kind + " type: " + _type + " name " 
+		+ _name + " subtable : " + _subtable._title;
+	}
+
+
 }

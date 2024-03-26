@@ -1,5 +1,7 @@
+using Microsoft.VisualStudio.TestPlatform.Utilities;
+
 public class SymbolTable{
-    string _title = "";
+    public string _title = "";
     List<SymbolEntry> _entries;
     int _offset = 0;
 	public int _size = 0;
@@ -26,5 +28,17 @@ public class SymbolTable{
 	
 	public void addEntry(SymbolEntry p_entry){
 		_entries.Add(p_entry);	
+	}
+
+	public override String ToString(){
+        string table = new string("");
+		table += "=======================\n";
+		table += _title + " " + "entries : " + _entries.Count + "\n";
+		foreach (var item in _entries)
+		{
+			table += item.ToString() + "\n";	
+		}
+		table += "=======================\n";
+		return table;
 	}
 }

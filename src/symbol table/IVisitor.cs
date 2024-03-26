@@ -3,5 +3,13 @@ public interface IVisitor{
     void Visit(ProgNode progNode);
     void Visit(Node node);
     void Visit(IdNode node);
+    void Visit(FuncDefNode node);
+
+    //Function Declaration
+    void Visit(FuncDeclNode node);
+
+    void Visit(VarDeclNode node);
+
+    void Visit(ImplNode node);
     
 }

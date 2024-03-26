@@ -11,7 +11,7 @@ public class Node{
     public static int _currentId;
     public NodeType _type;
     public  SymbolTable _symbolTable             = null;
-    public  SymbolEntry m_symtabentry        = null;
+    public  SymbolEntry _symtabentry        = null;
     public Node(string value, NodeType type){
         _LeftMostchild = null; 
         _parent = null;
@@ -66,6 +66,20 @@ public class Node{
             currentChild = currentChild._rightSibling;
         }
         return children;
+    }
+
+    public Node? GetRightMostChild()
+    {
+        Node? current = _LeftMostchild;
+
+        if (current == null) return null;
+
+        while (current._rightSibling != null)
+        {
+            current = current._rightSibling;
+        }
+
+        return current;
     }
 
     public Node newMakeSiblings(Node y){

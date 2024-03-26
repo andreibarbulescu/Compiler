@@ -63,5 +63,7 @@ public enum NodeType{
     PROG,
     WHILE,
     IF,
-    RETURN
+    RETURN,
+    FUNCDECL,
+    TYPE
 }

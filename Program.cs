@@ -1,7 +1,7 @@
 ﻿string positiveExample = "tests/ParserTests/bubblesort.src";
 string structs = "tests/ParserTests/SimpleStruct.src";
 
-string polynomialExample = "tests/ParserTests/struct.txt";
+string polynomialExample = "tests/ParserTests/polynomial.src";
 
 Lexer reader = new(polynomialExample, "tests/lexerTests/bubblewsort.outtokens", "tests/lexerTests/positive.error");
 

@@ -100,7 +100,6 @@ public class Parser{
 
     private ProgNode Prog()
     {
-
         outputStr += "Prog\n";
         replace("Start", "Prog");
         replace("Prog","ReptProg0");
@@ -222,7 +221,6 @@ public class Parser{
         REPTSTRUCTDECL4 -> VISIBILITY MEMBERDECL REPTSTRUCTDECL4  . 
         REPTSTRUCTDECL4 ->  . 
     */
-
     private List<Node> ReptStructDecl4(){
 
         List<Node> declarationList = new();
@@ -268,11 +266,43 @@ public class Parser{
     /*
         FUNCDECL -> FUNCHEAD semi  .
     */
-    private Node FuncDecl(){
-        Node FuncDecl = FuncHead();
+    private FuncDeclNode FuncDecl(){
+        FuncDeclNode FuncDeclNode = new();
+
+        FuncDeclNode = FuncHead2();
         
         match(TokenType.SEMI);
-        return FuncDecl;
+        return FuncDeclNode;
+    }
+
+        private FuncDeclNode FuncHead2(){
+            FuncDeclNode funcHead = new ();
+        match(TokenType.FUNC);
+            IdNode funcId = new IdNode(lookahead.GetName(),NodeType.ID);
+        match(TokenType.ID);
+        match(TokenType.OPENPAR);
+            Node parameters = new Node();
+        if(lookahead.GetTokenType() == TokenType.ID){
+            parameters = Fparams();
+
+        }
+        match(TokenType.CLOSEPAR);
+        match(TokenType.ARROW);
+            Node returnType = new Node();
+            returnType = ReturnType();
+            
+        //might be wrong
+        if(parameters._value == ""){
+            funcHead.newAdoptChildren(funcId);
+            funcId.newMakeSiblings(returnType);
+        }else{
+            funcHead.newAdoptChildren(funcId);
+            funcId.newMakeSiblings(parameters);
+            parameters.newMakeSiblings(returnType);
+        }
+        funcHead._value = "Func Declaration";
+        funcHead._type = NodeType.FUNCDECL;
+        return funcHead;
     }
 
 
@@ -295,7 +325,7 @@ public class Parser{
         match(TokenType.ARROW);
             Node returnType = new Node();
             returnType = ReturnType();
-            returnType._value = "Return" + returnType._value ;
+            
             
         //might be wrong
         if(parameters._value == ""){
@@ -314,8 +344,6 @@ public class Parser{
         FPARAMS -> id colon TYPE REPTFPARAMS3 REPTFPARAMS4  . 
         FPARAMS ->  .
     */
-
-
     private FuncParamsNode Fparams(){
         FuncParamsNode fParams = new("Func Params", NodeType.FPARAMS);
         if(lookahead.GetTokenType() == TokenType.ID){
@@ -417,7 +445,6 @@ public class Parser{
         REPTFPARAMS4 -> FPARAMSTAIL REPTFPARAMS4  . 
         REPTFPARAMS4 ->  . 
     */
-
     private List<Node> ReptFParams4(){
 
         List<Node> parameters = new List<Node>();
@@ -529,23 +556,19 @@ public class Parser{
             case TokenType.INTEGER:
                 
                 match(TokenType.INTEGER);
-                typeNode._type = NodeType.INT;
-                typeNode._value = "Type: " + typeNode._type;
-                TypeNode type = new("Type : INT",NodeType.INT);
+                TypeNode type = new("INT",NodeType.TYPE);
                 return type;
                 
             case TokenType.FLOAT:
                 match(TokenType.FLOAT);
                 
-                typeNode._type = NodeType.FLOAT;
-
-                return new TypeNode("Type : FLOAT",NodeType.FLOAT);
+                return new TypeNode("FLOAT",NodeType.TYPE);
 
             case TokenType.ID:
                 match(TokenType.ID);
                 typeNode._type = NodeType.ID;
 
-                return new TypeNode("Type : ID",NodeType.ID);
+                return new TypeNode("ID",NodeType.TYPE);
            
             default:
                 Console.WriteLine("Error buddy");
@@ -556,27 +579,26 @@ public class Parser{
     /*
         VARDECL -> let id colon TYPE REPTVARDECL4 semi  . 
     */
-    private Node VarDecl(){
-            Node VarDecl = new();
+    private VarDeclNode VarDecl(){
         match(TokenType.LET);
-
             IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
         match(TokenType.ID);
         match(TokenType.COLON);
-
             Node type = Type();
             Node array = ReptVarDecl4();
-
         match(TokenType.SEMI);
-
+            VarDeclNode VarDecl= new("variable declaration",NodeType.VARDECL);
             if (array._value == "")
             {
-                VarDecl = ast.makeFamily(NodeType.VARDECL,type,idNode);
-                VarDecl._value = "Variable declaration";
+                VarDecl.newAdoptChildren(idNode);
+                VarDecl.newAdoptChildren(type);
+                
             }
             else{
-                VarDecl = ast.makeFamily(NodeType.VARDECL,type,idNode,array);
-                VarDecl._value = "variable declaration";
+                VarDecl.newAdoptChildren(idNode);
+                VarDecl.newAdoptChildren(type);
+                VarDecl.newAdoptChildren(array);
+                
             }
         return VarDecl;
     }
@@ -606,17 +628,20 @@ public class Parser{
         }
 
     }
-    private Node ImplDef(){
+
+    private ImplNode ImplDef(){
+        var implDefNode = new ImplNode(); 
         match(TokenType.IMPL);
             Node idNode = new Node(lookahead.GetName(),NodeType.ID);
+            implDefNode.newAdoptChildren(idNode);
         match(TokenType.ID);
         match(TokenType.OPENCUBR);
-        Node implContent = ReptImplDef3();
+            Node implContent = ReptImplDef3();
+            implDefNode.newAdoptChildren(implContent);
         match(TokenType.CLOSECUBR);
-            Node implDef = new();
-            implDef = ast.makeFamily(NodeType.IMPLDEF,idNode,implContent);
-            implDef._value = "Implementation Definition "+idNode._value;           
-            return implDef;
+            implDefNode._value = "Implementation Definition";
+           implDefNode._type = NodeType.IMPLDEF;
+        return implDefNode;
         
     }
 
@@ -642,14 +667,15 @@ public class Parser{
         FUNCDEF -> FUNCHEAD FUNCBODY.
     */
 
-    private Node FuncDef(){
+    private FuncDefNode FuncDef(){
         FuncHeadNode funcHead = FuncHead();
 
         Node funcBody = FuncBody();
-            funcBody._value = "Func Body";
-        Node funcDef = new Node();
-        funcDef = ast.makeFamily(NodeType.FUNCDEF, funcHead, funcBody);
-        funcDef._value = "Func Def";
+        funcBody._value = "Func Body";
+        FuncDefNode funcDef = new ("Function Definition", NodeType.FUNCDEF);
+        funcDef.newAdoptChildren(funcHead);
+        funcDef.newAdoptChildren(funcBody);
+
         return funcDef;
     }
     
@@ -671,18 +697,19 @@ public class Parser{
             lookahead.GetTokenType() == TokenType.READ ||
             lookahead.GetTokenType() == TokenType.WRITE||
             lookahead.GetTokenType() == TokenType.RETURN){
-                varOrStatementList.Add(VarDeclOrStatement());
+                Node varOrStat = VarDeclOrStatement();
+                varOrStatementList.Add(varOrStat);
             }
         Node reptFuncBody1Node = new Node();
         reptFuncBody1Node = ast.makeFamily(NodeType.VARORSTATLIST,varOrStatementList.ToArray());
         return reptFuncBody1Node;    
 
-
     }
 
     private Node VarDeclOrStatement(){
         if(lookahead.GetTokenType() == TokenType.LET){
-            Node varDecl = VarDecl();
+            VarDeclNode varDecl = VarDecl();
+            
             return varDecl;
         }
         else{
