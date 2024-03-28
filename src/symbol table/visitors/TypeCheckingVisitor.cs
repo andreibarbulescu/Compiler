@@ -2,7 +2,10 @@ public class TypeCheckingVisitor : IVisitor
 {
     public void Visit(StructNode node)
     {
-        throw new NotImplementedException();
+        foreach (var child in node.getChildren())
+        {
+           child.Accept(this); 
+        }
     }
 
     public void Visit(ProgNode progNode)

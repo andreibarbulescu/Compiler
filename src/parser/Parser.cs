@@ -553,11 +553,10 @@ public class Parser{
         Node typeNode = new Node();
         switch (lookahead.GetTokenType())
         {
-            case TokenType.INTEGER:
-                
+            case TokenType.INTEGER:  
                 match(TokenType.INTEGER);
-                TypeNode type = new("INT",NodeType.TYPE);
-                return type;
+                 
+                return new("INTEGER",NodeType.TYPE);;
                 
             case TokenType.FLOAT:
                 match(TokenType.FLOAT);
@@ -585,6 +584,7 @@ public class Parser{
         match(TokenType.ID);
         match(TokenType.COLON);
             Node type = Type();
+            Console.WriteLine(type._value);
             Node array = ReptVarDecl4();
         match(TokenType.SEMI);
             VarDeclNode VarDecl= new("variable declaration",NodeType.VARDECL);

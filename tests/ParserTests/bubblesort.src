@@ -9,7 +9,7 @@ func bubbleSort(arr: integer[], size: integer) -> void
   j = 0;
   temp = 0;
   while (i < n-1) { 
-    while (j < n-i-1) {
+    while (j < n-i+1) {
       if (arr[j] > arr[j+1]) 
         then {
           temp = arr[j];

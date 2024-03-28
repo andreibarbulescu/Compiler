@@ -128,7 +128,7 @@ public class Token{
                     case "impl":
                         token.SetType(TokenType.IMPL);
                         break;
-                    case "int":
+                    case "integer":
                         token.SetType(TokenType.INTEGER);
                         break;
                     case "float":
