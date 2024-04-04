@@ -6,6 +6,10 @@ public class AddNode : Node
     {
         
     }
+
+    public AddNode():base(){
+
+    }
     public override void Accept(IVisitor visitor){
         visitor.Visit(this);
     }

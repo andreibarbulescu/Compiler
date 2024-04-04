@@ -1,19 +1,21 @@
-﻿string positiveExample = "tests/ParserTests/bubblesort.src";
-string structs = "tests/ParserTests/SimpleStruct.src";
+﻿using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 
-string polynomialExample = "tests/ParserTests/bubblesort.src";
+string polynomialExample = "tests/ParserTests/polynomial.src";
+string bubblesortExample = "tests/ParserTests/bubblesort.src";
 
 Lexer reader = new(polynomialExample, "tests/lexerTests/bubblewsort.outtokens", "tests/lexerTests/positive.error");
 
 reader.readFile();
 
 List<Token> list = reader.GetList();
+
 Parser pars = new Parser("tests/ParserTests/bubblewoutput.outDerivation",list);
 
 ProgNode astTree = pars.Parse();
 
-SymbolTableGen vistor = new("");
+SymbolTableGen vistor = new(""); 
+TypeCheckingVisitor visitor2 = new();
+
 astTree.Accept(vistor);
-
-
-
+astTree.Accept(visitor2);

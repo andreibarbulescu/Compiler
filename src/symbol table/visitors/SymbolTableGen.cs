@@ -93,7 +93,7 @@ public class SymbolTableGen : IVisitor
             child._symbolTable = progNode._symbolTable;
 			child.Accept(this);
         }
-
+        
         Console.WriteLine(progNode._symbolTable.ToString());
     }
 
@@ -179,6 +179,42 @@ public class SymbolTableGen : IVisitor
 
         node._symtabentry = new VarEntry("Var",varaibeleType,variableId,dimensions);
         node._symbolTable.addEntry(node._symtabentry);
+    }
+
+    public void Visit(AddNode node)
+    {
+        foreach (var child in node.getChildren())
+        {
+            child._symbolTable = node._symbolTable;
+            child.Accept(this);
+        }
+    }
+
+    public void Visit(MultNode node)
+    {
+        foreach (var child in node.getChildren())
+        {
+            child._symbolTable = node._symbolTable;
+            child.Accept(this);
+        }
+    }
+
+    public void Visit(IntlitNode node)
+    {
+        foreach (var child in node.getChildren())
+        {
+            child._symbolTable = node._symbolTable;
+            child.Accept(this);
+        }
+    }
+
+    public void Visit(FloatLitNode node)
+    {
+        foreach (var child in node.getChildren())
+        {
+            child._symbolTable = node._symbolTable;
+            child.Accept(this);
+        }
     }
 
     public void write(){

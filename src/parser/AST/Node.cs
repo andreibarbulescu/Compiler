@@ -114,20 +114,20 @@ public class Node{
             }
         }
     }
- 
-public Node makeFamily(NodeType type, params Node[] children)
+
+    public Node makeFamily(NodeType type, params Node[] children)
     {
-    var parent = MakeNode(type);
-    if (children.Length > 0)
-    {
-        parent.newAdoptChildren(children[0]);
-        for (int i = 1; i < children.Length; i++)
+        var parent = MakeNode(type);
+        if (children.Length > 0)
         {
-            children[0].newMakeSiblings(children[i]);
+            parent.newAdoptChildren(children[0]);
+            for (int i = 1; i < children.Length; i++)
+            {
+                children[0].newMakeSiblings(children[i]);
+            }
         }
+        return parent;
     }
-    return parent;
-}
 
     public string ToDotString() {
         var visited = new HashSet<Node>();

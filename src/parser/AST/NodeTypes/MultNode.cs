@@ -1,4 +1,4 @@
-class MultNode : Node
+public class MultNode : Node
 {
      
      public MultNode(string value, NodeType type):base(value,type)

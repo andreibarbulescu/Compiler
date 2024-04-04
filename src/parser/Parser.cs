@@ -584,7 +584,6 @@ public class Parser{
         match(TokenType.ID);
         match(TokenType.COLON);
             Node type = Type();
-            Console.WriteLine(type._value);
             Node array = ReptVarDecl4();
         match(TokenType.SEMI);
             VarDeclNode VarDecl= new("variable declaration",NodeType.VARDECL);
@@ -1146,13 +1145,13 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
     }
 
 
-    private Node Addop(){
-        Node addop = new();
+    private AddNode Addop(){
+        AddNode addop = new();
         switch (lookahead.GetTokenType())
         {
             case TokenType.PLUS:
                 match(TokenType.PLUS);
-                addop = new Node("+", NodeType.ADD)
+                addop = new AddNode("+", NodeType.ADD)
                 {
                     _value = "+"
                 };
@@ -1160,7 +1159,7 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
                 return addop;
             case TokenType.MINUS:
                 match(TokenType.MINUS);
-                addop = new Node("-", NodeType.ADD)
+                addop = new AddNode("-", NodeType.ADD)
                 {
                     _value = "-"
                 };
@@ -1168,7 +1167,7 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
                 return addop;
             case TokenType.OR:
                 match(TokenType.OR);
-                addop = new Node("||", NodeType.ADD)
+                addop = new AddNode("||", NodeType.ADD)
                 {
                     _value = "||"
                 };
@@ -1177,7 +1176,7 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
                         
             default:
                 Console.WriteLine("Error wrong addop");
-                return new Node("error Adop",NodeType.EMPTY);
+                return new AddNode("error Adop",NodeType.EMPTY);
         }
     }
 
@@ -1245,8 +1244,8 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
 
 
 
-    private Node MultOp(){
-        Node multop = new();
+    private MultNode MultOp(){
+        MultNode multop;
         switch(lookahead.GetTokenType()){
             case TokenType.MULT:
                 match(TokenType.MULT);
@@ -1262,7 +1261,7 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
                 return multop;
             default:
                 Console.WriteLine("iNVALID mult op");
-                return new Node("Empty MultOP",NodeType.EMPTY);
+                return new MultNode("Empty MultOP",NodeType.EMPTY);
         }
     }
 
