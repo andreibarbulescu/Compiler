@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestPlatform.Utilities;
 
 public class SymbolTable{
     public string _title = "";
-    List<SymbolEntry> _entries;
+    public List<SymbolEntry> _entries;
     int _offset = 0;
 	public int _size = 0;
 	public int _tablelevel = 0;
@@ -33,7 +33,7 @@ public class SymbolTable{
 	public override String ToString(){
         string table = new string("");
 		table += "=======================\n";
-		table += _title + " " + "entries : " + _entries.Count + "\n";
+		table += _title + " " + "entries : " + _entries.Count + " offset : "+_offset + " size: "+_size+ "\n";
 		foreach (var item in _entries)
 		{
 			table += item.ToString() + "\n";	

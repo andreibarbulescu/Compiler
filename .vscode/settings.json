@@ -2,5 +2,5 @@
     "editor.fontSize": 16,
     "editor.codeActionWidget.showHeaders": true,
     "workbench.layoutControl.type": "both",
-    "workbench.activityBar.location": "side"
+    "workbench.activityBar.location": "default"
 }

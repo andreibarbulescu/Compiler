@@ -48,8 +48,8 @@ public class SymbolTableGen : IVisitor
             child._symbolTable = node._symbolTable;
             child.Accept(this);
         }
-
-        Console.WriteLine(node._symbolTable);
+        _content += node._symbolTable;
+        //Console.WriteLine(node._symbolTable);
         
     }
 
@@ -70,15 +70,14 @@ public class SymbolTableGen : IVisitor
 
         //Let's now deal with the local variables inside the function
 
-
-
         foreach (var child in node.getChildren())
         {
             child._symbolTable = node._symbolTable;
             child.Accept(this);
         }
+        _content += node._symbolTable;
 
-        Console.WriteLine(thisFunction);
+        //Console.WriteLine(thisFunction);
 
     }
 
@@ -93,8 +92,8 @@ public class SymbolTableGen : IVisitor
             child._symbolTable = progNode._symbolTable;
 			child.Accept(this);
         }
-        
-        Console.WriteLine(progNode._symbolTable.ToString());
+        _content += progNode._symbolTable;
+        //Console.WriteLine(_content);
     }
 
     public void Visit(Node node)

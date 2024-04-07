@@ -1,5 +1,8 @@
 public class ClassEntry : SymbolEntry
 {
+
+    private Boolean isImplemented = false;
+    
     public ClassEntry():base()
     {
         

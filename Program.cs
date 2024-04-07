@@ -16,6 +16,8 @@ ProgNode astTree = pars.Parse();
 
 SymbolTableGen vistor = new(""); 
 TypeCheckingVisitor visitor2 = new();
+MemorySizeVisitor memSizeVisitor = new MemorySizeVisitor();
 
 astTree.Accept(vistor);
 astTree.Accept(visitor2);
+astTree.Accept(memSizeVisitor); 

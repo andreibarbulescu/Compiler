@@ -9,6 +9,6 @@ public class VarEntry : SymbolEntry{
 
     public override string ToString(){
 		return "kind : " + _kind + " type: " + _type + " name " 
-		+ _name;
+		+ _name + " size: " + _size + " offset: " + _offset;
 	}
 }

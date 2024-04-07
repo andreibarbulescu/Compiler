@@ -1,5 +1,7 @@
 public class FunctionEntry : SymbolEntry{
 	public List<VarEntry> _params   = new List<VarEntry>();
+    
+    private Boolean isImplemented = false;
     public FunctionEntry():base()
     {
         
