@@ -48,6 +48,7 @@ public class MemorySizeVisitor : IVisitor
         }
 
         _content += node._symbolTable;
+        
     }
 
     public void Visit(ProgNode progNode)
@@ -140,5 +141,10 @@ public class MemorySizeVisitor : IVisitor
             child.Accept(this);
         }
         node._symtabentry._size = sizeOfEntry(node);
+    }
+
+    public void Visit(AssignNode node)
+    {
+        throw new NotImplementedException();
     }
 }

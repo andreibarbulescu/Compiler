@@ -18,5 +18,6 @@ public interface IVisitor{
     void Visit(IntlitNode node);
 
     void Visit(FloatLitNode node);
+    void Visit(AssignNode node);
     
 }

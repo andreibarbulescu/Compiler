@@ -5,9 +5,15 @@ public class SymbolTableGen : IVisitor
 {
     private string _outputFile;
     private string _content; 
+    private int _index;
     public SymbolTableGen(string output){
         _outputFile = output;
         _content = "";
+    }
+
+    public string getNewVarName(){
+        _index++;
+        return "t" + _index.ToString();
     }
 
     public void Visit(ImplNode node)
@@ -196,6 +202,15 @@ public class SymbolTableGen : IVisitor
             child._symbolTable = node._symbolTable;
             child.Accept(this);
         }
+
+        node._moonVarName = getNewVarName();
+        string type = node.GetType().ToString();
+
+        //gotta fix this later
+        List<int> dimensions = new();
+
+        node._symtabentry = new VarEntry("temp var",type,node._moonVarName,dimensions);
+        node._symbolTable.addEntry(node._symtabentry);
     }
 
     public void Visit(IntlitNode node)
@@ -214,6 +229,11 @@ public class SymbolTableGen : IVisitor
             child._symbolTable = node._symbolTable;
             child.Accept(this);
         }
+    }
+
+    public void Visit(AssignNode node)
+    {
+        throw new NotImplementedException();
     }
 
     public void write(){

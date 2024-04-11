@@ -23,6 +23,7 @@ public class TypeCheckingVisitor : IVisitor
         {
             child.Accept(this);
         }
+        
 
     }
 
@@ -96,5 +97,10 @@ public class TypeCheckingVisitor : IVisitor
         {
             child.Accept(this);
         }
+    }
+
+    public void Visit(AssignNode node)
+    {
+        throw new NotImplementedException();
     }
 }

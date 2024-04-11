@@ -12,6 +12,11 @@ public class Node{
     public NodeType _type;
     public  SymbolTable _symbolTable             = null;
     public  SymbolEntry _symtabentry        = null;
+
+    public  String      _localRegister      = new(""); 
+    public  String      _leftChildRegister  = new(""); 
+    public  String      _rightChildRegister = new("");
+    public  String      _moonVarName        = new("");
     public Node(string value, NodeType type){
         _LeftMostchild = null; 
         _parent = null;
