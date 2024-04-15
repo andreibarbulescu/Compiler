@@ -1,0 +1,72 @@
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % processing:  := 
+  lw r1,(r0)
+  sw (r0),r1
+  % space for variablea
+          a res4
+  % space for variableb
+          b res4
+%error initializing var decl for arr
+%error initializing var decl for anotha
+  % space for variablemama
+          mama res4
+  % space for variablea
+          a res4
+  % space for variableb
+          b res4
+  % space for variablec
+          c res4
+  % space for variableresult
+          result res4
+%error initializing var decl for new_function
+%error initializing var decl for new_function
+  % space for variableresult
+          result res4
+%error initializing var decl for f1
+%error initializing var decl for f2
+%error initializing var decl for counter
+%error initializing var decl for a

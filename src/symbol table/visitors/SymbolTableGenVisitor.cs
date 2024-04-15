@@ -193,6 +193,15 @@ public class SymbolTableGen : IVisitor
             child._symbolTable = node._symbolTable;
             child.Accept(this);
         }
+        node._moonVarName = getNewVarName();
+        string type = node.GetType().ToString();
+
+        //gotta fix this later
+        List<int> dimensions = new();
+
+        node._symtabentry = new VarEntry("temp var",type,node._moonVarName,dimensions);
+        node._symbolTable.addEntry(node._symtabentry);
+
     }
 
     public void Visit(MultNode node)
@@ -233,7 +242,10 @@ public class SymbolTableGen : IVisitor
 
     public void Visit(AssignNode node)
     {
-        throw new NotImplementedException();
+        foreach (var child in node.getChildren())
+        {
+            child.Accept(this);
+        }
     }
 
     public void write(){

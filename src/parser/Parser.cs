@@ -114,7 +114,7 @@ public class Parser{
         big._value = "Prog";
         //Console.WriteLine(big.ToDotString());
         this.write(big.ToDotString(),"ast2.txt");
-        Console.WriteLine("Type of " + big._LeftMostchild.GetType().Name);
+        //Console.WriteLine("Type of " + big._LeftMostchild.GetType().Name);
         return big;
     }
     private List<Node> members = new();
@@ -727,13 +727,10 @@ public class Parser{
         STATEMENT -> return lpar EXPR rpar semi.
     */
     public Node Statement(){
-        Node statNode = new();
-        Node returnNode = new();
         switch (lookahead.GetTokenType())
         {
             case TokenType.ID:
-
-                
+   
                 Node statOrFuncCall = AssignStatOrFuncCall();
                 statOrFuncCall._type = NodeType.STATEMENT;
                 //statParams.Insert(0,idNode);
@@ -744,51 +741,61 @@ public class Parser{
             
 
             case TokenType.IF:
-
+                    var ifNode = new Node("If",NodeType.IF);
                 match(TokenType.IF);
                 match(TokenType.OPENPAR);
-                RelExpr();
+                    var relex = RelExpr();
                 match(TokenType.CLOSEPAR);
                 match(TokenType.THEN);
-                StatBlock();
+                    var stat1 = StatBlock();
                 match(TokenType.ELSE);
-                StatBlock();
+                    var stat2 = StatBlock();
                 match(TokenType.SEMI);
-                return new Node("IF",NodeType.IF);
-            break;
+                    ifNode.newAdoptChildren(relex);
+                    ifNode.newAdoptChildren(stat1);
+                    ifNode.newAdoptChildren(stat2);
+                return ifNode;
+            
             case TokenType.WHILE:
+                    var whileNode = new Node("While",NodeType.WHILE);
                 match(TokenType.WHILE);
                 match(TokenType.OPENPAR);
-                RelExpr();
+                    var relex1 = RelExpr();
                 match(TokenType.CLOSEPAR);
-                StatBlock();
+                    var statblock = StatBlock();
+                    statblock._value = "stat1";
                 match(TokenType.SEMI);
-                return new Node("while",NodeType.WHILE);
-            break;
+                    whileNode.newAdoptChildren(relex1);
+                    whileNode.newAdoptChildren(statblock);
+                return whileNode;
 
             case TokenType.READ:
+                    var readNode = new Node("Read",NodeType.READ);
                 match(TokenType.READ);
                 match(TokenType.OPENPAR);
-                Variable();
+                    var node = Variable();
                 match(TokenType.CLOSEPAR);
                 match(TokenType.SEMI);
-            break;
+                    readNode.newAdoptChildren(node);
+                return readNode;
 
             case TokenType.WRITE:
+                    var writeNode = new Node("Write",NodeType.WRITE);
                 match(TokenType.WRITE);
                 match(TokenType.OPENPAR);
-                Expr();
+                    var expr = Expr();
                 match(TokenType.CLOSEPAR);
                 match(TokenType.SEMI);
-            break;
+                    writeNode.newAdoptChildren(expr);
+                return writeNode;
 
             case TokenType.RETURN:
-                
+                    var returnNode = new Node("Return", NodeType.RETURN);
                 match(TokenType.RETURN);
                 match(TokenType.OPENPAR);
-                 
-                returnNode = ast.makeFamily(NodeType.RETURN,Expr());
-                returnNode._value = "Function Returns";
+                    var expr1 = Expr();
+                    returnNode.newAdoptChildren(expr1);
+                    
                 match(TokenType.CLOSEPAR);
                 match(TokenType.SEMI);
                 return returnNode;
@@ -874,7 +881,7 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
 
         if(lookahead.GetTokenType() == TokenType.ASSIGN){
             match(TokenType.ASSIGN);
-            Node AssignNode = new Node("=",NodeType.ASSIGN);
+            AssignNode AssignNode = new AssignNode("=",NodeType.ASSIGN);
             Node expr = Expr();
             // foreach (var item in dotList)
             // {
@@ -1019,26 +1026,47 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
             case TokenType.IF:
                  stat = Statement();
                  statBlock = ReptStatBlock1();
-                return ast.makeFamily(NodeType.REPTSTATBLOCK,stat,statBlock);
+                 if (statBlock._type == NodeType.EMPTY)
+                 {
+                    return stat;
+                 }
+                 else   
+                 return ast.makeFamily(NodeType.REPTSTATBLOCK,stat,statBlock);
             break;                        
             case TokenType.WHILE:
                  stat = Statement();
                  statBlock = ReptStatBlock1();
+                 if (statBlock._type == NodeType.EMPTY)
+                 {
+                    return stat;
+                 }
                 return ast.makeFamily(NodeType.REPTSTATBLOCK,stat,statBlock);
             break;
             case TokenType.READ:
                  stat = Statement();
                 statBlock = ReptStatBlock1();
+                if (statBlock._type == NodeType.EMPTY)
+                 {
+                    return stat;
+                 }
                 return ast.makeFamily(NodeType.REPTSTATBLOCK,stat,statBlock);
             break;
             case TokenType.WRITE:
                  stat = Statement();
                  statBlock = ReptStatBlock1();
+                if (statBlock._type == NodeType.EMPTY)
+                 {
+                    return stat;
+                 }
                 return ast.makeFamily(NodeType.REPTSTATBLOCK,stat,statBlock);
             break;
             case TokenType.RETURN:
                  stat = Statement();
                  statBlock = ReptStatBlock1();
+                if (statBlock._type == NodeType.EMPTY)
+                 {
+                    return stat;
+                 }
                 return ast.makeFamily(NodeType.REPTSTATBLOCK,stat,statBlock);
             break;
             default:
@@ -1091,6 +1119,12 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
         {
             return term;
         }
+
+        // switch (lookahead.GetTokenType())
+        // {
+            
+        //     default:
+        // }
         ArithExpr = new("+",NodeType.ADD);
         ArithExpr.newAdoptChildren(term);
         ArithExpr.newAdoptChildren(rightRecArtithExpr);
@@ -1119,7 +1153,7 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
         {
             return firstTerm;
         }
-        Console.WriteLine(firstTerm._value);
+        //Console.WriteLine(firstTerm._value);
         addParent.newAdoptChildren(firstTerm);
 
         while(lookahead.GetTokenType()== TokenType.PLUS ||
@@ -1218,7 +1252,7 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
         {
             return firstFactor;
         }
-        Console.WriteLine(firstFactor._value);
+        //Console.WriteLine(firstFactor._value);
         multParent.newAdoptChildren(firstFactor);
         while(lookahead.GetTokenType() == TokenType.MULT || 
             lookahead.GetTokenType() == TokenType.DIV ||

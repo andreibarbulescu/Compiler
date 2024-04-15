@@ -5258,6 +5258,1338 @@
                     "filename": "tests/ParserTests/struct.txt"
                 }
             ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2024-04-11 14:42:38",
+            "filesum": 187,
+            "codesum": 6133,
+            "commentsum": 721,
+            "blanksum": 840,
+            "statistics": {
+                ".sln": {
+                    "code": 25,
+                    "comment": 0,
+                    "blank": 0
+                },
+                "": {
+                    "code": 125,
+                    "comment": 170,
+                    "blank": 27
+                },
+                ".md": {
+                    "code": 0,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".txt": {
+                    "code": 784,
+                    "comment": 0,
+                    "blank": 12
+                },
+                ".cs": {
+                    "code": 2825,
+                    "comment": 289,
+                    "blank": 570
+                },
+                ".csproj": {
+                    "code": 13,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".src": {
+                    "code": 229,
+                    "comment": 261,
+                    "blank": 33
+                },
+                ".outDerivation": {
+                    "code": 19,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".outtokens": {
+                    "code": 181,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".outlextokens": {
+                    "code": 26,
+                    "comment": 1,
+                    "blank": 0
+                },
+                ".errors": {
+                    "code": 1,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".outlexerrors": {
+                    "code": 0,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".error": {
+                    "code": 0,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".token": {
+                    "code": 1,
+                    "comment": 0,
+                    "blank": 1
+                },
+                ".json": {
+                    "code": 1458,
+                    "comment": 0,
+                    "blank": 23
+                },
+                ".ucalgary": {
+                    "code": 365,
+                    "comment": 0,
+                    "blank": 173
+                },
+                ".props": {
+                    "code": 25,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".targets": {
+                    "code": 8,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".cache": {
+                    "code": 26,
+                    "comment": 0,
+                    "blank": 1
+                },
+                ".CopyComplete": {
+                    "code": 0,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".editorconfig": {
+                    "code": 22,
+                    "comment": 0,
+                    "blank": 0
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 27,
+                    "code": 121,
+                    "comment": 170,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 0,
+                    "code": 551,
+                    "comment": 0,
+                    "filename": "ast2.txt"
+                },
+                {
+                    "filename": "bin/Debug/net7.0/Compiler",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 448,
+                    "comment": 0,
+                    "filename": "bin/Debug/net7.0/Compiler.deps.json"
+                },
+                {
+                    "filename": "bin/Debug/net7.0/Compiler.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/Compiler.pdb",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "bin/Debug/net7.0/Compiler.runtimeconfig.json"
+                },
+                {
+                    "filename": "bin/Debug/net7.0/cs/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/cs/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/cs/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/cs/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/cs/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/de/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/de/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/de/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/de/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/de/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/es/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/es/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/es/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/es/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/es/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/fr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/fr/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/fr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/fr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/fr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/it/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/it/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/it/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/it/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/it/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ja/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ja/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ja/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ja/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ja/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ko/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ko/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ko/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ko/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ko/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/Microsoft.TestPlatform.CommunicationUtilities.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/Microsoft.TestPlatform.CoreUtilities.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/Microsoft.TestPlatform.CrossPlatEngine.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/Microsoft.TestPlatform.PlatformAbstractions.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/Microsoft.TestPlatform.Utilities.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/Microsoft.VisualStudio.TestPlatform.Common.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/Newtonsoft.Json.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/pl/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/pl/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/pl/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/pl/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/pl/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/pt-BR/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/pt-BR/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/pt-BR/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/pt-BR/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/pt-BR/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ru/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ru/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ru/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ru/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/ru/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/testhost.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/tr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/tr/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/tr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/tr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/tr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/xunit.abstractions.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/xunit.assert.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/xunit.core.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/xunit.execution.dotnet.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/xunit.runner.reporters.netcoreapp10.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/xunit.runner.utility.netcoreapp10.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/xunit.runner.visualstudio.testadapter.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/zh-Hans/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/zh-Hans/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/zh-Hans/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/zh-Hant/Microsoft.TestPlatform.CommunicationUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/zh-Hant/Microsoft.TestPlatform.CoreUtilities.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/zh-Hant/Microsoft.TestPlatform.CrossPlatEngine.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "bin/Debug/net7.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "Compiler.csproj"
+                },
+                {
+                    "blank": 0,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "Compiler.sln"
+                },
+                {
+                    "blank": 4,
+                    "code": 71,
+                    "comment": 0,
+                    "filename": "obj/Compiler.csproj.nuget.dgspec.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "obj/Compiler.csproj.nuget.g.props"
+                },
+                {
+                    "blank": 0,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "obj/Compiler.csproj.nuget.g.targets"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 1,
+                    "filename": "obj/Debug/net7.0/.NETCoreApp,Version=v7.0.AssemblyAttributes.cs"
+                },
+                {
+                    "filename": "obj/Debug/net7.0/apphost",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 4,
+                    "code": 9,
+                    "comment": 9,
+                    "filename": "obj/Debug/net7.0/Compiler.AssemblyInfo.cs"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "obj/Debug/net7.0/Compiler.AssemblyInfoInputs.cache"
+                },
+                {
+                    "filename": "obj/Debug/net7.0/Compiler.assets.cache",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "obj/Debug/net7.0/Compiler.csproj.AssemblyReference.cache",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": "obj/Debug/net7.0/Compiler.csproj.CopyComplete"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "obj/Debug/net7.0/Compiler.csproj.CoreCompileInputs.cache"
+                },
+                {
+                    "blank": 0,
+                    "code": 98,
+                    "comment": 0,
+                    "filename": "obj/Debug/net7.0/Compiler.csproj.FileListAbsolute.txt"
+                },
+                {
+                    "filename": "obj/Debug/net7.0/Compiler.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "obj/Debug/net7.0/Compiler.GeneratedMSBuildEditorConfig.editorconfig"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "obj/Debug/net7.0/Compiler.genruntimeconfig.cache"
+                },
+                {
+                    "blank": 0,
+                    "code": 7,
+                    "comment": 1,
+                    "filename": "obj/Debug/net7.0/Compiler.GlobalUsings.g.cs"
+                },
+                {
+                    "filename": "obj/Debug/net7.0/Compiler.pdb",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "obj/Debug/net7.0/ref/Compiler.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "obj/Debug/net7.0/refint/Compiler.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 1,
+                    "filename": "obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs"
+                },
+                {
+                    "blank": 4,
+                    "code": 9,
+                    "comment": 9,
+                    "filename": "obj/Debug/net8.0/Compiler.AssemblyInfo.cs"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "obj/Debug/net8.0/Compiler.AssemblyInfoInputs.cache"
+                },
+                {
+                    "filename": "obj/Debug/net8.0/Compiler.assets.cache",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "obj/Debug/net8.0/Compiler.GeneratedMSBuildEditorConfig.editorconfig"
+                },
+                {
+                    "blank": 0,
+                    "code": 7,
+                    "comment": 1,
+                    "filename": "obj/Debug/net8.0/Compiler.GlobalUsings.g.cs"
+                },
+                {
+                    "blank": 19,
+                    "code": 930,
+                    "comment": 0,
+                    "filename": "obj/project.assets.json"
+                },
+                {
+                    "blank": 1,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "obj/project.nuget.cache"
+                },
+                {
+                    "blank": 8,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "Program.cs"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 2,
+                    "code": 48,
+                    "comment": 1,
+                    "filename": "src/lexer/examples/bubblesort.src"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "src/lexer/examples/lexnegativegrading.src"
+                },
+                {
+                    "blank": 12,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "src/lexer/examples/lexpositivegrading.src"
+                },
+                {
+                    "blank": 6,
+                    "code": 13,
+                    "comment": 2,
+                    "filename": "src/lexer/IdentifierProcessing.cs"
+                },
+                {
+                    "blank": 4,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "src/lexer/IntegerAndFloatProcessing.cs"
+                },
+                {
+                    "blank": 28,
+                    "code": 285,
+                    "comment": 9,
+                    "filename": "src/lexer/Lexer.cs"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": "src/lexer/output/lexpositivegrading.outlexerrors"
+                },
+                {
+                    "blank": 0,
+                    "code": 26,
+                    "comment": 1,
+                    "filename": "src/lexer/output/lexpositivegrading.outlextokens"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src/lexer/SymbolsProcessing.cs"
+                },
+                {
+                    "blank": 17,
+                    "code": 126,
+                    "comment": 0,
+                    "filename": "src/lexer/Token.cs"
+                },
+                {
+                    "blank": 2,
+                    "code": 56,
+                    "comment": 0,
+                    "filename": "src/lexer/TokenType.cs"
+                },
+                {
+                    "blank": 9,
+                    "code": 0,
+                    "comment": 60,
+                    "filename": "src/parser/AST/Ast.cs"
+                },
+                {
+                    "blank": 27,
+                    "code": 138,
+                    "comment": 2,
+                    "filename": "src/parser/AST/Node.cs"
+                },
+                {
+                    "blank": 0,
+                    "code": 69,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeType.cs"
+                },
+                {
+                    "blank": 6,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/AddNode.cs"
+                },
+                {
+                    "blank": 4,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/AssignNode.cs"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/EqualsNode.cs"
+                },
+                {
+                    "blank": 1,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/FactorNode.cs"
+                },
+                {
+                    "blank": 2,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/FloatLitNode.cs"
+                },
+                {
+                    "blank": 3,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/FuncDeclNode.cs"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/FuncDefNode.cs"
+                },
+                {
+                    "blank": 4,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/FuncHeadNode.cs"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/FuncParamsNode.cs"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/IdNode.cs"
+                },
+                {
+                    "blank": 2,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/ImplNode.cs"
+                },
+                {
+                    "blank": 2,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/IntlitNode.cs"
+                },
+                {
+                    "blank": 2,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/MultNode.cs"
+                },
+                {
+                    "blank": 3,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/ProgNode.cs"
+                },
+                {
+                    "blank": 4,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/StructNode.cs"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/TypeNode.cs"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src/parser/AST/NodeTypes/VarDeclNode.cs"
+                },
+                {
+                    "blank": 58,
+                    "code": 138,
+                    "comment": 0,
+                    "filename": "src/parser/BNF_LL1.grm.ucalgary"
+                },
+                {
+                    "blank": 56,
+                    "code": 110,
+                    "comment": 0,
+                    "filename": "src/parser/initial.grm.ucalgary"
+                },
+                {
+                    "blank": 0,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src/parser/keep track of"
+                },
+                {
+                    "blank": 59,
+                    "code": 117,
+                    "comment": 0,
+                    "filename": "src/parser/output.grm.ucalgary"
+                },
+                {
+                    "blank": 6,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "src/parser/ParseException.cs"
+                },
+                {
+                    "blank": 248,
+                    "code": 1176,
+                    "comment": 166,
+                    "filename": "src/parser/Parser.cs"
+                },
+                {
+                    "blank": 6,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "src/symbol table/ClassEntry.cs"
+                },
+                {
+                    "blank": 15,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src/symbol table/FunctionEntry.cs"
+                },
+                {
+                    "blank": 7,
+                    "code": 15,
+                    "comment": 1,
+                    "filename": "src/symbol table/IVisitor.cs"
+                },
+                {
+                    "blank": 7,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src/symbol table/SymbolEntry.cs"
+                },
+                {
+                    "blank": 6,
+                    "code": 38,
+                    "comment": 0,
+                    "filename": "src/symbol table/SymbolTable.cs"
+                },
+                {
+                    "blank": 2,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "src/symbol table/VarEntry.cs"
+                },
+                {
+                    "blank": 35,
+                    "code": 173,
+                    "comment": 15,
+                    "filename": "src/symbol table/visitors/CodeGenVisitor.cs"
+                },
+                {
+                    "blank": 19,
+                    "code": 131,
+                    "comment": 0,
+                    "filename": "src/symbol table/visitors/MemorySizeVisitor.cs"
+                },
+                {
+                    "blank": 49,
+                    "code": 195,
+                    "comment": 9,
+                    "filename": "src/symbol table/visitors/SymbolTableGenVisitor.cs"
+                },
+                {
+                    "blank": 15,
+                    "code": 91,
+                    "comment": 0,
+                    "filename": "src/symbol table/visitors/TypeCheckingVisitor.cs"
+                },
+                {
+                    "blank": 0,
+                    "code": 81,
+                    "comment": 0,
+                    "filename": "tests/lexerTests/bubblewsort.outtokens"
+                },
+                {
+                    "blank": 6,
+                    "code": 9,
+                    "comment": 3,
+                    "filename": "tests/lexerTests/LexerTests.cs"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "tests/lexerTests/negative.errors"
+                },
+                {
+                    "blank": 1,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "tests/lexerTests/negative.token"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": "tests/lexerTests/positive.error"
+                },
+                {
+                    "blank": 0,
+                    "code": 49,
+                    "comment": 0,
+                    "filename": "tests/lexerTests/PositiveTokens.outtokens"
+                },
+                {
+                    "blank": 0,
+                    "code": 49,
+                    "comment": 0,
+                    "filename": "tests/lexerTests/PositiveTokensPostrefactor.outtokens"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "tests/lexerTests/struct.outtokens"
+                },
+                {
+                    "blank": 3,
+                    "code": 48,
+                    "comment": 0,
+                    "filename": "tests/ParserTests/bubblesort.src"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 130,
+                    "filename": "tests/ParserTests/bubblesortComments.src"
+                },
+                {
+                    "blank": 0,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "tests/ParserTests/bubblewoutput.outDerivation"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "tests/ParserTests/output.outDerivation"
+                },
+                {
+                    "blank": 1,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "tests/ParserTests/pol.txt"
+                },
+                {
+                    "blank": 0,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "tests/ParserTests/poly.txt"
+                },
+                {
+                    "blank": 8,
+                    "code": 81,
+                    "comment": 0,
+                    "filename": "tests/ParserTests/polynomial.src"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 130,
+                    "filename": "tests/ParserTests/polynomialComments.src"
+                },
+                {
+                    "blank": 8,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "tests/ParserTests/RestOfTests.src"
+                },
+                {
+                    "blank": 9,
+                    "code": 64,
+                    "comment": 0,
+                    "filename": "tests/ParserTests/RestOfTheTests.txt"
+                },
+                {
+                    "blank": 2,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "tests/ParserTests/struct.txt"
+                },
+                {
+                    "blank": 0,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "tests/symbolTableTests/mooncode.txt"
+                }
+            ]
         }
     ]
 }

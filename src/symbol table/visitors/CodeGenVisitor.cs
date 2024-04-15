@@ -10,7 +10,7 @@ public class CodeGenVisitor : IVisitor{
     string _moonExecCode = "";
     string _moonDataCode = "";
     string _indent = "  ";
-    string _outputFile = "";
+    string _outputFile = "tests/symbolTableTests/mooncode.txt";
 
 
     public void Visit(StructNode node)
@@ -31,7 +31,10 @@ public class CodeGenVisitor : IVisitor{
         try
         {
             using var writer = new StreamWriter(_outputFile);
-            writer.Write(_moonExecCode,_moonDataCode);
+            //Console.WriteLine(_moonExecCode);
+            _moonExecCode += _moonDataCode;
+            writer.Write(_moonExecCode);
+            //writer.Write(_moonDataCode);   
             writer.Close();
 
         }
@@ -95,7 +98,7 @@ public class CodeGenVisitor : IVisitor{
                 _moonDataCode += "          " + node.getChildren()[0]._value + " res4\n";
                 break;
             default:
-                _moonDataCode += "%error initializing var decl for " + node.getChildren()[0]._value;
+                _moonDataCode += "%error initializing var decl for " + node.getChildren()[0]._value + "\n";
                 break;
         } 
 
@@ -114,10 +117,6 @@ public class CodeGenVisitor : IVisitor{
     public void Visit(AddNode node)
     {
         foreach (var child in node.getChildren())
-        {
-           child.Accept(this); 
-        }
-                foreach (var child in node.getChildren())
         {
            child.Accept(this); 
         }
@@ -185,12 +184,12 @@ public class CodeGenVisitor : IVisitor{
         String localRegister = this._registerPool.Pop();
 
         //generate code
-		_moonDataCode += _indent + "% space for constant " + node.getData() + "\n";
-		_moonDataCode += String.format("%-10s",node._moonVarName) + " res 4\n";
+		_moonDataCode += _indent + "% space for constant " + node._value + "\n";
+		//_moonDataCode += String.format("%-10s",node._moonVarName) + " res 4\n";
 
         //exec code
-		_moonExecCode += _indent + "% processing: " + node._moonVarName  + " := " + node.getData() + "\n";
-		_moonExecCode += _indent + "addi " + localRegister + ",r0," + node.getData() + "\n"; 
+		_moonExecCode += _indent + "% processing: " + node._moonVarName  + " := " + node._value + "\n";
+		_moonExecCode += _indent + "addi " + localRegister + ",r0," + node._value + "\n"; 
 		_moonExecCode += _indent + "sw " + node._moonVarName + "(r0)," + localRegister + "\n";
 		// deallocate the register for the current node
 		this._registerPool.Push(localRegister);

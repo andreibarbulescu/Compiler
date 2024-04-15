@@ -12,6 +12,8 @@ public class MemorySizeVisitor : IVisitor
     }
     public int sizeOfEntry(Node node) {
 		int size = 0;
+
+        
 		if(node._symtabentry._type == "INTEGER")
 			size = 4;
 		else if(node._symtabentry._type == "FLOAT")
@@ -145,6 +147,9 @@ public class MemorySizeVisitor : IVisitor
 
     public void Visit(AssignNode node)
     {
-        throw new NotImplementedException();
+        
+        foreach(var child in node.getChildren()){
+            child.Accept(this);
+        }
     }
 }

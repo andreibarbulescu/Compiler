@@ -882,3 +882,227 @@ tests/ParserTests/RestOfTests.src, code is 29, comment is 0, blank is 8.
 tests/ParserTests/RestOfTheTests.txt, code is 64, comment is 0, blank is 9.
 tests/ParserTests/struct.txt, code is 22, comment is 0, blank is 2.
 ===============================================================================
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2024-04-11 14:42:38
+count workspace : /home/andrei/Documents/Coding/Compiler/Compiler
+total files : 187
+total code lines : 6133
+total comment lines : 721
+total blank lines : 840
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |           .sln|             25|              0|              0|   0.41|
+   |               |            125|            170|             27|    2.0|
+   |            .md|              0|              0|              0|    0.0|
+   |           .txt|            784|              0|             12|     13|
+   |            .cs|           2825|            289|            570|     46|
+   |        .csproj|             13|              0|              0|   0.21|
+   |           .src|            229|            261|             33|    3.7|
+   | .outDerivation|             19|              0|              0|   0.31|
+   |     .outtokens|            181|              0|              0|    3.0|
+   |  .outlextokens|             26|              1|              0|   0.42|
+   |        .errors|              1|              0|              0|  0.016|
+   |  .outlexerrors|              0|              0|              0|    0.0|
+   |         .error|              0|              0|              0|    0.0|
+   |         .token|              1|              0|              1|  0.016|
+   |          .json|           1458|              0|             23|     24|
+   |      .ucalgary|            365|              0|            173|    6.0|
+   |         .props|             25|              0|              0|   0.41|
+   |       .targets|              8|              0|              0|   0.13|
+   |         .cache|             26|              0|              1|   0.42|
+   |  .CopyComplete|              0|              0|              0|    0.0|
+   |  .editorconfig|             22|              0|              0|   0.36|
+   -------------------------------------------------------------------------
+.gitignore, code is 121, comment is 170, blank is 27.
+ast2.txt, code is 551, comment is 0, blank is 0.
+bin/Debug/net7.0/Compiler, it is a binary file.
+bin/Debug/net7.0/Compiler.deps.json, code is 448, comment is 0, blank is 0.
+bin/Debug/net7.0/Compiler.dll, it is a binary file.
+bin/Debug/net7.0/Compiler.pdb, it is a binary file.
+bin/Debug/net7.0/Compiler.runtimeconfig.json, code is 9, comment is 0, blank is 0.
+bin/Debug/net7.0/cs/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/cs/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/cs/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/cs/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/cs/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+bin/Debug/net7.0/de/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/de/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/de/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/de/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/de/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+bin/Debug/net7.0/es/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/es/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/es/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/es/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/es/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+bin/Debug/net7.0/fr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/fr/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/fr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/fr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/fr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+bin/Debug/net7.0/it/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/it/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/it/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/it/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/it/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+bin/Debug/net7.0/ja/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/ja/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/ja/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/ja/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/ja/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+bin/Debug/net7.0/ko/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/ko/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/ko/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/ko/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/ko/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+bin/Debug/net7.0/Microsoft.TestPlatform.CommunicationUtilities.dll, it is a binary file.
+bin/Debug/net7.0/Microsoft.TestPlatform.CoreUtilities.dll, it is a binary file.
+bin/Debug/net7.0/Microsoft.TestPlatform.CrossPlatEngine.dll, it is a binary file.
+bin/Debug/net7.0/Microsoft.TestPlatform.PlatformAbstractions.dll, it is a binary file.
+bin/Debug/net7.0/Microsoft.TestPlatform.Utilities.dll, it is a binary file.
+bin/Debug/net7.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll, it is a binary file.
+bin/Debug/net7.0/Microsoft.VisualStudio.TestPlatform.Common.dll, it is a binary file.
+bin/Debug/net7.0/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll, it is a binary file.
+bin/Debug/net7.0/Newtonsoft.Json.dll, it is a binary file.
+bin/Debug/net7.0/pl/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/pl/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/pl/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/pl/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/pl/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+bin/Debug/net7.0/pt-BR/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/pt-BR/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/pt-BR/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/pt-BR/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/pt-BR/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+bin/Debug/net7.0/ru/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/ru/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/ru/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/ru/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/ru/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+bin/Debug/net7.0/testhost.dll, it is a binary file.
+bin/Debug/net7.0/tr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/tr/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/tr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/tr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/tr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+bin/Debug/net7.0/xunit.abstractions.dll, it is a binary file.
+bin/Debug/net7.0/xunit.assert.dll, it is a binary file.
+bin/Debug/net7.0/xunit.core.dll, it is a binary file.
+bin/Debug/net7.0/xunit.execution.dotnet.dll, it is a binary file.
+bin/Debug/net7.0/xunit.runner.reporters.netcoreapp10.dll, it is a binary file.
+bin/Debug/net7.0/xunit.runner.utility.netcoreapp10.dll, it is a binary file.
+bin/Debug/net7.0/xunit.runner.visualstudio.testadapter.dll, it is a binary file.
+bin/Debug/net7.0/zh-Hans/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/zh-Hans/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/zh-Hans/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+bin/Debug/net7.0/zh-Hant/Microsoft.TestPlatform.CommunicationUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/zh-Hant/Microsoft.TestPlatform.CoreUtilities.resources.dll, it is a binary file.
+bin/Debug/net7.0/zh-Hant/Microsoft.TestPlatform.CrossPlatEngine.resources.dll, it is a binary file.
+bin/Debug/net7.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll, it is a binary file.
+bin/Debug/net7.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll, it is a binary file.
+Compiler.csproj, code is 13, comment is 0, blank is 0.
+Compiler.sln, code is 25, comment is 0, blank is 0.
+obj/Compiler.csproj.nuget.dgspec.json, code is 71, comment is 0, blank is 4.
+obj/Compiler.csproj.nuget.g.props, code is 25, comment is 0, blank is 0.
+obj/Compiler.csproj.nuget.g.targets, code is 8, comment is 0, blank is 0.
+obj/Debug/net7.0/.NETCoreApp,Version=v7.0.AssemblyAttributes.cs, code is 3, comment is 1, blank is 0.
+obj/Debug/net7.0/apphost, it is a binary file.
+obj/Debug/net7.0/Compiler.AssemblyInfo.cs, code is 9, comment is 9, blank is 4.
+obj/Debug/net7.0/Compiler.AssemblyInfoInputs.cache, code is 1, comment is 0, blank is 0.
+obj/Debug/net7.0/Compiler.assets.cache, it is a binary file.
+obj/Debug/net7.0/Compiler.csproj.AssemblyReference.cache, it is a binary file.
+obj/Debug/net7.0/Compiler.csproj.CopyComplete, code is 0, comment is 0, blank is 0.
+obj/Debug/net7.0/Compiler.csproj.CoreCompileInputs.cache, code is 1, comment is 0, blank is 0.
+obj/Debug/net7.0/Compiler.csproj.FileListAbsolute.txt, code is 98, comment is 0, blank is 0.
+obj/Debug/net7.0/Compiler.dll, it is a binary file.
+obj/Debug/net7.0/Compiler.GeneratedMSBuildEditorConfig.editorconfig, code is 11, comment is 0, blank is 0.
+obj/Debug/net7.0/Compiler.genruntimeconfig.cache, code is 1, comment is 0, blank is 0.
+obj/Debug/net7.0/Compiler.GlobalUsings.g.cs, code is 7, comment is 1, blank is 0.
+obj/Debug/net7.0/Compiler.pdb, it is a binary file.
+obj/Debug/net7.0/ref/Compiler.dll, it is a binary file.
+obj/Debug/net7.0/refint/Compiler.dll, it is a binary file.
+obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs, code is 3, comment is 1, blank is 0.
+obj/Debug/net8.0/Compiler.AssemblyInfo.cs, code is 9, comment is 9, blank is 4.
+obj/Debug/net8.0/Compiler.AssemblyInfoInputs.cache, code is 1, comment is 0, blank is 0.
+obj/Debug/net8.0/Compiler.assets.cache, it is a binary file.
+obj/Debug/net8.0/Compiler.GeneratedMSBuildEditorConfig.editorconfig, code is 11, comment is 0, blank is 0.
+obj/Debug/net8.0/Compiler.GlobalUsings.g.cs, code is 7, comment is 1, blank is 0.
+obj/project.assets.json, code is 930, comment is 0, blank is 19.
+obj/project.nuget.cache, code is 22, comment is 0, blank is 1.
+Program.cs, code is 19, comment is 0, blank is 8.
+README.md, code is 0, comment is 0, blank is 0.
+src/lexer/examples/bubblesort.src, code is 48, comment is 1, blank is 2.
+src/lexer/examples/lexnegativegrading.src, code is 1, comment is 0, blank is 0.
+src/lexer/examples/lexpositivegrading.src, code is 22, comment is 0, blank is 12.
+src/lexer/IdentifierProcessing.cs, code is 13, comment is 2, blank is 6.
+src/lexer/IntegerAndFloatProcessing.cs, code is 2, comment is 0, blank is 4.
+src/lexer/Lexer.cs, code is 285, comment is 9, blank is 28.
+src/lexer/output/lexpositivegrading.outlexerrors, code is 0, comment is 0, blank is 0.
+src/lexer/output/lexpositivegrading.outlextokens, code is 26, comment is 1, blank is 0.
+src/lexer/SymbolsProcessing.cs, code is 5, comment is 0, blank is 0.
+src/lexer/Token.cs, code is 126, comment is 0, blank is 17.
+src/lexer/TokenType.cs, code is 56, comment is 0, blank is 2.
+src/parser/AST/Ast.cs, code is 0, comment is 60, blank is 9.
+src/parser/AST/Node.cs, code is 138, comment is 2, blank is 27.
+src/parser/AST/NodeType.cs, code is 69, comment is 0, blank is 0.
+src/parser/AST/NodeTypes/AddNode.cs, code is 11, comment is 0, blank is 6.
+src/parser/AST/NodeTypes/AssignNode.cs, code is 11, comment is 0, blank is 4.
+src/parser/AST/NodeTypes/EqualsNode.cs, code is 0, comment is 0, blank is 0.
+src/parser/AST/NodeTypes/FactorNode.cs, code is 3, comment is 0, blank is 1.
+src/parser/AST/NodeTypes/FloatLitNode.cs, code is 11, comment is 0, blank is 2.
+src/parser/AST/NodeTypes/FuncDeclNode.cs, code is 11, comment is 0, blank is 3.
+src/parser/AST/NodeTypes/FuncDefNode.cs, code is 8, comment is 0, blank is 2.
+src/parser/AST/NodeTypes/FuncHeadNode.cs, code is 10, comment is 0, blank is 4.
+src/parser/AST/NodeTypes/FuncParamsNode.cs, code is 6, comment is 0, blank is 1.
+src/parser/AST/NodeTypes/IdNode.cs, code is 8, comment is 0, blank is 2.
+src/parser/AST/NodeTypes/ImplNode.cs, code is 12, comment is 0, blank is 2.
+src/parser/AST/NodeTypes/IntlitNode.cs, code is 9, comment is 0, blank is 2.
+src/parser/AST/NodeTypes/MultNode.cs, code is 9, comment is 0, blank is 2.
+src/parser/AST/NodeTypes/ProgNode.cs, code is 10, comment is 0, blank is 3.
+src/parser/AST/NodeTypes/StructNode.cs, code is 11, comment is 0, blank is 4.
+src/parser/AST/NodeTypes/TypeNode.cs, code is 6, comment is 0, blank is 1.
+src/parser/AST/NodeTypes/VarDeclNode.cs, code is 9, comment is 0, blank is 1.
+src/parser/BNF_LL1.grm.ucalgary, code is 138, comment is 0, blank is 58.
+src/parser/initial.grm.ucalgary, code is 110, comment is 0, blank is 56.
+src/parser/keep track of, code is 4, comment is 0, blank is 0.
+src/parser/output.grm.ucalgary, code is 117, comment is 0, blank is 59.
+src/parser/ParseException.cs, code is 22, comment is 0, blank is 6.
+src/parser/Parser.cs, code is 1176, comment is 166, blank is 248.
+src/symbol table/ClassEntry.cs, code is 14, comment is 0, blank is 6.
+src/symbol table/FunctionEntry.cs, code is 24, comment is 0, blank is 15.
+src/symbol table/IVisitor.cs, code is 15, comment is 1, blank is 7.
+src/symbol table/SymbolEntry.cs, code is 29, comment is 0, blank is 7.
+src/symbol table/SymbolTable.cs, code is 38, comment is 0, blank is 6.
+src/symbol table/VarEntry.cs, code is 12, comment is 0, blank is 2.
+src/symbol table/visitors/CodeGenVisitor.cs, code is 173, comment is 15, blank is 35.
+src/symbol table/visitors/MemorySizeVisitor.cs, code is 131, comment is 0, blank is 19.
+src/symbol table/visitors/SymbolTableGenVisitor.cs, code is 195, comment is 9, blank is 49.
+src/symbol table/visitors/TypeCheckingVisitor.cs, code is 91, comment is 0, blank is 15.
+tests/lexerTests/bubblewsort.outtokens, code is 81, comment is 0, blank is 0.
+tests/lexerTests/LexerTests.cs, code is 9, comment is 3, blank is 6.
+tests/lexerTests/negative.errors, code is 1, comment is 0, blank is 0.
+tests/lexerTests/negative.token, code is 1, comment is 0, blank is 1.
+tests/lexerTests/positive.error, code is 0, comment is 0, blank is 0.
+tests/lexerTests/PositiveTokens.outtokens, code is 49, comment is 0, blank is 0.
+tests/lexerTests/PositiveTokensPostrefactor.outtokens, code is 49, comment is 0, blank is 0.
+tests/lexerTests/struct.outtokens, code is 2, comment is 0, blank is 0.
+tests/ParserTests/bubblesort.src, code is 48, comment is 0, blank is 3.
+tests/ParserTests/bubblesortComments.src, code is 0, comment is 130, blank is 0.
+tests/ParserTests/bubblewoutput.outDerivation, code is 14, comment is 0, blank is 0.
+tests/ParserTests/output.outDerivation, code is 5, comment is 0, blank is 0.
+tests/ParserTests/pol.txt, code is 10, comment is 0, blank is 1.
+tests/ParserTests/poly.txt, code is 22, comment is 0, blank is 0.
+tests/ParserTests/polynomial.src, code is 81, comment is 0, blank is 8.
+tests/ParserTests/polynomialComments.src, code is 0, comment is 130, blank is 0.
+tests/ParserTests/RestOfTests.src, code is 29, comment is 0, blank is 8.
+tests/ParserTests/RestOfTheTests.txt, code is 64, comment is 0, blank is 9.
+tests/ParserTests/struct.txt, code is 22, comment is 0, blank is 2.
+tests/symbolTableTests/mooncode.txt, code is 17, comment is 0, blank is 0.
+===============================================================================

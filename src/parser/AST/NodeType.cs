@@ -65,5 +65,7 @@ public enum NodeType{
     IF,
     RETURN,
     FUNCDECL,
-    TYPE
+    TYPE,
+    READ,
+    WRITE
 }
