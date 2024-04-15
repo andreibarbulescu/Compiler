@@ -69,6 +69,7 @@ public class SymbolTableGen : IVisitor
         var funcDefEntry = new FunctionEntry(fReturnType,fName,functionParams,upper)  ;
 
         node._symbolTable.addEntry(funcDefEntry);
+//      SymbolTable thisFunction = new(tableLevel, upper._title + "::"  + fName , upper);
         SymbolTable thisFunction = new(tableLevel, upper._title + "::"  + fName , upper);
 
         node._symbolTable = thisFunction;
@@ -119,6 +120,8 @@ public class SymbolTableGen : IVisitor
             child._symbolTable = node._symbolTable;
            child.Accept(this); 
         }
+        node._symtabentry = new SymbolEntry();
+        node._symtabentry._type = "id";
     }
 
     //Function Declaration
@@ -178,7 +181,15 @@ public class SymbolTableGen : IVisitor
         }
 
         string variableId = node._LeftMostchild._value;
-        string varaibeleType = node._LeftMostchild._rightSibling._value;
+        string varaibeleType = "";
+
+        if (node._LeftMostchild._rightSibling._objectName == "")
+        {            
+            varaibeleType = node._LeftMostchild._rightSibling._value;
+        }else{
+            varaibeleType = node._LeftMostchild._rightSibling._objectName;
+        }
+
 
         List<int> dimensions = new List<int>();
 
@@ -188,6 +199,7 @@ public class SymbolTableGen : IVisitor
 
     public void Visit(AddNode node)
     {
+        Console.WriteLine("VISITING ADD NODE");
         foreach (var child in node.getChildren())
         {
             child._symbolTable = node._symbolTable;
@@ -229,6 +241,8 @@ public class SymbolTableGen : IVisitor
             child._symbolTable = node._symbolTable;
             child.Accept(this);
         }
+        node._symtabentry = new SymbolEntry();
+        node._symtabentry._type = "IntLit";
     }
 
     public void Visit(FloatLitNode node)
@@ -238,14 +252,18 @@ public class SymbolTableGen : IVisitor
             child._symbolTable = node._symbolTable;
             child.Accept(this);
         }
+        node._symtabentry = new SymbolEntry();
+        node._symtabentry._type = "FloatLit";
     }
 
     public void Visit(AssignNode node)
     {
         foreach (var child in node.getChildren())
         {
+            child._symbolTable = node._symbolTable;
             child.Accept(this);
         }
+        node._symtabentry = new SymbolEntry();
     }
 
     public void write(){

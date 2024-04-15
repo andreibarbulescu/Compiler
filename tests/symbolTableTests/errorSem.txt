@@ -1,1 +1,2 @@
-More than one main function Encountered
+Struct 'POLYNOMIAL' is declared multiple times.
+Struct 'QUADRATIC' is declared multiple times.

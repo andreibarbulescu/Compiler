@@ -564,10 +564,11 @@ public class Parser{
                 return new TypeNode("FLOAT",NodeType.TYPE);
 
             case TokenType.ID:
+            var idName = lookahead.GetName();
                 match(TokenType.ID);
                 typeNode._type = NodeType.ID;
 
-                return new TypeNode("ID",NodeType.TYPE);
+                return new TypeNode("ID",NodeType.TYPE, idName);
            
             default:
                 Console.WriteLine("Error buddy");
@@ -1112,7 +1113,7 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
     
     //ARITHEXPR -> TERM RIGHTRECARITHEXPR.
     private Node ArithExpr(){
-        var ArithExpr = new Node();
+        var ArithExpr = new AddNode();
            Node term = Term();
         Node rightRecArtithExpr = RightRecArithExpr();
         if (rightRecArtithExpr._type == NodeType.EMPTY)

@@ -6,8 +6,8 @@ struct POLYNOMIAL {
 };
 
 struct LINEAR inherits POLYNOMIAL {
-	private let a: float;
-	private let b: float;
+	private let a: int;
+	private let b: int;
   private let arr: int[55][9];
   private let anotha: int[];
   private let mama: float[8][7][9];

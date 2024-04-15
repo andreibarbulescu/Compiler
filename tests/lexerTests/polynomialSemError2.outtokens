@@ -1,0 +1,7 @@
+[FUNC, func, 1][ID, evaluate, 1][OPENPAR, (, 1][ID, x, 1][COLON, :, 1][INTEGER, int, 1][COMMA, ,, 1][ID, y, 1][COLON, :, 1][INTEGER, int, 1][CLOSEPAR, ), 1][ARROW, ->, 1][INTEGER, int, 1]
+[OPENCUBR, {, 2]
+[RETURN, return, 3][OPENPAR, (, 3][FLOATNUM, 2.2, 3][CLOSEPAR, ), 3][SEMI, ;, 3]
+[CLOSECUBR, }, 4]
+[FUNC, func, 5][ID, evaluate, 5][OPENPAR, (, 5][CLOSEPAR, ), 5][ARROW, ->, 5][INTEGER, int, 5]
+[OPENCUBR, {, 6]
+[CLOSECUBR, }, 8]

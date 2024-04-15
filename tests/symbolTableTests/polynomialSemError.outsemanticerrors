@@ -1,0 +1,10 @@
+Class not declared cannot implement FORMULA
+error performing addition on INTLIT and FLOATLIT
+Variable 'a' is declared 2 times in LINEAR.
+Variable 'evaluate' is declared 2 times in LINEAR.
+Variable 'c' is declared 5 times in QUADRATIC.
+Variable 'bab' is declared 3 times in evaluate function.
+Undeclared Class SIMPLISTIC
+More than one main function Encountered
+Struct 'POLYNOMIAL' is declared 2 times.
+Free Function 'main' is declared 2 times.

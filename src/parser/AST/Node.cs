@@ -17,6 +17,8 @@ public class Node{
     public  String      _leftChildRegister  = new(""); 
     public  String      _rightChildRegister = new("");
     public  String      _moonVarName        = new("");
+
+    public string _objectName = "";
     public Node(string value, NodeType type){
         _LeftMostchild = null; 
         _parent = null;
@@ -28,6 +30,16 @@ public class Node{
         
     }
 
+    public Node(string value, NodeType type, string objN){
+        _LeftMostchild = null; 
+        _parent = null;
+        _type = type;
+        _value = value;
+        _leftMostSibling = this;
+        _id = _currentId;
+        _currentId++;
+       _objectName = objN; 
+    }
     public Node(){
         _LeftMostchild = null;
         _type = NodeType.EMPTY;

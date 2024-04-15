@@ -1,5 +1,0 @@
-Prog
-ReptProg0
-StructDecl ReptProg0 
-struct simple inherits anotherClass { ReptStructDecl4 } ; ReptProg0
-Parsing Complete

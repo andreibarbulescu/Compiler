@@ -1,0 +1,89 @@
+struct POLYNOMIAL {
+    private let a:int;
+    public let b:int;
+};
+
+struct POLYNOMIAL{
+
+};
+
+impl FORMULA{
+  
+}
+
+impl POLYNOMIAL {   
+  func evaluate(x: float) -> float
+  {
+    a = 1 + 1.1;
+    return (0);
+  }
+}
+
+func helloWorld() -> int{
+
+}
+
+func main() -> void
+{
+
+}
+
+
+struct LINEAR inherits POLYNOMIAL {
+	private let a: float;
+  private let a: int;
+
+	private let b: float;
+  private let arr: int[55][9];
+  private let anotherf: int[];
+  private let mama: float[8][7][9];
+	public func build(A: float, B: float) -> LINEAR;
+	public func evaluate(x: float) -> float;
+  public func evaluate() -> void;
+};
+
+struct QUADRATIC inherits POLYNOMIAL {
+	private let a: float;
+	private let b: float;
+	private let c: float;
+    private let c: float;
+    private let c: float;
+    private let c: float;
+    private let c: float;
+	public  func build(A: float, B: float, C: float) -> QUADRATIC;
+	public  func evaluate(x: float) -> float;
+};
+
+impl QUADRATIC {   
+  func evaluate(x: float) -> float
+  {
+    let bab: int;
+    let bab: float;
+    let bab: int;
+  }
+}
+
+func main() -> void
+{
+  let f1: LINEAR;
+  let f2: QUADRATIC;
+  let f3: SIMPLISTIC;
+  let f4 : int;
+
+  f4 = 1;
+  f4 = 1.1;
+
+  tryThis();
+  f4.build();
+  let counter: int;
+  f1 = f1.build(2, 3.5);
+  f2 = f2.build(2, 9);
+  counter = 1;
+	
+  while(counter <= 10)
+  {
+    write(counter);
+    write(f1.evaluate(counter));
+    write(f2.evaluate(counter));
+  };
+}

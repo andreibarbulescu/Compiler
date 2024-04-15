@@ -3,7 +3,7 @@ ReptProg0
 StructDecl ReptProg0 
 struct POLYNOMIAL { public func evaluate ( x : float ) -> float ; private func param ( a : int [ ] [ ] ) -> int ; public func more ( c : int , b : float , a : int ) -> something ; private func idea ( ) -> void ; } ; ReptProg0
 StructDecl ReptProg0 
-struct LINEAR inherits POLYNOMIAL { private let a : float ; private let b : float ; private let arr : int [ 55 ] [ 9 ] ; private let anotha : int [ ] ; private let mama : float [ 8 ] [ 7 ] [ 9 ] ; public func build ( A : float , B : float ) -> LINEAR ; public func evaluate ( x : float ) -> float ; } ; ReptProg0
+struct LINEAR inherits POLYNOMIAL { private let a : int ; private let b : int ; private let arr : int [ 55 ] [ 9 ] ; private let anotha : int [ ] ; private let mama : float [ 8 ] [ 7 ] [ 9 ] ; public func build ( A : float , B : float ) -> LINEAR ; public func evaluate ( x : float ) -> float ; } ; ReptProg0
 StructDecl ReptProg0 
 struct QUADRATIC inherits POLYNOMIAL { private let a : float ; private let b : float ; private let c : float ; public func build ( A : float , B : float , C : float ) -> QUADRATIC ; public func evaluate ( x : float ) -> float ; } ; ReptProg0
 impl POLYNOMIAL { func evaluate ( x : float ) -> float { a = a + 1 ; b = a + 2 ; return ( 0 ) ; } } ReptProg0

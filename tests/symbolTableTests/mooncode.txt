@@ -1,5 +1,37 @@
+  % processing: t1 :=  + 
+  lw r2,(r0)
+  lw r3,(r0)
+  add r1,r2,r3
+  sw t1(r0),r1
+  % processing:  := t1
+  lw r1,t1(r0)
+  sw (r0),r1
+  % processing: t2 :=  + 
+  lw r3,(r0)
+  lw r2,(r0)
+  add r1,r3,r2
+  sw t2(r0),r1
+  % processing:  := t2
+  lw r1,t2(r0)
+  sw (r0),r1
   % processing:  := 
   lw r1,(r0)
+  sw (r0),r1
+  % processing: t3 :=  + 
+  lw r2,(r0)
+  lw r3,(r0)
+  add r1,r2,r3
+  sw t3(r0),r1
+  % processing:  := t3
+  lw r1,t3(r0)
+  sw (r0),r1
+  % processing: t4 :=  + 
+  lw r3,(r0)
+  lw r2,(r0)
+  add r1,r3,r2
+  sw t4(r0),r1
+  % processing:  := t4
+  lw r1,t4(r0)
   sw (r0),r1
   % processing:  := 
   lw r1,(r0)
@@ -19,8 +51,13 @@
   % processing:  := 
   lw r1,(r0)
   sw (r0),r1
-  % processing:  := 
-  lw r1,(r0)
+  % processing: t5 :=  + 
+  lw r2,(r0)
+  lw r3,(r0)
+  add r1,r2,r3
+  sw t5(r0),r1
+  % processing:  := t5
+  lw r1,t5(r0)
   sw (r0),r1
   % processing:  := 
   lw r1,(r0)
@@ -34,22 +71,8 @@
   % processing:  := 
   lw r1,(r0)
   sw (r0),r1
-  % processing:  := 
-  lw r1,(r0)
-  sw (r0),r1
-  % processing:  := 
-  lw r1,(r0)
-  sw (r0),r1
-  % processing:  := 
-  lw r1,(r0)
-  sw (r0),r1
-  % processing:  := 
-  lw r1,(r0)
-  sw (r0),r1
-  % space for variablea
-          a res4
-  % space for variableb
-          b res4
+%error initializing var decl for a
+%error initializing var decl for b
 %error initializing var decl for arr
 %error initializing var decl for anotha
   % space for variablemama
@@ -60,12 +83,22 @@
           b res4
   % space for variablec
           c res4
+  % space for  + 
+t1 res4
+  % space for  + 
+t2 res4
   % space for variableresult
           result res4
+  % space for  + 
+t3 res4
+  % space for  + 
+t4 res4
 %error initializing var decl for new_function
 %error initializing var decl for new_function
   % space for variableresult
           result res4
+  % space for  + 
+t5 res4
 %error initializing var decl for f1
 %error initializing var decl for f2
 %error initializing var decl for counter
