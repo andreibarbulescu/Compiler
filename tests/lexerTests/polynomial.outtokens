@@ -66,7 +66,7 @@
 [OPENCUBR, {, 72]
 [LET, let, 73][ID, f1, 73][COLON, :, 73][ID, LINEAR, 73][SEMI, ;, 73]
 [LET, let, 74][ID, f2, 74][COLON, :, 74][ID, QUADRATIC, 74][SEMI, ;, 74]
-[LET, let, 75][ID, counter, 75][COLON, :, 75][ID, integer, 75][SEMI, ;, 75]
+[LET, let, 75][ID, counter, 75][COLON, :, 75][INTEGER, int, 75][SEMI, ;, 75]
 [ID, f1, 76][ASSIGN, =, 76][ID, f1, 76][DOT, ., 76][ID, build, 76][OPENPAR, (, 76][INTNUM, 2, 76][COMMA, ,, 76][FLOATNUM, 3.5, 76][CLOSEPAR, ), 76][SEMI, ;, 76]
 [ID, f2, 77][ASSIGN, =, 77][ID, f2, 77][DOT, ., 77][ID, build, 77][OPENPAR, (, 77][INTNUM, 2, 77][COMMA, ,, 77][INTNUM, 9, 77][CLOSEPAR, ), 77][SEMI, ;, 77]
 [ID, counter, 78][ASSIGN, =, 78][INTNUM, 1, 78][SEMI, ;, 78]

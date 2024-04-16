@@ -7,6 +7,7 @@ public class Parser{
 
     private List<Token> tokenList;
     private string outputFilePath;
+    private string _outputAstFile;
     private int counter = 0;
     private Token lookahead = new Token();
     String outputStr = "";
@@ -15,13 +16,14 @@ public class Parser{
     private Node ast;
     
 
-    public Parser(string path, List<Token> list)
+    public Parser(string path, List<Token> list,string astPath)
     {
         derivation = new List<string>();
         this.outputFilePath = path;
         this.tokenList = list;
         this.lookahead = tokenList[counter];
         ast = new Node();
+        _outputAstFile = astPath;
     }
 
 
@@ -113,7 +115,7 @@ public class Parser{
         }
         big._value = "Prog";
         //Console.WriteLine(big.ToDotString());
-        this.write(big.ToDotString(),"ast2.txt");
+        this.write(big.ToDotString(),_outputAstFile);
         //Console.WriteLine("Type of " + big._LeftMostchild.GetType().Name);
         return big;
     }
@@ -905,6 +907,7 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
             Node reptIDNest = ReptIdNest1();
             Node assOrFunc2 = AssignStatOrFuncCall2();
             Node idk = new();
+            idk._value = idPrevNode._value;
             idk.newAdoptChildren(reptIDNest);
             idk.newAdoptChildren(assOrFunc2);
 
@@ -1315,8 +1318,8 @@ ASSIGNSTATORFUNCCALL -> ASSIGNOP EXPR
         switch(lookahead.GetTokenType()){
 
             case TokenType.ID:
-            IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
-            factor.newAdoptChildren(idNode);
+                IdNode idNode = new IdNode(lookahead.GetName(),NodeType.ID);
+                factor.newAdoptChildren(idNode);
 
             match(TokenType.ID);
                 Node factor2 = Factor2();

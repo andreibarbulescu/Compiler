@@ -59,7 +59,7 @@ public class MemorySizeVisitor : IVisitor
             child.Accept(this);
         }
         _content += progNode._symbolTable;
-        Console.WriteLine(_content);
+        write();
     }
 
     public void Visit(Node node)
@@ -150,6 +150,20 @@ public class MemorySizeVisitor : IVisitor
         
         foreach(var child in node.getChildren()){
             child.Accept(this);
+        }
+    }
+    public void write(){
+        try
+        {
+            using var writer = new StreamWriter(outputFile);
+            writer.Write(_content);
+            writer.Close();
+
+        }
+        catch (Exception)
+        {
+            Console.WriteLine($"An exception occurred while writing to the file: {outputFile}");
+            throw;
         }
     }
 }

@@ -9,7 +9,7 @@ Console.WriteLine("=============================================================
 Console.WriteLine("Welcome to my compiler, please select a test file from the following: \n");
 Console.WriteLine("polynomial.src");
 Console.WriteLine("bubblesort.src");
-Console.WriteLine("simpleMain.src");
+Console.WriteLine("pol.txt");
 Console.WriteLine("polynomialSemError.src");
 Console.WriteLine("polynomialSemError2.src");
 Console.WriteLine("========================================================================");
@@ -29,9 +29,9 @@ string TokenErrorFile = "tests/lexerTests/" + trimmedInput + ".outerrortokens";
 
 
 string DerivationFile = "tests/ParserTests/" + trimmedInput + ".outDerivation";
-string AstFile = "tests/ParserTests/" + trimmedInput + ".dot";
-string SymbolTableFile = "tests/ParserTests/" + trimmedInput + ".symboltable";
-string CodeGenFile = "tests/ParserTests/" + trimmedInput + ".moon";
+string AstFile = "tests/ParserTests/" + trimmedInput + ".dotoutast";
+string SymbolTableFile = "tests/symbolTableTests/" + trimmedInput + ".symboltable";
+string CodeGenFile = "tests/symbolTableTests/" + trimmedInput + ".moon";
 
 string warningSemFile = "tests/symbolTableTests/" + trimmedInput + ".outsemanticwarnings";
 string errorSemFile = "tests/symbolTableTests/" + trimmedInput + ".outsemanticerrors";
@@ -43,12 +43,12 @@ reader.readFile();
 
 List<Token> list = reader.GetList();
 
-Parser pars = new Parser(DerivationFile,list);
+Parser pars = new Parser(DerivationFile,list,AstFile);
 
 ProgNode astTree = pars.Parse();
 
 SymbolTableGen vistor = new(""); 
-MemorySizeVisitor memSizeVisitor = new MemorySizeVisitor();
+MemorySizeVisitor memSizeVisitor = new MemorySizeVisitor(SymbolTableFile);
 TypeCheckingVisitor typeVisitor = new(warningSemFile,errorSemFile);
 CodeGenVisitor codeGenVisitor= new CodeGenVisitor();
 

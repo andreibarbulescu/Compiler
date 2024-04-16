@@ -1,0 +1,67 @@
+=======================
+POLYNOMIAL entries : 4 offset : 0 size: 0
+kind: Function Declaration, return type : FLOAT, name : evaluate, parameters : FLOAT , subtable : POLYNOMIAL
+kind: Function Declaration, return type : INTEGER, name : param, parameters : INTEGER , subtable : POLYNOMIAL
+kind: Function Declaration, return type : ID, name : more, parameters : INTEGER FLOAT INTEGER , subtable : POLYNOMIAL
+kind: Function Declaration, return type : void, name : idea, subtable: POLYNOMIAL
+=======================
+=======================
+LINEAR entries : 7 offset : 0 size: -24
+kind : Var type: INTEGER name a size: 4 offset: -4
+kind : Var type: INTEGER name b size: 4 offset: -8
+kind : Var type: INTEGER name arr size: 4 offset: -12
+kind : Var type: INTEGER name anotha size: 4 offset: -16
+kind : Var type: FLOAT name mama size: 8 offset: -24
+kind: Function Declaration, return type : ID, name : build, parameters : FLOAT FLOAT , subtable : LINEAR
+kind: Function Declaration, return type : FLOAT, name : evaluate, parameters : FLOAT , subtable : LINEAR
+=======================
+=======================
+QUADRATIC entries : 5 offset : 0 size: -24
+kind : Var type: FLOAT name a size: 8 offset: -8
+kind : Var type: FLOAT name b size: 8 offset: -16
+kind : Var type: FLOAT name c size: 8 offset: -24
+kind: Function Declaration, return type : ID, name : build, parameters : FLOAT FLOAT FLOAT , subtable : QUADRATIC
+kind: Function Declaration, return type : FLOAT, name : evaluate, parameters : FLOAT , subtable : QUADRATIC
+=======================
+=======================
+POLYNOMIAL::evaluate entries : 2 offset : 0 size: 0
+kind : temp var type: AddNode name t1 size: 0 offset: 0
+kind : temp var type: AddNode name t2 size: 0 offset: 0
+=======================
+=======================
+QUADRATIC::evaluate entries : 3 offset : 0 size: -8
+kind : Var type: FLOAT name result size: 8 offset: -8
+kind : temp var type: AddNode name t3 size: 0 offset: -8
+kind : temp var type: AddNode name t4 size: 0 offset: -8
+=======================
+=======================
+QUADRATIC::build entries : 1 offset : 0 size: 0
+kind : Var type: QUADRATIC name new_function size: 0 offset: 0
+=======================
+=======================
+LINEAR::build entries : 1 offset : 0 size: 0
+kind : Var type: LINEAR name new_function size: 0 offset: 0
+=======================
+=======================
+LINEAR::evaluate entries : 2 offset : 0 size: -8
+kind : Var type: FLOAT name result size: 8 offset: -8
+kind : temp var type: AddNode name t5 size: 0 offset: -8
+=======================
+=======================
+Global::main entries : 3 offset : 0 size: -4
+kind : Var type: LINEAR name f1 size: 0 offset: 0
+kind : Var type: QUADRATIC name f2 size: 0 offset: 0
+kind : Var type: INTEGER name counter size: 4 offset: -4
+=======================
+=======================
+Global::hello entries : 1 offset : 0 size: -4
+kind : Var type: INTEGER name a size: 4 offset: -4
+=======================
+=======================
+Global entries : 5 offset : 0 size: 0
+type : class name : POLYNOMIAL subtable : Global
+type : class name : LINEAR subtable : Global
+type : class name : QUADRATIC subtable : Global
+kind: Function, return type : void, name : main, subtable: Global
+kind: Function, return type : void, name : hello, subtable: Global
+=======================

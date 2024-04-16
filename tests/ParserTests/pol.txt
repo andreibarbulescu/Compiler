@@ -6,6 +6,8 @@ impl LINEAR {
     a = 1 + 2 + 3;
     a = 1 * 2 + 3;
     a = 1 + 2 * 3;
+    a = b[1+2];
 
+    return (a + b);
   }
 } 

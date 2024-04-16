@@ -72,7 +72,7 @@ func main() -> void
 {
   let f1: LINEAR;
   let f2: QUADRATIC;
-  let counter: integer;
+  let counter: int;
   f1 = f1.build(2, 3.5);
   f2 = f2.build(2, 9);
   counter = 1;
